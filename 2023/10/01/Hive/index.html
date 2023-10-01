@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":"ture"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本篇文章记录了，自己在实际工作和学习中遇到的一些问题，算是SQL相关的总结 更多文章欢迎关注公众号：stackoverflow 下面是关于SQL在引擎内部执行的顺序的简易版&#x2F;必记版：  from 某表，group by 某字段，开窗 ，聚合函数，having，distinct , order by , limit ，尤其注意当group by 和 开窗相遇时，一定是分组groupBy优先  hiv">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hive 及相关 SQL笔记">
+<meta property="og:url" content="http://example.com/2023/10/01/Hive/index.html">
+<meta property="og:site_name" content="iaddu">
+<meta property="og:description" content="本篇文章记录了，自己在实际工作和学习中遇到的一些问题，算是SQL相关的总结 更多文章欢迎关注公众号：stackoverflow 下面是关于SQL在引擎内部执行的顺序的简易版&#x2F;必记版：  from 某表，group by 某字段，开窗 ，聚合函数，having，distinct , order by , limit ，尤其注意当group by 和 开窗相遇时，一定是分组groupBy优先  hiv">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2023/10/01/Hive/1.jpg">
+<meta property="og:image" content="http://example.com/2023/10/01/Hive/12.jpg">
+<meta property="og:image" content="http://example.com/2023/10/01/Hive/27.png">
+<meta property="og:image" content="http://example.com/2023/10/01/Hive/13.jpg">
+<meta property="og:image" content="http://example.com/2023/10/01/Hive/6.jpg">
+<meta property="og:image" content="http://example.com/2023/10/01/Hive/8.jpg">
+<meta property="og:image" content="http://example.com/2023/10/01/Hive/21.png">
+<meta property="og:image" content="http://example.com/2023/10/01/Hive/14.jpg">
+<meta property="og:image" content="http://example.com/2023/10/01/Hive/3.jpg">
+<meta property="og:image" content="http://example.com/2023/10/01/Hive/15.jpg">
+<meta property="og:image" content="http://example.com/2023/10/01/Hive/24.png">
+<meta property="og:image" content="http://example.com/2023/10/01/Hive/22.png">
+<meta property="og:image" content="http://example.com/2023/10/01/Hive/23-6152215.png">
+<meta property="og:image" content="http://example.com/2023/10/01/Hive/19.png">
+<meta property="og:image" content="http://example.com/2023/10/01/Hive/20-6152215.png">
+<meta property="og:image" content="http://example.com/2023/10/01/Hive/5.jpg">
+<meta property="og:image" content="http://example.com/2023/10/01/Hive/10.jpg">
+<meta property="og:image" content="http://example.com/2023/10/01/Hive/17.jpg">
+<meta property="og:image" content="http://example.com/2023/10/01/Hive/11.png">
+<meta property="og:image" content="http://example.com/2023/10/01/Hive/16.png">
+<meta property="og:image" content="http://example.com/2023/10/01/Hive/18.jpg">
+<meta property="og:image" content="http://example.com/2023/10/01/Hive/4.jpg">
+<meta property="og:image" content="http://example.com/2023/10/01/Hive/26.png">
+<meta property="og:image" content="http://example.com/2023/10/01/Hive/28.png">
+<meta property="article:published_time" content="2023-10-01T04:12:57.000Z">
+<meta property="article:modified_time" content="2023-10-01T09:25:34.612Z">
+<meta property="article:author" content="i_add_u">
+<meta property="article:tag" content="技术">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/10/01/Hive/1.jpg">
+
+<link rel="canonical" href="http://example.com/2023/10/01/Hive/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Hive 及相关 SQL笔记 | iaddu</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end -->
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">iaddu</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/01/Hive/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="i_add_u">
+      <meta itemprop="description" content="小舟从此逝，江海寄余生">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="iaddu">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hive 及相关 SQL笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-10-01 12:12:57 / Modified: 17:25:34" itemprop="dateCreated datePublished" datetime="2023-10-01T12:12:57+08:00">2023-10-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/" itemprop="url" rel="index"><span itemprop="name">技术总结</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本篇文章记录了，自己在实际工作和学习中遇到的一些问题，算是SQL相关的总结</p>
+<p>更多文章欢迎关注公众号：stackoverflow</p>
+<p>下面是关于SQL在引擎内部执行的顺序的简易版/必记版：</p>
+<blockquote>
+<p>from 某表，group by 某字段，开窗 ，聚合函数，having，distinct , order by , limit ，尤其注意当group by 和 开窗相遇时，一定是分组<sub>groupBy</sub>优先</p>
+</blockquote>
+<h2 id="hive的架构">hive的架构</h2>
+<p>如下图是Hive的架构图，即解析器-编译器-优化器-执行器，区别于MySQL的，连接器-分析器-优化器-执行器</p>
+<span id="more"></span>
+<p align="center">
+  <img src="/2023/10/01/Hive/1.jpg" width="90%" alt="Your image description">
+    <br>
+  <span style="color:gray"> Hive架构 VS Mysql架构 </span>
+</p>
+<p>Metastrore是存储元数据的数据库，默认使用的是derby，可以更改为<em><strong>MySQL</strong></em>，元数据指的是将结构化数据映射成一张表的表名，表所属的数据库(默认为default)，表的拥有者，表的列，分区字段，表的类型(是否为外部表)表所在的目录等。Hive只是和RDB只是在SQL语句上有着类似之处</p>
+<h2 id="第一部分">第一部分</h2>
+<h3 id="collect-x">collect_x</h3>
+<p>在使用这个函数时，需要设置<code>set hive.map.aggr = false;</code> 否则可能会发生<code>IllegalArgumentException Size requested for unknown type: java.util.Collection</code>的异常<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> collect_set(col_a)  <span class="keyword">as</span>          set_a</span><br><span class="line">     , collect_list(col_a) <span class="keyword">as</span>          list_a</span><br><span class="line">     , sort_array(collect_list(col_a)) sort_list_a  <span class="comment">-- sort_array 可对序列排序</span></span><br><span class="line"><span class="keyword">from</span> (</span><br><span class="line">         <span class="keyword">select</span> <span class="string">'a'</span> col_a</span><br><span class="line">         <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">         <span class="keyword">select</span> <span class="string">'b'</span> col_a</span><br><span class="line">         <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">         <span class="keyword">select</span> <span class="string">'a'</span> col_a</span><br><span class="line">         <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">         <span class="keyword">select</span> <span class="string">'a'</span> col_a</span><br><span class="line">     ) t</span><br></pre></td></tr></tbody></table></figure>
+<p align="center">
+  <img src="/2023/10/01/Hive/12.jpg" width="100%" alt="Your image description">
+    <br>
+  <span style="color:gray"> collect_list函数和 collect_set函数的用法 </span>
+</p>
+<blockquote></blockquote>
+<h3 id="日期">日期</h3>
+<p>以下是 hive 语法</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> date_format(<span class="string">'2019-02-10'</span>,<span class="string">'yyyy-MM'</span>);  </span><br><span class="line"><span class="number">2019</span><span class="number">-02</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> date_add(<span class="string">'2019-02-10'</span>,<span class="number">-1</span>),date_add(<span class="string">'2019-02-10'</span>,<span class="number">1</span>);</span><br><span class="line"><span class="number">2019</span><span class="number">-02</span><span class="number">-09</span>  <span class="number">2019</span><span class="number">-02</span><span class="number">-11</span></span><br><span class="line"><span class="comment">-- (1)取当前天的下一个周一</span></span><br><span class="line"><span class="keyword">select</span> next_day(<span class="string">'2019-02-12'</span>,<span class="string">'MO'</span>)</span><br><span class="line"><span class="number">2019</span><span class="number">-02</span><span class="number">-18</span></span><br><span class="line"><span class="comment">-- 说明：星期一到星期日的英文(Monday，Tuesday、Wednesday、Thursday、Friday、Saturday、Sunday)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- (2)取当前周的周一   </span></span><br><span class="line"><span class="keyword">select</span> date_add(next_day(<span class="string">'2019-02-12'</span>,<span class="string">'MO'</span>),<span class="number">-7</span>);</span><br><span class="line"><span class="number">2019</span><span class="number">-02</span><span class="number">-11</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- (3)取当前周的周日   </span></span><br><span class="line"><span class="keyword">select</span> date_add(next_day(<span class="string">'2019-06-09'</span>,<span class="string">'mo'</span>),<span class="number">-1</span>);</span><br><span class="line"><span class="number">2019</span><span class="number">-06</span><span class="number">-09</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- (4)求当月最后一天日期</span></span><br><span class="line"><span class="keyword">select</span> last_day(<span class="string">'2019-02-10'</span>);</span><br><span class="line"><span class="number">2019</span><span class="number">-02</span><span class="number">-28</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 求上个月</span></span><br><span class="line"><span class="keyword">select</span> substr(add_months(<span class="built_in">current_date</span>(),<span class="number">-1</span>),<span class="number">1</span>,<span class="number">7</span>) method_one</span><br><span class="line">, substr(date_sub(from_unixtime(unix_timestamp()), dayofmonth(from_unixtime(unix_timestamp()))), <span class="number">1</span>, <span class="number">7</span>) <span class="keyword">as</span> method_two</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="时区">时区</h3>
+<p>格林威治时间（Greenwich Mean Time，简称GMT）是世界上最常用的时间标准之一。它以英国伦敦的格林威治皇家天文台为参考点，用于标定全球的时间。格林威治时间通常用作协调世界时（Coordinated Universal Time，简称UTC）的基准，因此这两个术语通常是互换使用的</p>
+<p><strong>UTC的时间戳，在全球任何一个地点，都是一个值，是一个13位的数字</strong>，小明在纽约，小红在上海，小蓝在格林威治天文台，他们三个在同一个时刻，得到的时间戳是一致的。只是在各自在不同的时区，换算当地的时区的时间表现形式不一致，如下的这个例子中</p>
+<figure class="highlight tex"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">时间戳: 1694682379271</span><br><span class="line">纽约时间: 2023-09-14 05:06:19</span><br><span class="line">GMT<span class="built_in">&amp;</span>UTC时间: 2023-09-14 09:06:19</span><br><span class="line">北京时间: 2023-09-14 17:06:19</span><br></pre></td></tr></tbody></table></figure>
+<p>以下的hive，impala语法</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 用于将【指定时区的时间】转换为 【UTC（协调世界时）时间】。这个函数接受两个参数：【要转换的时间】和【源时区】</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> to_utc_timestamp(<span class="string">'2023-09-14 17:06:19'</span>, <span class="string">'Asia/Shanghai'</span>)  <span class="keyword">as</span>  `将输入时区对应的时间转为GMT时间`;</span><br><span class="line"><span class="number">2023</span><span class="number">-09</span><span class="number">-14</span> <span class="number">09</span>:<span class="number">06</span>:<span class="number">19</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 用于将【UTC时区的时间】转换为【目标时区的时间】。这个函数接受两个参数：【UTC时区的时间】和【目标时区】</span></span><br><span class="line"><span class="keyword">SELECT</span> from_utc_timestamp(<span class="string">'2023-09-14 09:06:19'</span>, <span class="string">'Asia/Shanghai'</span>)  <span class="keyword">as</span>  `将UTC时区对应的时间转为目标时区`;</span><br><span class="line"><span class="number">2023</span><span class="number">-09</span><span class="number">-14</span> <span class="number">17</span>:<span class="number">06</span>:<span class="number">19</span></span><br><span class="line"><span class="keyword">SELECT</span> from_unixtime(unix_timestamp()) <span class="keyword">as</span> `UTC时间<span class="operator">&amp;</span>GMT时间`</span><br><span class="line">     , <span class="built_in">current_timestamp</span>()             <span class="keyword">as</span> `返回东八区`</span><br><span class="line">     , unix_timestamp()                <span class="keyword">as</span> `返回时间戳`</span><br></pre></td></tr></tbody></table></figure>
+<p>下图可以发现 <code>hive 3</code>  中 <code>from_unixtime</code> 函数并没有根据本地的时区进行时间的转化，而是直接使用UTC的时区，而 <code>impala</code> 对时区做了转换</p>
+<p align="center">
+  <img src="/2023/10/01/Hive/27.png" width="100%" alt="Your image description">
+    <br>
+  <span style="color:gray"> impala和hive3时区对比 </span>
+</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 将北京时间转为巴西时间</span></span><br><span class="line"><span class="keyword">select</span> from_utc_timestamp(to_utc_timestamp("2021-05-09 22:14:30",<span class="string">'GMT+8'</span>),"GMT-3")</span><br><span class="line"><span class="number">2021</span><span class="number">-05</span><span class="number">-09</span> <span class="number">11</span>:<span class="number">14</span>:<span class="number">30.0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> date_format(from_utc_timestamp(to_utc_timestamp("2021-05-09 22:14:30",<span class="string">'GMT+8'</span>),"GMT-3"),<span class="string">'yyyy-MM-dd HH:mm:ss'</span>)</span><br><span class="line"><span class="number">2021</span><span class="number">-05</span><span class="number">-09</span> <span class="number">11</span>:<span class="number">14</span>:<span class="number">30</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="字符串处理">字符串处理</h3>
+<p><code>substr</code>，<code>replace</code>等就不赘述了</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 1)</span></span><br><span class="line"><span class="keyword">select</span> regexp_extract(<span class="string">'http://a.m.taobao.com/i41915173660.html'</span>, <span class="string">'i([0-9]+)'</span>, <span class="number">0</span>)</span><br><span class="line">     , regexp_extract(<span class="string">'http://a.m.taobao.com/i41915173660.html'</span>, <span class="string">'i([0-9]+)'</span>, <span class="number">1</span>)</span><br><span class="line"><span class="comment">-- i41915173660    ,   41915173660</span></span><br><span class="line"><span class="comment">-- 0是显示与之匹配的整个字符串； 1是显示第一个括号里面的</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 2)</span></span><br><span class="line"><span class="keyword">select</span>  regexp_replace(<span class="string">'a1b2c3d4'</span>, <span class="string">'[0-9]'</span>, <span class="string">'-'</span>);</span><br><span class="line"><span class="comment">-- a-b-c-d-</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 3)</span></span><br><span class="line"><span class="comment">-- 某字符串是另外一个字符串的子串</span></span><br><span class="line">instr(string string, string substring)</span><br><span class="line"><span class="comment">-- 返回查找字符串string中子字符串substring出现的位置，如果查找失败将返回0，如果任一参数为Null将返回null，位置为从1开始。</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="除数为0处理">除数为0处理</h3>
+<p>这里我们将比较不同的引擎是如何处理<strong>除数为0</strong>的问题的，如下图：</p>
+<p align="center">
+  <img src="/2023/10/01/Hive/13.jpg" width="100%" alt="Your image description">
+    <br>
+  <span style="color:gray"> 不同引擎除0的结果比对 </span>
+</p>
+<blockquote>
+<p>对于除数为0问题，优先使用<code>nullif(a,0)</code>函数来进行处理，但是该函数Hive2.2才有对应实现，<code>nullif((a,b)</code> 的语义在于，如果参数 a 等于 参数 b 那么，该函数返回 <code>null</code></p>
+</blockquote>
+<h2 id="第二部分">第二部分</h2>
+<h3 id="sum-over">sum()  + over()</h3>
+<p align="center">
+  <img src="/2023/10/01/Hive/6.jpg" width="100%" alt="Your image description">
+    <br>
+  <span style="color:gray"> 不同引擎除0的结果比对 </span>
+</p>
+<blockquote>
+<ul class="lvl-1">
+<li class="lvl-2">
+<p>over() 全局求和</p>
+</li>
+<li class="lvl-2">
+<p>over(order by) 全局累积求和</p>
+</li>
+<li class="lvl-2">
+<p>over(partition by ) 分区内全局求和</p>
+</li>
+<li class="lvl-2">
+<p>over(partition by order by) 分区内累积求和</p>
+</li>
+</ul>
+</blockquote>
+<p>内网环境下，下面的脚本分别在 impala，hive，holo，pg , mysql ,执行以下，看下是什么情况</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> tmp1 <span class="keyword">as</span> (</span><br><span class="line">    <span class="keyword">select</span> <span class="string">'a'</span> <span class="keyword">as</span> a,<span class="number">1</span> <span class="keyword">as</span> b </span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'a'</span> <span class="keyword">as</span> a , <span class="number">2</span> <span class="keyword">as</span> b</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span> </span><br><span class="line">    <span class="keyword">select</span> <span class="string">'b'</span> <span class="keyword">as</span> b , <span class="number">10</span> <span class="keyword">as</span> b</span><br><span class="line">)</span><br><span class="line"><span class="keyword">select</span> a , </span><br><span class="line">     <span class="built_in">avg</span>(b) <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> a <span class="keyword">order</span> <span class="keyword">by</span> b) x ,</span><br><span class="line">     <span class="built_in">sum</span>(b) <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> a <span class="keyword">order</span> <span class="keyword">by</span> b) y</span><br><span class="line"><span class="keyword">from</span> tmp1 </span><br><span class="line">;</span><br></pre></td></tr></tbody></table></figure>
+<p>关于聚合函数+窗口函数的描述，<a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/window-functions-in-sql/">GreeksforGreeks上的那个博文是错的</a></p>
+<h3 id="侧写视图-lateral-view">侧写视图(lateral view)</h3>
+<p>🎈<code>explode(split())</code> 只能用来解决一行转多列的单字段问题，侧写视图主要用来处理，通用行转列的问题</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- hive 语法</span></span><br><span class="line"><span class="keyword">with</span> tmp1 <span class="keyword">as</span>(</span><br><span class="line"><span class="keyword">select</span> <span class="string">'A;B;C'</span> <span class="keyword">as</span> name , <span class="number">20</span> <span class="keyword">as</span> age</span><br><span class="line">)</span><br><span class="line"><span class="keyword">select</span> explode(split(name,<span class="string">';'</span>))</span><br><span class="line">         , age <span class="comment">-- Only a single expression in the SELECT clause is supported with UDTF's </span></span><br><span class="line">         <span class="comment">-- 如果是多列，使用测斜视图语法</span></span><br><span class="line"><span class="keyword">from</span> tmp1</span><br><span class="line">;</span><br><span class="line"><span class="comment">-- 如下（hive语法）</span></span><br><span class="line"><span class="keyword">with</span> tmp1 <span class="keyword">as</span>(</span><br><span class="line"><span class="keyword">select</span> <span class="string">'A;B;C'</span> <span class="keyword">as</span> name , <span class="number">20</span> <span class="keyword">as</span> age</span><br><span class="line">)</span><br><span class="line"><span class="keyword">select</span> name </span><br><span class="line">     , age </span><br><span class="line">     , col_x</span><br><span class="line"><span class="keyword">from</span> tmp1 <span class="keyword">lateral</span> <span class="keyword">view</span> explode(split(name,<span class="string">';'</span>)) x <span class="keyword">as</span> col_x</span><br><span class="line">;</span><br></pre></td></tr></tbody></table></figure>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>age</th>
+<th>col_x</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A;B;C</td>
+<td>20</td>
+<td>A</td>
+</tr>
+<tr>
+<td>A;B;C</td>
+<td>20</td>
+<td>B</td>
+</tr>
+<tr>
+<td>A;B;C</td>
+<td>20</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<center>该表格可左右移动</center>
+<h3 id="lag-over的使用">lag+over的使用</h3>
+<p>其中最为常用的是：**按照时间正序排序，<code>lag</code>获取上个周期的值  **</p>
+<p align="center">
+  <img src="/2023/10/01/Hive/8.jpg" width="100%" alt="Your image description">
+    <br>
+  <span style="color:gray"> lag + over 的使用 </span>
+</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>lag （落后）是获取上一个</p>
+</li>
+<li class="lvl-2">
+<p>lead （领导）是获取下一个</p>
+</li>
+</ul>
+<p align="center">
+  <img src="/2023/10/01/Hive/21.png" width="90%" alt="Your image description">
+    <br>
+  <span style="color:gray"> SQL（StructuredQueryLanguage）标准认为当前行的上一个行是后面，下一行是前面 </span>
+</p>
+<h3 id="一周内连续3天活跃">一周内连续3天活跃</h3>
+<p align="center">
+  <img src="/2023/10/01/Hive/14.jpg" width="90%" alt="Your image description">
+    <br>
+  <span style="color:gray"> 一周连续X天活跃的最佳解法 </span>
+</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> tmp1 <span class="keyword">as</span>(</span><br><span class="line">    <span class="keyword">select</span> <span class="number">0</span> <span class="keyword">as</span> mid_id,<span class="string">'2020-02-12'</span> <span class="keyword">as</span> dt <span class="keyword">union</span>  <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="number">0</span> <span class="keyword">as</span> mid_id,<span class="string">'2020-02-16'</span> <span class="keyword">as</span> dt  <span class="keyword">union</span>  <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="number">0</span> <span class="keyword">as</span> mid_id,<span class="string">'2020-02-17'</span> <span class="keyword">as</span> dt  <span class="keyword">union</span>  <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="number">0</span> <span class="keyword">as</span> mid_id,<span class="string">'2020-02-18'</span> <span class="keyword">as</span> dt  <span class="keyword">union</span>  <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="number">1</span> <span class="keyword">as</span> mid_id,<span class="string">'2020-02-11'</span> <span class="keyword">as</span> dt  <span class="keyword">union</span>  <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="number">1</span> <span class="keyword">as</span> mid_id,<span class="string">'2020-02-13'</span> <span class="keyword">as</span> dt  <span class="keyword">union</span>  <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="number">1</span> <span class="keyword">as</span> mid_id,<span class="string">'2020-02-14'</span> <span class="keyword">as</span> dt  <span class="keyword">union</span>  <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="number">1</span> <span class="keyword">as</span> mid_id,<span class="string">'2020-02-17'</span> <span class="keyword">as</span> dt</span><br><span class="line">) ,</span><br><span class="line">tmp2 <span class="keyword">as</span> (</span><br><span class="line">         <span class="keyword">select</span> mid_id</span><br><span class="line">            , dt</span><br><span class="line">            , <span class="built_in">row_number</span>() <span class="keyword">over</span> (<span class="keyword">partition</span> <span class="keyword">by</span> mid_id <span class="keyword">order</span> <span class="keyword">by</span> dt)               rk</span><br><span class="line">            , date_sub(dt, <span class="built_in">row_number</span>() <span class="keyword">over</span> (<span class="keyword">partition</span> <span class="keyword">by</span> mid_id <span class="keyword">order</span> <span class="keyword">by</span> dt)) diff</span><br><span class="line">       <span class="keyword">from</span> tmp1</span><br><span class="line">       <span class="keyword">where</span> dt <span class="keyword">between</span> date_sub(<span class="string">'2020-02-18'</span>, <span class="number">7</span>) <span class="keyword">and</span> <span class="string">'2020-02-18'</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">select</span> mid_id</span><br><span class="line"><span class="keyword">from</span> tmp2</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> mid_id,diff</span><br><span class="line"><span class="keyword">having</span> <span class="built_in">count</span>(<span class="operator">*</span>) <span class="operator">&gt;=</span><span class="number">3</span> ;</span><br></pre></td></tr></tbody></table></figure>
+<p>对于类似的连续X天的问题，最优的解决方案是使用开窗函数，另外的一种解题思路是<strong>自关联</strong>，关联时，使用 <code>t1.mid_id = t2.mid_id and t1.dt = date_sub(t2.dt,x)</code>的方式</p>
+<h3 id="left-semi-join">left semi join</h3>
+<p>关于<code>left semi join</code> 注意2点：</p>
+<p>🅰️<code>left semi join</code> 要严格区分于<code>left outer join(left join)</code></p>
+<p>🅱️ <code>t1 left semi join t2 </code> 选列时，不允许出现t2 的字段</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> t1.id, t1.fieldA</span><br><span class="line"><span class="keyword">from</span> `table_A` t1</span><br><span class="line"><span class="keyword">where</span> t1.id <span class="keyword">in</span> (</span><br><span class="line">    <span class="keyword">select</span> id</span><br><span class="line">    <span class="keyword">from</span> `table_B`</span><br><span class="line">); <span class="comment">-- A 和 B的 交集</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 可改写为exists的方式</span></span><br><span class="line"><span class="keyword">select</span> t1.<span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> `table_A` t1</span><br><span class="line"><span class="keyword">where</span> <span class="keyword">exists</span> (</span><br><span class="line">    <span class="keyword">select</span> t2.id</span><br><span class="line">    <span class="keyword">from</span> `table_B` t2</span><br><span class="line">    <span class="keyword">where</span> t1.id <span class="operator">=</span> t2.id</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 还可改写为</span></span><br><span class="line"><span class="keyword">select</span> t1.<span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> `table_A` t1</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> `table_B` t2</span><br><span class="line"><span class="keyword">on</span> t1.id <span class="operator">=</span> t2.id</span><br><span class="line"><span class="keyword">where</span> t2.id <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">null</span> <span class="comment">-- A 和 B 的交集</span></span><br><span class="line">;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 改写为 ，这种方式更加高效</span></span><br><span class="line"><span class="keyword">select</span> t1.<span class="operator">*</span> <span class="comment">-- 不允许出现t2 的字段</span></span><br><span class="line"><span class="keyword">from</span> `table_A` t1</span><br><span class="line"><span class="keyword">left</span> semi <span class="keyword">join</span> `table_B` t2</span><br><span class="line"><span class="keyword">on</span> t1.id <span class="operator">=</span> t2.id;</span><br></pre></td></tr></tbody></table></figure>
+<p>同理对于<code>not  exist</code></p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> t1.<span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> `table_A` t1</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> `table_B` t2</span><br><span class="line"><span class="keyword">on</span> t1.id <span class="operator">=</span> t2.id</span><br><span class="line"><span class="keyword">where</span> t2.id <span class="keyword">is</span>  <span class="keyword">null</span> <span class="comment">-- A中有B中没有</span></span><br><span class="line">;</span><br><span class="line"><span class="comment">-- 我们换成下面的写法</span></span><br><span class="line"><span class="keyword">select</span> t1.<span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> `table_A` t1</span><br><span class="line"><span class="keyword">where</span> <span class="keyword">not</span> <span class="keyword">exists</span> (</span><br><span class="line">    <span class="keyword">select</span> t2.id</span><br><span class="line">    <span class="keyword">from</span> `table_B` t2</span><br><span class="line">    <span class="keyword">where</span> t1.id <span class="operator">=</span> t2.id</span><br><span class="line">) <span class="comment">-- A中有B中没有</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 或者换成下面的写法</span></span><br><span class="line"><span class="keyword">select</span> t1.<span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> `table_A` t1</span><br><span class="line"><span class="keyword">where</span> <span class="keyword">not</span> <span class="keyword">in</span> (</span><br><span class="line">    <span class="keyword">select</span> t2.id</span><br><span class="line">    <span class="keyword">from</span> `table_B` t2</span><br><span class="line">    <span class="keyword">where</span> t1.id <span class="operator">=</span> t2.id</span><br><span class="line">) <span class="comment">-- A中有B中没有</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="distinct">distinct</h3>
+<h4 id="🅰️-distinct-和-order-by-的结合">🅰️ distinct 和 order by 的结合</h4>
+<p>先执行distinct ，后执行order by ，最后limit</p>
+<p align="center">
+  <img src="/2023/10/01/Hive/3.jpg" width="50%" alt="Your image description">
+    <br>
+  <span style="color:gray"> 先执行 distinct ，后执行 order by </span>
+</p>
+<h4 id="🅱️-distinct-多个字段">🅱️ distinct 多个字段</h4>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">distinct` 多个字段对所有字段都起作用，并不是一个；如 `select distinct field_a,field_b from table;</span><br><span class="line">a1,b1;</span><br><span class="line">a1,b2;</span><br><span class="line">a2,b2;</span><br><span class="line">-- 只要有不同就会被选择出来</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="limit-offset">limit offset</h3>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">limit x offset y` ,$y$是$x$的倍数出现，可以恰好将数据取完，`limit x offset y` 等效于 `limit y,x</span><br></pre></td></tr></tbody></table></figure>
+<p align="center">
+  <img src="/2023/10/01/Hive/15.jpg" width="90%" alt="Your image description">
+    <br>
+  <span style="color:gray"> limit 的用法 </span>
+</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> (</span><br><span class="line">    <span class="keyword">select</span> <span class="number">1</span> a</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="number">2</span> a</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="number">3</span> a</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="number">4</span> a</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="number">5</span> a</span><br><span class="line">) t</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> a <span class="keyword">desc</span></span><br><span class="line">limit <span class="number">3</span> <span class="keyword">offset</span> <span class="number">3</span>; </span><br></pre></td></tr></tbody></table></figure>
+<p>最后一个截图的SQL语句，我在Hive2.1.1中的执行结果是：</p>
+<p align="center">
+  <img src="/2023/10/01/Hive/24.png" width="70%" alt="Your image description">
+    <br>
+  <span style="color:gray">24 </span>
+</p>
+<p>说明在Hive中<code>offset</code>的排序是从1开始的（x取0等于x=1）</p>
+<h3 id="ntile-over">ntile+over</h3>
+<p><code>ntile(x)</code>将数据划均分为x个桶，并且返回桶编号，如果有多的元素，优先进入第一个桶</p>
+<p align="center">
+  <img src="/2023/10/01/Hive/22.png" width="90%" alt="Your image description">
+    <br>
+  <span style="color:gray"> 使用nile将数据均分到x桶内 </span>
+</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> tmp1 <span class="keyword">as</span> (</span><br><span class="line">    <span class="keyword">select</span> <span class="string">'a'</span> <span class="keyword">as</span> name , <span class="string">'one'</span> <span class="keyword">as</span> claz, <span class="number">1</span> <span class="keyword">as</span> score <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'b'</span> <span class="keyword">as</span> name , <span class="string">'two'</span> <span class="keyword">as</span> claz, <span class="number">2</span> <span class="keyword">as</span> score <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'c'</span> <span class="keyword">as</span> name , <span class="string">'two'</span> <span class="keyword">as</span> claz, <span class="number">3</span> <span class="keyword">as</span> score <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'d'</span> <span class="keyword">as</span> name , <span class="string">'one'</span> <span class="keyword">as</span> claz, <span class="number">4</span> <span class="keyword">as</span> score <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'e'</span> <span class="keyword">as</span> name , <span class="string">'one'</span> <span class="keyword">as</span> claz, <span class="number">5</span> <span class="keyword">as</span> score <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'f'</span> <span class="keyword">as</span> name , <span class="string">'two'</span> <span class="keyword">as</span> claz, <span class="number">6</span> <span class="keyword">as</span> score <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'g'</span> <span class="keyword">as</span> name , <span class="string">'one'</span> <span class="keyword">as</span> claz, <span class="number">7</span> <span class="keyword">as</span> score <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'h'</span> <span class="keyword">as</span> name , <span class="string">'one'</span> <span class="keyword">as</span> claz, <span class="number">8</span> <span class="keyword">as</span> score <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'i'</span> <span class="keyword">as</span> name , <span class="string">'two'</span> <span class="keyword">as</span> claz, <span class="number">9</span> <span class="keyword">as</span> score <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'j'</span> <span class="keyword">as</span> name , <span class="string">'two'</span> <span class="keyword">as</span> claz, <span class="number">0</span> <span class="keyword">as</span> score</span><br><span class="line">)</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line">     , <span class="built_in">ntile</span>(<span class="number">2</span>) <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> claz <span class="keyword">order</span> <span class="keyword">by</span> score) rn</span><br><span class="line"><span class="keyword">from</span> tmp1;</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="模糊匹配多个字段">模糊匹配多个字段</h3>
+<img src="/2023/10/01/Hive/23-6152215.png" width="100%" height="25%" alt="图片名称" align="left">
+<p>在hive或者是impala种，或者使用 <code>rlike</code>：其作用在于<strong>模糊匹配多个值</strong></p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- hive &amp; impala</span></span><br><span class="line"><span class="keyword">with</span> tmp1 <span class="keyword">as</span>(</span><br><span class="line">    <span class="keyword">select</span> <span class="string">'abc大'</span> <span class="keyword">as</span> a <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'中abc'</span> <span class="keyword">as</span> a <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'abc小'</span> <span class="keyword">as</span> a</span><br><span class="line">)</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> tmp1</span><br><span class="line"><span class="comment">-- where a rlike '大|中' -- 写法1</span></span><br><span class="line"><span class="keyword">where</span> a regxp <span class="string">'大|中'</span>    <span class="comment">-- 写法2</span></span><br><span class="line"><span class="comment">-- 中abc</span></span><br><span class="line"><span class="comment">-- abc大</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- holo &amp; pg</span></span><br><span class="line"><span class="keyword">with</span> tmp1 <span class="keyword">as</span>(</span><br><span class="line">    <span class="keyword">select</span> <span class="string">'abc大'</span> <span class="keyword">as</span> a <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'中abc'</span> <span class="keyword">as</span> a <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'abc小'</span> <span class="keyword">as</span> a</span><br><span class="line">)</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> tmp1</span><br><span class="line"><span class="keyword">where</span> a <span class="operator">~</span> <span class="string">'大|中'</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="窗口函数的范围选择">窗口函数的范围选择</h3>
+<p>注意 <code>range</code> 和<code>rows</code>之间的使用区别：  <strong>rows计算的是行，range 计算的是值</strong>， preceding 往上，following 往下</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">agg_func <span class="keyword">over</span>(<span class="keyword">order</span> <span class="keyword">by</span> col_name <span class="keyword">rows</span> <span class="keyword">between</span> <span class="number">1</span> proceding <span class="keyword">and</span> <span class="number">1</span> following) <span class="comment">-- col_name的前后1行</span></span><br><span class="line">agg_func <span class="keyword">over</span>(<span class="keyword">order</span> <span class="keyword">by</span> col_name <span class="keyword">range</span> <span class="keyword">between</span> <span class="number">1</span> proceding <span class="keyword">and</span> <span class="number">1</span> following) <span class="comment">-- col_name值的(+/- 1) 的值</span></span><br><span class="line"></span><br><span class="line">agg_func <span class="keyword">over</span>(<span class="keyword">order</span> <span class="keyword">by</span> col_name <span class="keyword">rows</span> <span class="keyword">between</span> unbounded preceding <span class="keyword">and</span> unbounded following) <span class="comment">-- 全部行</span></span><br><span class="line">agg_func <span class="keyword">over</span>(<span class="keyword">order</span> <span class="keyword">by</span> col_name <span class="keyword">rows</span> <span class="keyword">between</span> unbounded preceding <span class="keyword">and</span> <span class="keyword">current</span> <span class="type">row</span>) <span class="comment">-- 开头到当前行</span></span><br></pre></td></tr></tbody></table></figure>
+<p align="center">
+  <img src="/2023/10/01/Hive/19.png" width="100%" alt="Your image description">
+    <br>
+  <span style="color:gray"> 窗口函数的选择范围 </span>
+</p>
+<img src="/2023/10/01/Hive/20-6152215.png" width="100%" height="100%" alt="图片名称" align="left/">
+<h2 id="第三部分">第三部分</h2>
+<h3 id="select-非-group-by-字段">select 非 group by 字段</h3>
+<p><strong>MySQL支持</strong>，Hive,Impala,PostgreSQL 不支持</p>
+<p>对于下面这一段SQL</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> dept</span><br><span class="line">     , emp</span><br><span class="line">     , <span class="built_in">max</span>(sal) <span class="keyword">as</span> max_sal</span><br><span class="line"><span class="keyword">from</span> (</span><br><span class="line">    <span class="keyword">select</span> <span class="string">'A'</span> <span class="keyword">as</span> dept, <span class="string">'a1'</span> <span class="keyword">as</span> emp, <span class="number">10</span> <span class="keyword">as</span> sal <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'A'</span> <span class="keyword">as</span> dept, <span class="string">'a2'</span> <span class="keyword">as</span> emp, <span class="number">20</span> <span class="keyword">as</span> sal <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'B'</span> <span class="keyword">as</span> dept, <span class="string">'b2'</span> <span class="keyword">as</span> emp, <span class="number">100</span> <span class="keyword">as</span> sal <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'B'</span> <span class="keyword">as</span> dept, <span class="string">'b1'</span> <span class="keyword">as</span> emp, <span class="number">200</span> <span class="keyword">as</span> sal</span><br><span class="line">) t</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> dept</span><br></pre></td></tr></tbody></table></figure>
+<p>1️⃣MySQL 通过</p>
+<p align="center">
+  <img src="/2023/10/01/Hive/5.jpg" width="50%" alt="Your image description">
+    <br>
+  <span style="color:gray"> mysql select 非 group by 的字段 </span>
+</p>
+<p>MySQL 选择记录中的第一个记录(从实验结果来看，是记录的第一行)</p>
+<p>2️⃣ postgreSQL：</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">42803</span>] ERROR: <span class="keyword">column</span> "t.emp" must appear <span class="keyword">in</span> the <span class="keyword">GROUP</span> <span class="keyword">BY</span> clause <span class="keyword">or</span> be used <span class="keyword">in</span> an aggregate <span class="keyword">function</span></span><br></pre></td></tr></tbody></table></figure>
+<p>3️⃣ Hive：</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Error while compiling statement: FAILED: SemanticException [Error <span class="number">10025</span>]: line <span class="number">2</span>:<span class="number">7</span> Expression <span class="keyword">not</span> <span class="keyword">in</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> key <span class="string">'emp'</span></span><br></pre></td></tr></tbody></table></figure>
+<p>4️⃣ Impala：</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AnalysisException: <span class="keyword">select</span> list expression <span class="keyword">not</span> produced <span class="keyword">by</span> aggregation output (missing <span class="keyword">from</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> clause?): emp</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="having-过滤是否支持别名">having 过滤是否支持别名</h3>
+<p>MySQL和Hive是支持的， impala和postgreSQL不支持，🎈：<strong>推荐无论何时都不使用别名进行分组后过滤</strong></p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> a, <span class="built_in">count</span>(<span class="operator">*</span>) <span class="keyword">as</span> cnt</span><br><span class="line"><span class="keyword">from</span> (</span><br><span class="line">    <span class="keyword">select</span> <span class="number">5</span> <span class="keyword">as</span> a</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="number">4</span> <span class="keyword">as</span> a</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="number">4</span> <span class="keyword">as</span> a</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="number">3</span> <span class="keyword">as</span> a</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="number">3</span> <span class="keyword">as</span> a</span><br><span class="line">) t</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> a</span><br><span class="line"><span class="keyword">having</span> cnt <span class="operator">&gt;</span> <span class="number">1</span>;</span><br></pre></td></tr></tbody></table></figure>
+<p>上述的SQL在MySQL 和 hive中执行都是没问题的，在impala和postgreSQL报错 <code>column "cnt" does not exist</code>,需要下面的写法</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> a, <span class="built_in">count</span>(<span class="operator">*</span>) <span class="keyword">as</span> cnt</span><br><span class="line"><span class="keyword">from</span> (</span><br><span class="line">    <span class="keyword">select</span> <span class="number">5</span> <span class="keyword">as</span> a</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="number">4</span> <span class="keyword">as</span> a</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="number">4</span> <span class="keyword">as</span> a</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="number">3</span> <span class="keyword">as</span> a</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="number">3</span> <span class="keyword">as</span> a</span><br><span class="line">) t</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> a</span><br><span class="line"><span class="keyword">having</span> <span class="built_in">count</span>(<span class="operator">*</span>) <span class="operator">&gt;</span> <span class="number">1</span>;</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="order-by-字符串">order by 字符串</h3>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> a</span><br><span class="line"><span class="keyword">from</span></span><br><span class="line">(</span><br><span class="line">    <span class="keyword">select</span>  <span class="string">'a'</span> <span class="keyword">as</span> a <span class="keyword">union</span> <span class="keyword">all</span>  <span class="comment">-- 97</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">''</span> <span class="keyword">as</span> a <span class="keyword">union</span> <span class="keyword">all</span>    <span class="comment">-- 66</span></span><br><span class="line">    <span class="keyword">select</span>  <span class="string">' '</span> <span class="keyword">as</span> a <span class="keyword">union</span> <span class="keyword">all</span>  <span class="comment">-- 32</span></span><br><span class="line">    <span class="keyword">select</span> <span class="keyword">null</span> <span class="keyword">as</span> a            <span class="comment">-- 0</span></span><br><span class="line">) t</span><br><span class="line"><span class="keyword">order</span>  <span class="keyword">by</span> a <span class="keyword">desc</span> ;</span><br></pre></td></tr></tbody></table></figure>
+<p>对于以上查询和排序，Hive和MySQL认为NULL是最小；Impala和PostgresSQL认为NULL最大，如果使用<code>explain</code>命令查看SQL的执行计划的话，会明显看到编译器会给SQL添加1个<code>null first / null last</code>的明亮，这个取决于具体的引擎，感兴趣的读者可以自己test下，比如Hive会将null设为最小，impala会将null设为最大</p>
+<p align="center">
+  <img src="/2023/10/01/Hive/10.jpg" width="85%" alt="Your image description">
+    <br>
+  <span style="color:gray"> null，空串，空格 之间的排序关系</span>
+</p>
+<h3 id="24-5-的结果">$24/5$的结果</h3>
+<table>
+<thead>
+<tr>
+<th>DB/Program Language</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Java / PostgreSQL</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Hive / Impala / MySQL</td>
+<td>4.8</td>
+</tr>
+</tbody>
+</table>
+<h3 id="窗口函数是否支持distinct">窗口函数是否支持<code>distinct</code></h3>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span>  A, B , <span class="built_in">count</span>( <span class="keyword">distinct</span> A) <span class="keyword">over</span>()</span><br><span class="line"><span class="keyword">from</span> (</span><br><span class="line"><span class="keyword">select</span> <span class="number">1</span> <span class="keyword">as</span> A ,<span class="string">'a'</span> <span class="keyword">as</span> B <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line"><span class="keyword">select</span> <span class="number">2</span> <span class="keyword">as</span> A ,<span class="string">'b'</span> <span class="keyword">as</span> B <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line"><span class="keyword">select</span> <span class="number">1</span> <span class="keyword">as</span> A ,<span class="string">'c'</span> <span class="keyword">as</span> B <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line"><span class="keyword">select</span> <span class="number">3</span> <span class="keyword">as</span> A ,<span class="string">'d'</span> <span class="keyword">as</span> B</span><br><span class="line">) t</span><br></pre></td></tr></tbody></table></figure>
+<p>比如以上的SQL查询：Hive是支持的，Impala，MySQL，PostgreSQL暂时没有实现</p>
+<h3 id="窗口嵌套">窗口嵌套</h3>
+<p>窗口函数的嵌套，只Hive<sub>2.1.1</sub>中是支持的，PostgreSQL(<code>window functions are not allowed in window definitions</code>)，MySQL，Impala 中只能多嵌套一层</p>
+<p align="center">
+  <img src="/2023/10/01/Hive/17.jpg" width="80%" alt="Your image description">
+    <br>
+  <span style="color:gray"> 不同的引擎对于窗口嵌套的支持 </span>
+</p>
+<h3 id="字符串写入数值类型">字符串写入数值类型</h3>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> if <span class="keyword">not</span> <span class="keyword">exists</span>  business (</span><br><span class="line">    name strng,</span><br><span class="line">    order_date string,</span><br><span class="line">    cost <span class="type">float</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> business <span class="keyword">values</span>(<span class="string">'xioaming'</span>,<span class="string">'2021-08-22'</span>,<span class="string">''</span>);</span><br></pre></td></tr></tbody></table></figure>
+<p>Hive 会将字符串转为<code>null</code>写入；Impala，MySQL，PostgreSQL会进行类型检查异常</p>
+<h3 id="字段截取">字段截取</h3>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- MySql</span></span><br><span class="line"><span class="keyword">select</span> substring_index(substring_index(<span class="string">'A/B/C/D/E'</span>, <span class="string">'/'</span>, <span class="number">4</span>), <span class="string">'/'</span>, <span class="number">-1</span>) <span class="keyword">as</span> dept_name0 <span class="comment">-- D</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- hive，索引从0开始</span></span><br><span class="line"><span class="keyword">select</span> substring_index(substring_index(<span class="string">'A/B/C/D/E'</span>, <span class="string">'/'</span>, <span class="number">4</span>), <span class="string">'/'</span>, <span class="number">-1</span>) <span class="keyword">as</span> dept_name0 <span class="comment">-- D</span></span><br><span class="line">     , split(<span class="string">'A/B/C/D/E'</span>, <span class="string">'/'</span>)[<span class="number">3</span>]                                     <span class="keyword">as</span> dept_name1 <span class="comment">-- D</span></span><br><span class="line">     </span><br><span class="line">    </span><br><span class="line"><span class="comment">-- pg/holo 索引从1开始</span></span><br><span class="line"><span class="keyword">select</span> split_part(<span class="string">'A/B/C/D/E'</span>, <span class="string">'/'</span>,<span class="number">4</span>)                                <span class="keyword">as</span> dept_name1 <span class="comment">-- D</span></span><br><span class="line"><span class="comment">-- impala 索引从1开始</span></span><br><span class="line"><span class="keyword">select</span> split_part(<span class="string">'A/B/C/D/E'</span>, <span class="string">'/'</span>,<span class="number">4</span>)                                <span class="keyword">as</span> dept_name1 <span class="comment">-- D、</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 其中，holo存在以下函数</span></span><br><span class="line"><span class="keyword">select</span> string_to_array(<span class="string">'xx~^~yy~^~zz'</span>, <span class="string">'~^~'</span>)           <span class="comment">-- {xx,yy,zz}</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="column-name-not-in-a-会过滤掉-null-的记录"><code>column_name not in (a)</code> 会过滤掉 <code>null</code> 的记录</h3>
+<p><code>column_name not in (a)</code>： 出了会过滤掉值为<code>a</code>的记录，还会过滤掉 <code>column_name</code>为 <code>null</code> 的记录</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> tmp1 <span class="keyword">as</span> (<span class="comment">-- </span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'a'</span> <span class="keyword">as</span> a</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'b'</span> <span class="keyword">as</span> a</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'c'</span> <span class="keyword">as</span> a</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="keyword">null</span> <span class="keyword">as</span> a</span><br><span class="line">)</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> tmp1</span><br><span class="line"><span class="keyword">where</span> a <span class="keyword">not</span> <span class="keyword">in</span> (<span class="string">'a'</span>)</span><br><span class="line"><span class="comment">-- 结果返回 a,c</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="Impala-的模糊关联（非等值关联）"><code>Impala</code> 的模糊关联（非等值关联）</h3>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- t2.name 是 t1.name 的子串的时候即返回 true ，注意顺序</span></span><br><span class="line"><span class="keyword">with</span> tmp1 <span class="keyword">as</span> ( <span class="comment">--</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'康恩贝/CONBA'</span> <span class="keyword">as</span> name, <span class="string">'2023-01-01'</span> <span class="keyword">as</span> live_date</span><br><span class="line">)</span><br><span class="line">   , tmp2 <span class="keyword">as</span> ( <span class="comment">--</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'CONBA'</span> <span class="keyword">as</span> name, <span class="string">'2023-01-01'</span> <span class="keyword">as</span> live_date</span><br><span class="line">)</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> tmp1      t1</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> tmp2 t2</span><br><span class="line">          <span class="keyword">on</span> t1.live_date <span class="operator">=</span> t2.live_date</span><br><span class="line">              <span class="keyword">and</span> t1.name rlike t2.name</span><br></pre></td></tr></tbody></table></figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">name</th>
+<th style="text-align:left">live_date</th>
+<th style="text-align:left">name</th>
+<th style="text-align:left">live_date</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">康恩贝/CONBA</td>
+<td style="text-align:left">2023-01-01</td>
+<td style="text-align:left">CONBA</td>
+<td style="text-align:left">2023-01-01</td>
+</tr>
+</tbody>
+</table>
+<h2 id="第四部分">第四部分</h2>
+<h3 id="null-x-关联"><code>null</code>,<code>x</code> 关联</h3>
+<p align="center">
+  <img src="/2023/10/01/Hive/11.png" width="100%" alt="Your image description">
+    <br>
+  <span style="color:gray"> null 和其他值的关联 </span>
+</p>
+<p>在任何 <code>SQL(MySQL,PostgreSQL,Hive,Impala) </code>引擎中，<strong><code>null</code>和任意值都无法关联无法相互关联，包括其本身</strong></p>
+<blockquote>
+<p>PostgreSQL中有类型探测，执行以上关联会发生：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/18073901/failed-to-find-conversion-function-from-unknown-to-text">Failed to find conversion function from unknown to text</a></p>
+</blockquote>
+<h3 id="返回1行-返回0行">返回1行&amp;返回0行</h3>
+<p><strong>使用聚合函数，返回的行数一定大于等于1</strong></p>
+<p align="center">
+  <img src="/2023/10/01/Hive/16.png" width="90%" alt="Your image description">
+    <br>
+  <span style="color:gray"> 返回0行和返回1行 </span>
+</p>
+<h3 id="union-all-的类型">union all 的类型</h3>
+<p><strong>任何引擎，<code>union all</code>的类型必须保持一致</strong></p>
+<h3 id="组合主键非null">组合主键非<code>null</code></h3>
+<p>对于<code>test01</code>表，字段<code>a</code>和字段<code>b</code>在作为联合主键时，在字段<code>a</code>为<code>null</code>，字段<code>b</code>非<code>null</code>的时候</p>
+<p>1️⃣<code>kudu</code>将不会写入该记录，不会抛异常，<strong>导致写入数据和查询数据记录数不一致</strong></p>
+<p>2️⃣<code>MySql</code>插入时抛出异常 类似(<code>primary key not null</code>)</p>
+<p>3️⃣<code>postgresql</code> 插入时抛出异常 类似(<code>primary key not null</code>)</p>
+<h3 id="时间戳">时间戳</h3>
+<p>⚠️时间是人可识别的，时间戳基本是机器识别的，比如2022-01-01 00:00:00（1640966400），前者是时间，后者是时间戳，几乎所有的引擎都实现了 <code>unix_timestamp</code>方法，支持传入一个时间，如果没有传入时间将使用当前的时刻</p>
+<p>1️⃣ 获取时间戳</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--mysql</span></span><br><span class="line"><span class="keyword">select</span> unix_timestamp(<span class="string">'2022-01-01 00:00:00'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- hive </span></span><br><span class="line"><span class="keyword">select</span> unix_timestamp(<span class="string">'2022-01-01 00:00:00'</span>);</span><br></pre></td></tr></tbody></table></figure>
+<p>2️⃣获取时间</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- mysql</span></span><br><span class="line"><span class="keyword">select</span> now();</span><br><span class="line"></span><br><span class="line"><span class="comment">-- hive</span></span><br><span class="line"><span class="keyword">select</span> from_unixtime( unix_timestamp());</span><br><span class="line"></span><br><span class="line"><span class="comment">-- impala</span></span><br><span class="line"><span class="keyword">select</span> now(),  utc_timestamp(),<span class="built_in">current_timestamp</span>(),from_unixtime( unix_timestamp());</span><br><span class="line"></span><br><span class="line"><span class="comment">-- pg</span></span><br><span class="line"><span class="keyword">select</span>  now() ,  <span class="built_in">current_timestamp</span>;</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="去掉文本中的换行符-回车符-制表符-空格，正则替换">去掉文本中的换行符/回车符/制表符/空格，正则替换</h3>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- \s 表示匹配一个或者多个空白字符（包括空格、制表符、换行符）， '+' 表示匹配前面的模式（即'\s'）一次或多次 </span></span><br><span class="line"><span class="keyword">select</span> regexp_replace(input_content,<span class="string">'\\s+'</span>,<span class="string">''</span>) <span class="keyword">as</span> after_content</span><br><span class="line"><span class="comment">-- hive</span></span><br><span class="line"><span class="keyword">select</span> regexp_replace(video_desc,<span class="string">'\t|\n|\001|\r'</span>,<span class="string">''</span>) <span class="keyword">as</span> video_desc</span><br><span class="line"></span><br><span class="line"><span class="comment">-- mysql5.7中不支持regexp_replace，8.0中支持，所以在5.7中使用</span></span><br><span class="line"><span class="keyword">select</span> replace(replace(video_desc, <span class="type">char</span>(<span class="number">13</span>), <span class="string">''</span>), <span class="type">char</span>(<span class="number">10</span>), <span class="string">''</span>) <span class="keyword">as</span> video_desc</span><br><span class="line"><span class="keyword">select</span> <span class="string">'1\r2\t\3\n4\0015'</span></span><br><span class="line">    ,regexp_replace(<span class="string">'1\r2\t\3\n4'</span>,<span class="string">'\\s+'</span>,<span class="string">''</span>)</span><br><span class="line">    ,regexp_replace(<span class="string">'1     \r2\t\3\n4\0015'</span>,<span class="string">'\\s+'</span>,<span class="string">''</span>)</span><br><span class="line">    ,regexp_replace(<span class="string">'1     \r2\t\3\n4\0015'</span>,<span class="string">'\t|\n|\001|\r'</span>,<span class="string">''</span>)</span><br></pre></td></tr></tbody></table></figure>
+<p align="center">
+  <img src="/2023/10/01/Hive/18.jpg" width="100%" alt="Your image description">
+    <br>
+  <span style="color:gray"> 由于特殊字符导致表错位串行的问题描述 </span>
+</p>
+<h3 id="impala-upsert-Kudu">impala upsert + Kudu</h3>
+<p>本质是<code>insert</code>  + <code>update</code> 的结合</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>主键存在时，<strong>全字段</strong>更新</p>
+</li>
+<li class="lvl-2">
+<p>主键不存在时，插入</p>
+</li>
+</ul>
+<h3 id="不使用order-by-找到工资第二的员工">不使用<code>order by</code> 找到工资第二的员工</h3>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line">    e.emp_no,</span><br><span class="line">    salary,</span><br><span class="line">    last_name,</span><br><span class="line">    first_name</span><br><span class="line"><span class="keyword">from</span> employees e</span><br><span class="line"><span class="keyword">inner</span> <span class="keyword">join</span> salaries s</span><br><span class="line"><span class="keyword">on</span> e.emp_no <span class="operator">=</span> s.emp_no</span><br><span class="line"><span class="keyword">where</span> s.to_date <span class="operator">=</span> <span class="string">'9999-01-01'</span> </span><br><span class="line"><span class="keyword">and</span> s.salary <span class="operator">=</span> </span><br><span class="line">(</span><br><span class="line">    <span class="keyword">select</span> s1.salary</span><br><span class="line">    <span class="keyword">from</span> salaries s1</span><br><span class="line">    <span class="keyword">inner</span> <span class="keyword">join</span> salaries s2</span><br><span class="line">    <span class="keyword">on</span> s1.salary <span class="operator">&lt;=</span> s2.salary</span><br><span class="line">    <span class="keyword">where</span> s1.to_date <span class="operator">=</span> <span class="string">'9999-01-01'</span> <span class="keyword">and</span> s2.to_date <span class="operator">=</span> <span class="string">'9999-01-01'</span> </span><br><span class="line">    <span class="keyword">group</span> <span class="keyword">by</span> s1.salary</span><br><span class="line">    <span class="keyword">having</span> <span class="built_in">count</span>(<span class="keyword">distinct</span> s2.salary) <span class="operator">=</span> <span class="number">2</span></span><br><span class="line">)</span><br></pre></td></tr></tbody></table></figure>
+<p>最大值只能小于等于最大值（出现1次)；次大值只能小于等于最大值和本身（出现2次）</p>
+<p align="center">
+  <img src="/2023/10/01/Hive/4.jpg" width="30%" alt="Your image description">
+    <br>
+  <span style="color:gray"> 求薪资次高的员工 </span>
+</p>
+<h3 id="from-tmp1-tmp2-的本质">from tmp1 , tmp2 的本质</h3>
+<p><strong><code>from tmp1 , tmp2</code> 的本质就是 <code>inner join</code>的行为</strong></p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> tmp1 <span class="keyword">as</span> (<span class="keyword">select</span> <span class="string">'a'</span> <span class="keyword">as</span> name, <span class="number">10</span> <span class="keyword">as</span> age</span><br><span class="line">              <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">              <span class="keyword">select</span> <span class="string">'b'</span> <span class="keyword">as</span> name, <span class="number">11</span> <span class="keyword">as</span> age</span><br><span class="line">              <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">              <span class="keyword">select</span> <span class="string">'c'</span> <span class="keyword">as</span> name, <span class="number">12</span> <span class="keyword">as</span> age</span><br><span class="line">)</span><br><span class="line">   , tmp2 <span class="keyword">as</span> (<span class="keyword">select</span> <span class="string">'c'</span> <span class="keyword">as</span> name, <span class="string">'female'</span> <span class="keyword">as</span> sex</span><br><span class="line">              <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">              <span class="keyword">select</span> <span class="string">'d'</span> <span class="keyword">as</span> name, <span class="string">'male'</span> <span class="keyword">as</span> sex</span><br><span class="line">              <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">              <span class="keyword">select</span> <span class="string">'e'</span> <span class="keyword">as</span> name, <span class="string">'female'</span> <span class="keyword">as</span> sex</span><br><span class="line">)</span><br><span class="line"><span class="keyword">select</span> t1.name</span><br><span class="line">     , t1.age</span><br><span class="line">     , t2.sex</span><br><span class="line"><span class="keyword">from</span> tmp1 t1</span><br><span class="line">   , tmp2 t2</span><br><span class="line"><span class="keyword">where</span> t1.name <span class="operator">=</span> t2.name</span><br></pre></td></tr></tbody></table></figure>
+<p>上述的SQL等同于下列SQL</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> tmp1 <span class="keyword">as</span> (<span class="keyword">select</span> <span class="string">'a'</span> <span class="keyword">as</span> name, <span class="number">10</span> <span class="keyword">as</span> age</span><br><span class="line">              <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">              <span class="keyword">select</span> <span class="string">'b'</span> <span class="keyword">as</span> name, <span class="number">11</span> <span class="keyword">as</span> age</span><br><span class="line">              <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">              <span class="keyword">select</span> <span class="string">'c'</span> <span class="keyword">as</span> name, <span class="number">12</span> <span class="keyword">as</span> age</span><br><span class="line">)</span><br><span class="line">   , tmp2 <span class="keyword">as</span> (<span class="keyword">select</span> <span class="string">'c'</span> <span class="keyword">as</span> name, <span class="string">'female'</span> <span class="keyword">as</span> sex</span><br><span class="line">              <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">              <span class="keyword">select</span> <span class="string">'d'</span> <span class="keyword">as</span> name, <span class="string">'male'</span> <span class="keyword">as</span> sex</span><br><span class="line">              <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">              <span class="keyword">select</span> <span class="string">'e'</span> <span class="keyword">as</span> name, <span class="string">'female'</span> <span class="keyword">as</span> sex</span><br><span class="line">)</span><br><span class="line"><span class="keyword">select</span> t1.name, t1.age, t2.sex</span><br><span class="line"><span class="keyword">from</span> tmp1       t1</span><br><span class="line"><span class="keyword">inner</span> <span class="keyword">join</span> tmp2 t2</span><br><span class="line">           <span class="keyword">on</span> t1.name <span class="operator">=</span> t2.name</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="Hive-中强制-mapjoin">Hive 中强制 <code>mapjoin</code></h3>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="comment">/*+ mapjoin(t2)*/</span>  <span class="comment">--强制指定关联方式</span></span><br><span class="line"><span class="keyword">from</span> t1</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> t2 </span><br><span class="line"><span class="keyword">on</span> t1.key<span class="operator">=</span> t2.key</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="第四部分-2">第四部分</h2>
+<p><a target="_blank" rel="noopener" href="https://github.com/ifseayou/virgin-sql/blob/master/test_app.fna_compare_zhubo_stat_df.sql">ORC存储格式 和 RCFile存储格式的一个问题 - 发生 Unknow Reason问题</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/ifseayou/virgin-sql/blob/master/test_app.live_goods_category_detail_df.sql">union all  + distint 的时候需要设置 <code>set hive.vectorized.execution.enabled=false;</code></a></p>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/41057311/the-value-of-spark-yarn-executor-memoryoverhead-setting">spark.yarn.executor.memoryOverhead</a> ，该参数<a target="_blank" rel="noopener" href="https://spark.apache.org/docs/2.2.0/running-on-yarn.html">官方地址</a>，出现这个问题提升该参数的阈值是一方面，另一方面可以增加 executor的数量，<code>set spark.dynamicAllocation.maxExecutors=14;</code></p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">return code 3 from org.apache.hadoop.hive.ql.exec.spark.SparkTask. Spark job failed because of out of memory.</span><br><span class="line"></span><br><span class="line">ExecutorLostFailure (executor 10 exited caused by one of the running tasks) Reason: Container killed by YARN for exceeding memory limits. 15.3 GB of 15.3 GB physical memory used. Consider boosting spark.yarn.executor.memoryOverhead</span><br></pre></td></tr></tbody></table></figure>
+<blockquote>
+<p><code>spark.yarn.executor.memoryOverhead</code>是Yarn分配给 <code>executor</code> 的堆外内存</p>
+</blockquote>
+<figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Finished Stage<span class="number">-2</span>_0: <span class="number">1098</span>(+<span class="number">1</span>,<span class="number">-35</span>) /<span class="number">1099</span></span><br><span class="line">Finished Stage<span class="number">-2</span>_0: <span class="number">1099</span>(<span class="number">-35</span>)/<span class="number">1099</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- success/total</span></span><br><span class="line"><span class="comment">-- a(x,y)/b</span></span><br><span class="line">hive,spark的运行日志，如果a最终等于b,就是task是成功的；</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="如何获取月初月末">如何获取月初月末</h3>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> trunc(date_add(<span class="built_in">current_date</span>,<span class="number">-1</span>),<span class="string">'MM'</span>) <span class="keyword">as</span> month_first_day    <span class="comment">-- hive  月初</span></span><br><span class="line"><span class="keyword">select</span> date_format(<span class="string">'2020-01-02 10:09:08'</span>,<span class="string">'yyyy-MM-01'</span>) <span class="comment">--  hive</span></span><br><span class="line"><span class="keyword">select</span> trunc(<span class="built_in">current_date</span>,<span class="string">'MM'</span>)  <span class="comment">-- spark-sql ,hive</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> last_day(<span class="built_in">current_timestamp</span>()) <span class="comment">-- 月末</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="如何处理动态分区写入">如何处理动态分区写入</h3>
+<ol>
+<li class="lvl-3">
+<p>开启非严格模式 <code>set hive.exec.dynamic.partition.mode=nonstrict</code></p>
+</li>
+<li class="lvl-3">
+<p>动态分区写入注意partition（date_id）的字段和select 后的字段名称保持一致</p>
+</li>
+<li class="lvl-3">
+<p>动态分区字段放在<code>select</code> 的最后一行</p>
+</li>
+</ol>
+<p>Memory limit exceeded: Could not allocate memory while trying to increase reservation</p>
+<blockquote>
+<ol>
+<li class="lvl-3">
+<p>最常用的方式是：重试</p>
+</li>
+<li class="lvl-3">
+<p>降低查询并发度：减少同时执行的查询数量，这样可以为每个查询分配更多的内存</p>
+</li>
+<li class="lvl-3">
+<p>配置准入控制：Impala 支持准入控制功能，可以限制同时执行的查询数量，避免资源竞争。 <a target="_blank" rel="noopener" href="https://docs.cloudera.com/documentation/enterprise/5-8-x/topics/impala_admission.html">Impala Admission Control 文档</a></p>
+</li>
+<li class="lvl-3">
+<p>考虑优化查询以降低内存需求（sql 本身，<code>limit</code> 等）</p>
+</li>
+</ol>
+</blockquote>
+<h3 id="json数组如何解析">json数组如何解析</h3>
+<p>如何解析JSON 数组？JSON数组大概长这个样子： <code>[{},{}]</code>，以下是解析demo</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> explode(</span><br><span class="line">               split(</span><br><span class="line">                       regexp_replace(</span><br><span class="line">                               regexp_replace(                                      <span class="string">'[{"skuNo":"KU413455571546619913","propertyValue":"雾霾蓝"},{"skuNo":"KU413455571546619912","propertyValue":"北极绿"},{"skuNo":"KU413455571546619911","propertyValue":"亚麻金"}]'</span>,</span><br><span class="line">                                       <span class="string">'\\[|\\]'</span>, <span class="string">''</span>), <span class="comment">--将json数组两边的中括号去掉</span></span><br><span class="line">                               <span class="string">'\\}\\,\\{'</span>, <span class="string">'\\}\\;\\{'</span>), <span class="comment">--将json数组元素之间的逗号换成分号</span></span><br><span class="line">                       <span class="string">'\\;'</span>) <span class="comment">--以分号作为分隔符(split函数以分号作为分隔)</span></span><br><span class="line">           )</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="如何求-当前日期至前7-30天-的聚合值？">如何求 <code>当前日期至前7/30天</code> 的聚合值？</h3>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> tmp1 <span class="keyword">as</span> ( <span class="comment">-- 求：同一个账号，同一个商品，在包含直播日期内的7天内，播过多少次？</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'1424128656'</span> <span class="keyword">as</span> account_id, <span class="string">'259183220'</span> <span class="keyword">as</span> goods_id, <span class="string">'2022-06-28'</span> live_date</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'1424128656'</span> <span class="keyword">as</span> account_id, <span class="string">'259183220'</span> <span class="keyword">as</span> goods_id, <span class="string">'2022-06-22'</span> live_date</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'1424128656'</span> <span class="keyword">as</span> account_id, <span class="string">'259183220'</span> <span class="keyword">as</span> goods_id, <span class="string">'2022-06-17'</span> live_date</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'1424128656'</span> <span class="keyword">as</span> account_id, <span class="string">'259183220'</span> <span class="keyword">as</span> goods_id, <span class="string">'2022-06-15'</span> live_date</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'1424128656'</span> <span class="keyword">as</span> account_id, <span class="string">'262220152'</span> <span class="keyword">as</span> goods_id, <span class="string">'2021-12-09'</span> live_date</span><br><span class="line">)</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line">     , <span class="built_in">count</span>(<span class="operator">*</span>)</span><br><span class="line">             <span class="keyword">over</span> (<span class="keyword">partition</span> <span class="keyword">by</span> account_id,goods_id</span><br><span class="line">                 <span class="keyword">order</span> <span class="keyword">by</span> unix_timestamp(live_date, <span class="string">'yyyy-MM-dd'</span>) <span class="keyword">desc</span></span><br><span class="line">                 <span class="keyword">range</span> <span class="keyword">between</span> <span class="number">1</span> following <span class="keyword">and</span> <span class="number">604800</span> following) <span class="operator">+</span> <span class="number">1</span> <span class="keyword">as</span> day_7 <span class="comment">-- 过去包含今天在内的7天内出现了多少次</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> tmp1</span><br></pre></td></tr></tbody></table></figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">account_id</th>
+<th style="text-align:left">goods_id</th>
+<th style="text-align:left">live_date</th>
+<th style="text-align:left">day_</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1424128656</td>
+<td style="text-align:left">259183220</td>
+<td style="text-align:left">2022-06-28</td>
+<td style="text-align:left">2</td>
+</tr>
+<tr>
+<td style="text-align:left">1424128656</td>
+<td style="text-align:left">259183220</td>
+<td style="text-align:left">2022-06-22</td>
+<td style="text-align:left">3</td>
+</tr>
+<tr>
+<td style="text-align:left">1424128656</td>
+<td style="text-align:left">259183220</td>
+<td style="text-align:left">2022-06-17</td>
+<td style="text-align:left">2</td>
+</tr>
+<tr>
+<td style="text-align:left">1424128656</td>
+<td style="text-align:left">259183220</td>
+<td style="text-align:left">2022-06-15</td>
+<td style="text-align:left">1</td>
+</tr>
+<tr>
+<td style="text-align:left">1424128656</td>
+<td style="text-align:left">262220152</td>
+<td style="text-align:left">2021-12-09</td>
+<td style="text-align:left">1</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Hive，cast-as-int-into-bigint-时，数据都是0">Hive，cast( as int) into  bigint 时，数据都是0</h3>
+<p>Hive中</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- table_A 中 A字段的类型为 bigint</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">table</span> table_A</span><br><span class="line"><span class="keyword">select</span> <span class="built_in">cast</span>(a <span class="keyword">as</span> <span class="type">int</span>) <span class="keyword">as</span> A</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 最后查询 A的数据为，均为0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- solutions ： 2边类型保持一致即可</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="时间A在B时间开始后的第几个小时">时间A在B时间开始后的第几个小时</h3>
+<p>确定A 时间（ <code>on_top_time</code> ）在 B时间 （<code>start_time</code>） 的第几个小时内，相当于求相对位置问题（5相对于1的位置是多少）</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> tmp1 <span class="keyword">as</span> ( <span class="comment">-- </span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'2023-01-01 12:00:00'</span> <span class="keyword">as</span> on_top_time, <span class="string">'2023-01-01 11:00:00'</span> <span class="keyword">as</span> start_time</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'2023-01-01 12:02:00'</span> <span class="keyword">as</span> on_top_time, <span class="string">'2023-01-01 11:00:00'</span> <span class="keyword">as</span> start_time</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'2023-01-01 12:59:00'</span> <span class="keyword">as</span> on_top_time, <span class="string">'2023-01-01 11:00:00'</span> <span class="keyword">as</span> start_time</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'2023-01-01 16:00:00'</span> <span class="keyword">as</span> on_top_time, <span class="string">'2023-01-01 11:00:00'</span> <span class="keyword">as</span> start_time</span><br><span class="line"></span><br><span class="line">)</span><br><span class="line"><span class="keyword">select</span> on_top_time                                          <span class="keyword">as</span> on_top_time</span><br><span class="line">     , start_time                                           <span class="keyword">as</span> start_time</span><br><span class="line">     , <span class="built_in">cast</span>((unix_timestamp(on_top_time) <span class="operator">-</span></span><br><span class="line">             unix_timestamp(start_time)) <span class="operator">/</span> <span class="number">3600</span> <span class="operator">+</span> <span class="number">1</span> <span class="keyword">as</span> <span class="type">int</span>) <span class="keyword">as</span> hours_id</span><br><span class="line"><span class="keyword">from</span> tmp1</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="is-not-in-the-vectorization-context-column-map">is not in the vectorization context column map</h3>
+<p>在<a target="_blank" rel="noopener" href="https://community.cloudera.com/t5/Support-Questions/hive-vectorization-union-all-problem/td-p/183179">Hive vectorization union all problem </a> 一文中，提出了一定的解决方案，但是没有写出原因</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 在计算时不使用向量化计算</span></span><br><span class="line"><span class="keyword">set</span> hive.vectorized.execution.enabled<span class="operator">=</span><span class="literal">false</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="如何处理数据倾斜？">如何处理数据倾斜？</h3>
+<p>当你遇到下面倾斜的问题的时候：假设A表在 <code>id = 1</code> 有大量的数据，针对这种倾斜场景，有2种处理方式：方式 🅰️</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 原有的逻辑是：</span></span><br><span class="line"><span class="keyword">select</span> A.id </span><br><span class="line"><span class="keyword">from</span> A </span><br><span class="line"><span class="keyword">join</span> B </span><br><span class="line"><span class="keyword">on</span> A.id <span class="operator">=</span> B.id </span><br><span class="line"></span><br><span class="line"><span class="comment">-- 改进后的逻辑，第一部分，该部分查询不会有任何倾斜</span></span><br><span class="line"><span class="keyword">select</span> A.id </span><br><span class="line"><span class="keyword">from</span> A </span><br><span class="line"><span class="keyword">join</span> B </span><br><span class="line"><span class="keyword">on</span> A.id <span class="operator">=</span> B.id </span><br><span class="line"><span class="keyword">where</span> A.id <span class="operator">&lt;&gt;</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 改进后的逻辑，第二部分,B.id=1的数据量很小，我们将其放入内存关联，在spark种叫广播关联，在hive中叫做 map-join</span></span><br><span class="line"><span class="keyword">select</span> <span class="comment">/*+ mapjoin(B)*/</span> A.id </span><br><span class="line"><span class="keyword">from</span> A </span><br><span class="line"><span class="keyword">join</span> B </span><br><span class="line"><span class="keyword">on</span> A.id <span class="operator">=</span> B.id </span><br><span class="line"><span class="keyword">where</span> A.id <span class="operator">=</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">and</span> B.id <span class="operator">=</span> <span class="number">1</span></span><br></pre></td></tr></tbody></table></figure>
+<p>方式 🅱️</p>
+<p>通过增加随机数 列的方式，增加关联键,举个例子：对于A表</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">id</span><br><span class="line">a </span><br><span class="line">a</span><br><span class="line">a</span><br><span class="line">a</span><br><span class="line"><span class="comment">-- 将变成</span></span><br><span class="line">id  rand_column(<span class="number">0</span><span class="operator">~</span><span class="number">2</span>) </span><br><span class="line">a               <span class="number">0</span></span><br><span class="line">a           <span class="number">1</span></span><br><span class="line">a             <span class="number">2</span></span><br><span class="line">a           <span class="number">2</span></span><br><span class="line"></span><br><span class="line">对于B表</span><br><span class="line">```<span class="keyword">sql</span></span><br><span class="line">id</span><br><span class="line">a</span><br><span class="line"><span class="comment">-- 将变成</span></span><br><span class="line">id rand_num</span><br><span class="line">a  <span class="number">0</span></span><br><span class="line">a  <span class="number">1</span></span><br><span class="line">a  <span class="number">2</span></span><br><span class="line"></span><br><span class="line">假设之前的关联关系是 A.id <span class="operator">=</span> B.id，为了处理倾斜，我们间关联关系修改为：</span><br><span class="line">`A.id <span class="operator">=</span> B.id <span class="keyword">and</span> A.rand_num <span class="operator">=</span> B.rand_num`</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="如何为Hive表增加一列？">如何为Hive表增加一列？</h3>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`<span class="keyword">alter</span> <span class="keyword">table</span> dw.live_thin_room_order_goods_df  <span class="keyword">add</span> columns (third_party_shop_id string comment <span class="string">'三方店铺id'</span>)`</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="生成日期维度列">生成日期维度列</h3>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 在hive中</span></span><br><span class="line"><span class="keyword">select</span> date_add("2023-08-01", a.pos) <span class="keyword">as</span> range_date</span><br><span class="line"><span class="keyword">from</span> (</span><br><span class="line">   <span class="keyword">select</span> posexplode(split(repeat("@", datediff("2023-08-31", "2023-08-01")), "@")) <span class="comment">-- 第一个日期终止日期，第二个日期起始日期，</span></span><br><span class="line">) a</span><br></pre></td></tr></tbody></table></figure>
+<p>维表生成，使用 <code>date_id = '2023-08-08'</code> 的日期生成 <code>date_id = '2023-08-08'</code> 之前的日期</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> hive.exec.dynamic.partition.mode<span class="operator">=</span>nonstrict;</span><br><span class="line"><span class="keyword">insert</span> overwrite <span class="keyword">table</span> target_table <span class="keyword">partition</span> (date_id)</span><br><span class="line"><span class="keyword">select</span> id   <span class="keyword">as</span> id</span><br><span class="line">     , name <span class="keyword">as</span> name</span><br><span class="line">     , t1.date_id</span><br><span class="line"><span class="keyword">from</span> (<span class="keyword">select</span> date_add("2023-02-01", a.pos) <span class="keyword">as</span> date_id</span><br><span class="line">      <span class="keyword">from</span> (<span class="keyword">select</span> posexplode(split(repeat("@", datediff("2023-08-08", "2023-02-01")), "@")) <span class="comment">-- 第一个日期终止日期，第二个日期起始日期，</span></span><br><span class="line">      ) a</span><br><span class="line">)            t1</span><br><span class="line"><span class="keyword">cross</span> <span class="keyword">join</span> (<span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line">            <span class="keyword">from</span> target_table</span><br><span class="line">            <span class="keyword">where</span> date_id <span class="operator">=</span> <span class="string">'2023-08-09'</span></span><br><span class="line">           ) t2</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="如何将过程数据划分到小时">如何将过程数据划分到小时</h3>
+<p>场景描述：现在有一个网页的页面，爬虫读取数据，每分钟读取一次，并且落库，需求是得到每个小时的增量数据</p>
+<p align="center">
+  <img src="/2023/10/01/Hive/26.png" width="100%" alt="Your image description">
+   <br>
+   <span style="color:gray"> info about the picture </span>
+</p>
+<p>以上的代码如下</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> tmp1 <span class="keyword">as</span> ( <span class="comment">-- l_c : launch_consume, up_at : updated_at, s_at: start_time ， s_diff 更改时间距离开始时间多少秒</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'o_01'</span> <span class="keyword">as</span> o_id, <span class="number">10</span> <span class="keyword">as</span> l_c, <span class="string">'2023-08-01 01:00:00'</span> <span class="keyword">as</span> up_at, <span class="string">'2023-08-01 00:30:00'</span> <span class="keyword">as</span> s_at</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'o_01'</span> <span class="keyword">as</span> o_id, <span class="number">20</span> <span class="keyword">as</span> l_c, <span class="string">'2023-08-01 01:30:00'</span> <span class="keyword">as</span> up_at, <span class="string">'2023-08-01 00:30:00'</span> <span class="keyword">as</span> s_at</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'o_01'</span> <span class="keyword">as</span> o_id, <span class="number">30</span> <span class="keyword">as</span> l_c, <span class="string">'2023-08-01 01:50:00'</span> <span class="keyword">as</span> up_at, <span class="string">'2023-08-01 00:30:00'</span> <span class="keyword">as</span> s_at</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'o_01'</span> <span class="keyword">as</span> o_id, <span class="number">25</span> <span class="keyword">as</span> l_c, <span class="string">'2023-08-01 02:00:00'</span> <span class="keyword">as</span> up_at, <span class="string">'2023-08-01 00:30:00'</span> <span class="keyword">as</span> s_at</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'o_01'</span> <span class="keyword">as</span> o_id, <span class="number">60</span> <span class="keyword">as</span> l_c, <span class="string">'2023-08-01 02:40:00'</span> <span class="keyword">as</span> up_at, <span class="string">'2023-08-01 00:30:00'</span> <span class="keyword">as</span> s_at</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'o_01'</span> <span class="keyword">as</span> o_id, <span class="number">80</span> <span class="keyword">as</span> l_c, <span class="string">'2023-08-01 03:00:00'</span> <span class="keyword">as</span> up_at, <span class="string">'2023-08-01 00:30:00'</span> <span class="keyword">as</span> s_at</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'o_01'</span> <span class="keyword">as</span> o_id, <span class="number">180</span> <span class="keyword">as</span> l_c, <span class="string">'2023-08-01 04:00:00'</span> <span class="keyword">as</span> up_at, <span class="string">'2023-08-01 00:30:00'</span> <span class="keyword">as</span> s_at</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'o_01'</span> <span class="keyword">as</span> o_id, <span class="number">200</span> <span class="keyword">as</span> l_c, <span class="string">'2023-08-01 04:05:00'</span> <span class="keyword">as</span> up_at, <span class="string">'2023-08-01 00:30:00'</span> <span class="keyword">as</span> s_at</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'o_01'</span> <span class="keyword">as</span> o_id, <span class="number">400</span> <span class="keyword">as</span> l_c, <span class="string">'2023-08-01 04:20:00'</span> <span class="keyword">as</span> up_at, <span class="string">'2023-08-01 00:30:00'</span> <span class="keyword">as</span> s_at</span><br><span class="line">)</span><br><span class="line">   , tmp2 <span class="keyword">as</span> ( <span class="comment">--</span></span><br><span class="line">    <span class="keyword">select</span> o_id                                                         <span class="keyword">as</span> o_id</span><br><span class="line">         , l_c                                                          <span class="keyword">as</span> l_c</span><br><span class="line">         , up_at                                                        <span class="keyword">as</span> up_at</span><br><span class="line">         , s_at                                                         <span class="keyword">as</span> s_at</span><br><span class="line">         , <span class="built_in">lag</span>(l_c, <span class="number">1</span>, <span class="number">0</span>) <span class="keyword">over</span> (<span class="keyword">partition</span> <span class="keyword">by</span> o_id <span class="keyword">order</span> <span class="keyword">by</span> up_at)       <span class="keyword">as</span> l_l_c</span><br><span class="line"></span><br><span class="line">         , l_c <span class="operator">-</span> <span class="built_in">lag</span>(l_c, <span class="number">1</span>, <span class="number">0</span>) <span class="keyword">over</span> (<span class="keyword">partition</span> <span class="keyword">by</span> o_id <span class="keyword">order</span> <span class="keyword">by</span> up_at) <span class="keyword">as</span> l_c_diff</span><br><span class="line">         , (unix_timestamp(up_at) <span class="operator">-</span> unix_timestamp(s_at))               <span class="keyword">as</span> s_diff</span><br><span class="line">         , (unix_timestamp(up_at) <span class="operator">-</span> unix_timestamp(s_at)) <span class="operator">/</span> <span class="number">3600</span>        <span class="keyword">as</span> hour_diff</span><br><span class="line">         , <span class="built_in">cast</span>((unix_timestamp(up_at) <span class="operator">-</span></span><br><span class="line">                 unix_timestamp(s_at)) <span class="operator">/</span> <span class="number">3600</span> <span class="operator">+</span> <span class="number">1</span> <span class="keyword">as</span> <span class="type">int</span>)               <span class="keyword">as</span> real_hours_id</span><br><span class="line">    <span class="keyword">from</span> tmp1</span><br><span class="line">)</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> tmp2</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="动态参数">动态参数</h3>
+<p>实现效果：当某一列没有传参时，将 <code>where</code> 当前列的过滤逻辑去除</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">where</span> <span class="keyword">case</span> <span class="keyword">when</span> ${param} <span class="operator">=</span> <span class="string">'你预设的参数'</span> <span class="keyword">then</span> ture</span><br><span class="line">        <span class="keyword">else</span> platform_name <span class="operator">=</span> ${param}</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="多字段-full-join">多字段 full join</h3>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> tmp1 <span class="keyword">as</span> (</span><br><span class="line">    <span class="keyword">select</span> <span class="string">'o_01'</span> <span class="keyword">as</span> o_id, <span class="string">'2023-08-01'</span> <span class="keyword">as</span> data_id, <span class="number">50</span> <span class="keyword">as</span> money</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'o_03'</span> <span class="keyword">as</span> o_id, <span class="string">'2023-08-02'</span> <span class="keyword">as</span> data_id, <span class="number">50</span> <span class="keyword">as</span> money</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'o_04'</span> <span class="keyword">as</span> o_id, <span class="string">'2023-08-03'</span> <span class="keyword">as</span> data_id, <span class="number">50</span> <span class="keyword">as</span> money</span><br><span class="line"></span><br><span class="line">)</span><br><span class="line">   , tmp2 <span class="keyword">as</span> ( <span class="comment">--</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'o_01'</span> <span class="keyword">as</span> o_id, <span class="string">'2023-08-01'</span> <span class="keyword">as</span> data_id, <span class="number">60</span> <span class="keyword">as</span> money</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'o_02'</span> <span class="keyword">as</span> o_id, <span class="string">'2023-08-02'</span> <span class="keyword">as</span> data_id, <span class="number">60</span> <span class="keyword">as</span> money</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="string">'o_05'</span> <span class="keyword">as</span> o_id, <span class="string">'2023-08-03'</span> <span class="keyword">as</span> data_id, <span class="number">60</span> <span class="keyword">as</span> money</span><br><span class="line">)</span><br><span class="line"><span class="keyword">select</span> if(t1.data_id <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">null</span>, t1.o_id, t2.o_id)       <span class="keyword">as</span> o_id</span><br><span class="line">     , if(t1.data_id <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">null</span>, t1.data_id, t2.data_id) <span class="keyword">as</span> date_id</span><br><span class="line">     , <span class="built_in">coalesce</span>(t1.money, t2.money)                       <span class="keyword">as</span> money</span><br><span class="line"><span class="keyword">from</span> tmp1      t1</span><br><span class="line"><span class="keyword">full</span> <span class="keyword">join</span> tmp2 t2</span><br><span class="line">          <span class="keyword">on</span> t1.o_id <span class="operator">=</span> t2.o_id</span><br><span class="line">              <span class="keyword">and</span> t1.data_id <span class="operator">=</span> t2.data_id</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<p align="center">
+  <img src="/2023/10/01/Hive/28.png" width="90%" alt="Your image description">
+    <br>
+  <span style="color:gray"> 从 select * 到 select 判断逻辑  </span>
+</p>
+<h2 id="第-X-部分">第 X 部分</h2>
+<p>这里继续收录一下问题或者解决方案，ToDo</p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>设置map的聚合为false , 在map端聚合还可能会引发内存溢出的问题，详情可查看：<a target="_blank" rel="noopener" href="http://dev.bizo.com/2013/02/map-side-aggregations-in-apache-hive.html">http://dev.bizo.com/2013/02/map-side-aggregations-in-apache-hive.html</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%8A%80%E6%9C%AF/" rel="tag"># 技术</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/09/30/mysql/" rel="prev" title="msyql 45 讲">
+      <i class="fa fa-chevron-left"></i> msyql 45 讲
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#hive%E7%9A%84%E6%9E%B6%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">hive的架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86"><span class="nav-number">2.</span> <span class="nav-text">第一部分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#collect-x"><span class="nav-number">2.1.</span> <span class="nav-text">collect_x</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A5%E6%9C%9F"><span class="nav-number">2.2.</span> <span class="nav-text">日期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%B6%E5%8C%BA"><span class="nav-number">2.3.</span> <span class="nav-text">时区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86"><span class="nav-number">2.4.</span> <span class="nav-text">字符串处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%A4%E6%95%B0%E4%B8%BA0%E5%A4%84%E7%90%86"><span class="nav-number">2.5.</span> <span class="nav-text">除数为0处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86"><span class="nav-number">3.</span> <span class="nav-text">第二部分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sum-over"><span class="nav-number">3.1.</span> <span class="nav-text">sum()  + over()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%A7%E5%86%99%E8%A7%86%E5%9B%BE-lateral-view"><span class="nav-number">3.2.</span> <span class="nav-text">侧写视图(lateral view)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lag-over%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">3.3.</span> <span class="nav-text">lag+over的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E5%91%A8%E5%86%85%E8%BF%9E%E7%BB%AD3%E5%A4%A9%E6%B4%BB%E8%B7%83"><span class="nav-number">3.4.</span> <span class="nav-text">一周内连续3天活跃</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#left-semi-join"><span class="nav-number">3.5.</span> <span class="nav-text">left semi join</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#distinct"><span class="nav-number">3.6.</span> <span class="nav-text">distinct</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%85%B0%EF%B8%8F-distinct-%E5%92%8C-order-by-%E7%9A%84%E7%BB%93%E5%90%88"><span class="nav-number">3.6.1.</span> <span class="nav-text">🅰️ distinct 和 order by 的结合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%85%B1%EF%B8%8F-distinct-%E5%A4%9A%E4%B8%AA%E5%AD%97%E6%AE%B5"><span class="nav-number">3.6.2.</span> <span class="nav-text">🅱️ distinct 多个字段</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#limit-offset"><span class="nav-number">3.7.</span> <span class="nav-text">limit offset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ntile-over"><span class="nav-number">3.8.</span> <span class="nav-text">ntile+over</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E7%B3%8A%E5%8C%B9%E9%85%8D%E5%A4%9A%E4%B8%AA%E5%AD%97%E6%AE%B5"><span class="nav-number">3.9.</span> <span class="nav-text">模糊匹配多个字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E7%9A%84%E8%8C%83%E5%9B%B4%E9%80%89%E6%8B%A9"><span class="nav-number">3.10.</span> <span class="nav-text">窗口函数的范围选择</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86"><span class="nav-number">4.</span> <span class="nav-text">第三部分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#select-%E9%9D%9E-group-by-%E5%AD%97%E6%AE%B5"><span class="nav-number">4.1.</span> <span class="nav-text">select 非 group by 字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#having-%E8%BF%87%E6%BB%A4%E6%98%AF%E5%90%A6%E6%94%AF%E6%8C%81%E5%88%AB%E5%90%8D"><span class="nav-number">4.2.</span> <span class="nav-text">having 过滤是否支持别名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#order-by-%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">4.3.</span> <span class="nav-text">order by 字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#24-5-%E7%9A%84%E7%BB%93%E6%9E%9C"><span class="nav-number">4.4.</span> <span class="nav-text">$24&#x2F;5$的结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E6%98%AF%E5%90%A6%E6%94%AF%E6%8C%81distinct"><span class="nav-number">4.5.</span> <span class="nav-text">窗口函数是否支持distinct</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AA%97%E5%8F%A3%E5%B5%8C%E5%A5%97"><span class="nav-number">4.6.</span> <span class="nav-text">窗口嵌套</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%86%99%E5%85%A5%E6%95%B0%E5%80%BC%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.7.</span> <span class="nav-text">字符串写入数值类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E6%AE%B5%E6%88%AA%E5%8F%96"><span class="nav-number">4.8.</span> <span class="nav-text">字段截取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#column-name-not-in-a-%E4%BC%9A%E8%BF%87%E6%BB%A4%E6%8E%89-null-%E7%9A%84%E8%AE%B0%E5%BD%95"><span class="nav-number">4.9.</span> <span class="nav-text">column_name not in (a) 会过滤掉 null 的记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Impala-%E7%9A%84%E6%A8%A1%E7%B3%8A%E5%85%B3%E8%81%94%EF%BC%88%E9%9D%9E%E7%AD%89%E5%80%BC%E5%85%B3%E8%81%94%EF%BC%89"><span class="nav-number">4.10.</span> <span class="nav-text">Impala 的模糊关联（非等值关联）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86"><span class="nav-number">5.</span> <span class="nav-text">第四部分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#null-x-%E5%85%B3%E8%81%94"><span class="nav-number">5.1.</span> <span class="nav-text">null,x 关联</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E1%E8%A1%8C-%E8%BF%94%E5%9B%9E0%E8%A1%8C"><span class="nav-number">5.2.</span> <span class="nav-text">返回1行&amp;返回0行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#union-all-%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-number">5.3.</span> <span class="nav-text">union all 的类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%84%E5%90%88%E4%B8%BB%E9%94%AE%E9%9D%9Enull"><span class="nav-number">5.4.</span> <span class="nav-text">组合主键非null</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E6%88%B3"><span class="nav-number">5.5.</span> <span class="nav-text">时间戳</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%BB%E6%8E%89%E6%96%87%E6%9C%AC%E4%B8%AD%E7%9A%84%E6%8D%A2%E8%A1%8C%E7%AC%A6-%E5%9B%9E%E8%BD%A6%E7%AC%A6-%E5%88%B6%E8%A1%A8%E7%AC%A6-%E7%A9%BA%E6%A0%BC%EF%BC%8C%E6%AD%A3%E5%88%99%E6%9B%BF%E6%8D%A2"><span class="nav-number">5.6.</span> <span class="nav-text">去掉文本中的换行符&#x2F;回车符&#x2F;制表符&#x2F;空格，正则替换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#impala-upsert-Kudu"><span class="nav-number">5.7.</span> <span class="nav-text">impala upsert + Kudu</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E4%BD%BF%E7%94%A8order-by-%E6%89%BE%E5%88%B0%E5%B7%A5%E8%B5%84%E7%AC%AC%E4%BA%8C%E7%9A%84%E5%91%98%E5%B7%A5"><span class="nav-number">5.8.</span> <span class="nav-text">不使用order by 找到工资第二的员工</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#from-tmp1-tmp2-%E7%9A%84%E6%9C%AC%E8%B4%A8"><span class="nav-number">5.9.</span> <span class="nav-text">from tmp1 , tmp2 的本质</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-%E4%B8%AD%E5%BC%BA%E5%88%B6-mapjoin"><span class="nav-number">5.10.</span> <span class="nav-text">Hive 中强制 mapjoin</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86-2"><span class="nav-number">6.</span> <span class="nav-text">第四部分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E6%9C%88%E5%88%9D%E6%9C%88%E6%9C%AB"><span class="nav-number">6.1.</span> <span class="nav-text">如何获取月初月末</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E5%8A%A8%E6%80%81%E5%88%86%E5%8C%BA%E5%86%99%E5%85%A5"><span class="nav-number">6.2.</span> <span class="nav-text">如何处理动态分区写入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#json%E6%95%B0%E7%BB%84%E5%A6%82%E4%BD%95%E8%A7%A3%E6%9E%90"><span class="nav-number">6.3.</span> <span class="nav-text">json数组如何解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%B1%82-%E5%BD%93%E5%89%8D%E6%97%A5%E6%9C%9F%E8%87%B3%E5%89%8D7-30%E5%A4%A9-%E7%9A%84%E8%81%9A%E5%90%88%E5%80%BC%EF%BC%9F"><span class="nav-number">6.4.</span> <span class="nav-text">如何求 当前日期至前7&#x2F;30天 的聚合值？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive%EF%BC%8Ccast-as-int-into-bigint-%E6%97%B6%EF%BC%8C%E6%95%B0%E6%8D%AE%E9%83%BD%E6%98%AF0"><span class="nav-number">6.5.</span> <span class="nav-text">Hive，cast( as int) into  bigint 时，数据都是0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%B6%E9%97%B4A%E5%9C%A8B%E6%97%B6%E9%97%B4%E5%BC%80%E5%A7%8B%E5%90%8E%E7%9A%84%E7%AC%AC%E5%87%A0%E4%B8%AA%E5%B0%8F%E6%97%B6"><span class="nav-number">6.6.</span> <span class="nav-text">时间A在B时间开始后的第几个小时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#is-not-in-the-vectorization-context-column-map"><span class="nav-number">6.7.</span> <span class="nav-text">is not in the vectorization context column map</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E6%95%B0%E6%8D%AE%E5%80%BE%E6%96%9C%EF%BC%9F"><span class="nav-number">6.8.</span> <span class="nav-text">如何处理数据倾斜？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%B8%BAHive%E8%A1%A8%E5%A2%9E%E5%8A%A0%E4%B8%80%E5%88%97%EF%BC%9F"><span class="nav-number">6.9.</span> <span class="nav-text">如何为Hive表增加一列？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E6%97%A5%E6%9C%9F%E7%BB%B4%E5%BA%A6%E5%88%97"><span class="nav-number">6.10.</span> <span class="nav-text">生成日期维度列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%B0%86%E8%BF%87%E7%A8%8B%E6%95%B0%E6%8D%AE%E5%88%92%E5%88%86%E5%88%B0%E5%B0%8F%E6%97%B6"><span class="nav-number">6.11.</span> <span class="nav-text">如何将过程数据划分到小时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E5%8F%82%E6%95%B0"><span class="nav-number">6.12.</span> <span class="nav-text">动态参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E5%AD%97%E6%AE%B5-full-join"><span class="nav-number">6.13.</span> <span class="nav-text">多字段 full join</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC-X-%E9%83%A8%E5%88%86"><span class="nav-number">7.</span> <span class="nav-text">第 X 部分</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="i_add_u"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">i_add_u</p>
+  <div class="site-description" itemprop="description">小舟从此逝，江海寄余生</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://mp.weixin.qq.com/s/IQkJlzX3l4DY_UL5NoQxdg" title="WeChat → https:&#x2F;&#x2F;mp.weixin.qq.com&#x2F;s&#x2F;IQkJlzX3l4DY_UL5NoQxdg" rel="noopener" target="_blank"><i class="fa fa-fw fa-wechat"></i>WeChat</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/ifseayou" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ifseayou" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/qq_31807385?spm=1000.2115.3001.5343" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_31807385?spm&#x3D;1000.2115.3001.5343" rel="noopener" target="_blank"><i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">i_add_u</span>
+</div>
+  <div class="powered-by">
+    <!--Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>-->
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

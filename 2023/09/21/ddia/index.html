@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":"ture"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="零、开篇词 这是第二次读DDIA，全名叫做《Design Data-Intensive Application》 直译为：设计数据密集型应用或数据密集型应用的设计；更多精彩内容，欢迎关注微信公众号：stackoverflow 🎈为什么分享这本书🎈 我相信各位一定历经过这样的场景：春节档档期一下子上映了很多场电影，一场电影要不要去看呢？对于我来说，通常都是先看一下豆瓣评分，如果高的话，就买票入场">
+  <meta name="description" content="这是第二次读DDIA，全名叫做《Design Data-Intensive Application》 直译为：设计数据密集型应用或数据密集型应用的设计；更多精彩内容，欢迎关注微信公众号：stackoverflow 🎈为什么分享这本书🎈 我相信各位一定历经过这样的场景：春节档档期一下子上映了很多场电影，一场电影要不要去看呢？对于我来说，通常都是先看一下豆瓣评分，如果高的话，就买票入场，所以为什么">
 <meta property="og:type" content="article">
 <meta property="og:title" content="设计数据密集型应用">
 <meta property="og:url" content="http://example.com/2023/09/21/ddia/index.html">
 <meta property="og:site_name" content="iaddu">
-<meta property="og:description" content="零、开篇词 这是第二次读DDIA，全名叫做《Design Data-Intensive Application》 直译为：设计数据密集型应用或数据密集型应用的设计；更多精彩内容，欢迎关注微信公众号：stackoverflow 🎈为什么分享这本书🎈 我相信各位一定历经过这样的场景：春节档档期一下子上映了很多场电影，一场电影要不要去看呢？对于我来说，通常都是先看一下豆瓣评分，如果高的话，就买票入场">
+<meta property="og:description" content="这是第二次读DDIA，全名叫做《Design Data-Intensive Application》 直译为：设计数据密集型应用或数据密集型应用的设计；更多精彩内容，欢迎关注微信公众号：stackoverflow 🎈为什么分享这本书🎈 我相信各位一定历经过这样的场景：春节档档期一下子上映了很多场电影，一场电影要不要去看呢？对于我来说，通常都是先看一下豆瓣评分，如果高的话，就买票入场，所以为什么">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2023/09/21/ddia/01.jpg">
 <meta property="og:image" content="http://example.com/2023/09/21/ddia/37.jpg">
@@ -94,8 +94,8 @@
 <meta property="og:image" content="https://github.githubassets.com/images/icons/emoji/unicode/0032-20e3.png?v8">
 <meta property="og:image" content="http://example.com/2023/09/21/ddia/43.jpg">
 <meta property="og:image" content="https://github.githubassets.com/images/icons/emoji/unicode/0033-20e3.png?v8">
-<meta property="article:published_time" content="2023-09-21T04:12:57.000Z">
-<meta property="article:modified_time" content="2023-09-25T12:48:07.853Z">
+<meta property="article:published_time" content="2023-09-21T02:12:57.000Z">
+<meta property="article:modified_time" content="2023-10-01T09:21:15.850Z">
 <meta property="article:author" content="i_add_u">
 <meta property="article:tag" content="技术">
 <meta name="twitter:card" content="summary">
@@ -263,14 +263,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2023-09-21 12:12:57" itemprop="dateCreated datePublished" datetime="2023-09-21T12:12:57+08:00">2023-09-21</time>
+              <time title="Created: 2023-09-21 10:12:57" itemprop="dateCreated datePublished" datetime="2023-09-21T10:12:57+08:00">2023-09-21</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-09-25 20:48:07" itemprop="dateModified" datetime="2023-09-25T20:48:07+08:00">2023-09-25</time>
+                <time title="Modified: 2023-10-01 17:21:15" itemprop="dateModified" datetime="2023-10-01T17:21:15+08:00">2023-10-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -293,12 +293,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="零、开篇词">零、开篇词</h2>
-<p>这是第二次读DDIA，全名叫做《Design Data-Intensive Application》 直译为：设计数据密集型应用或数据密集型应用的设计；更多精彩内容，欢迎关注微信公众号：stackoverflow</p>
+        <p>这是第二次读DDIA，全名叫做《Design Data-Intensive Application》 直译为：设计数据密集型应用或数据密集型应用的设计；更多精彩内容，欢迎关注微信公众号：stackoverflow</p>
 <p>🎈<strong>为什么分享这本书</strong>🎈</p>
 <p>我相信各位一定历经过这样的场景：春节档档期一下子上映了很多场电影，一场电影要不要去看呢？对于我来说，通常都是先看一下豆瓣评分，如果高的话，就买票入场，所以为什么选择分享这本书，那就不得不说下这本书的溢美之词</p>
 <span id="more"></span>
-<h4 id="0-1-关于ddia的溢美之词">0.1-关于ddia的溢美之词</h4>
+<h3 id="关于ddia的溢美之词">关于ddia的溢美之词</h3>
 <p>可以看到，这本书的评价惊人的高，居然达到了 9.7分的高分，有的同学可能觉得9.7分并不是一个很高的分数，来看下面这部是个码农都知道的书《算法导论》，这本书的评分是多少呢？ 9.2分，当然这是一个很高的分数，但是ddia 比这个高度还要高 0.5分；有的同学可能还是不能很直接的get到这本书的魅力，OK，我们来和豆瓣电影评分类比一下，要知道豆瓣中电影评分最高的也就是9.7分，也就是大名鼎鼎的，我相信各位应该都看过《肖申克的救赎》</p>
 <p align="center">
   <img src="/2023/09/21/ddia/01.jpg" width="90%" alt="Your image description">
@@ -306,17 +305,17 @@
   <span style="color:gray"> 设计数据密集型应用的赞美之词 </span>
 </p>
 <p>甚至ByteDance 这家公司将这本书写进入interview doc。<strong>所以结论来了，DDIA , 你值得拥有</strong></p>
-<h4 id="0-2-关于作者">0.2-关于作者</h4>
+<h3 id="关于作者">关于作者</h3>
 <p><a target="_blank" rel="noopener" href="https://martin.kleppmann.com/">Martin Kleppmann</a></p>
-<h2 id="一-、整书大纲">一 、整书大纲</h2>
+<h1>整书大纲</h1>
 <p>下面是整书的一个脉络：分为<strong>3</strong>个部分12个章节</p>
 <p align="center">
   <img src="/2023/09/21/ddia/37.jpg" width="80%" alt="Your image description">
   <br>
   <span style="color:gray"> 书籍结构目录 </span>
 </p>
-<h4 id="1-1-哪3部分">1.1-哪3部分</h4>
-<h5 id="1️⃣-数据系统的基石">1️⃣ 数据系统的基石</h5>
+<h2 id="哪3部分">哪3部分</h2>
+<h3 id="1️⃣-数据系统的基石">1️⃣ 数据系统的基石</h3>
 <p>主要讲述了数据系统底层的一些概念，无论是单机上的单点数据系统，还是分布在多机器上的分布式数据系统。这个讨论的范围是 <em>单机或者多机器，区别于第二部分仅谈论多机器上的分布式系统</em></p>
 <ul class="lvl-0">
 <li class="lvl-2">
@@ -335,7 +334,7 @@
 <p><strong>4：编码与演化</strong>  随着时间推移，数据系统由于功能的迭代，需要对初始涉及的数据模型(schema)进行更改，那么如何处理数据模型的前后兼容问题，就是这个章节要讨论的问题</p>
 </li>
 </ul>
-<h5 id="2️⃣-分布式数据">2️⃣ 分布式数据</h5>
+<h3 id="2️⃣-分布式数据">2️⃣ 分布式数据</h3>
 <p>本章主要讲述在多机器的分布式数据系统中，将会有多台机器参与数据的存储和检索，数据系统所面临挑战，包括</p>
 <ul class="lvl-0">
 <li class="lvl-2">
@@ -354,7 +353,7 @@
 <p><strong>9：一致性与共识</strong> ：分布式数据系统如何去实现一致性和达成共识，从而避免类似于 brain split  的问题，这一章节会讨论在构建容错分布式系统的时候使用到的 算法和协议(比如Raft、Paxos、ZAB)</p>
 </li>
 </ul>
-<h5 id="3️⃣-派生数据">3️⃣ 派生数据</h5>
+<h3 id="3️⃣-派生数据">3️⃣ 派生数据</h3>
 <p>第一/二部分系统的考量了分布式数据库的方方面面，真实世界的大型应用程序经常需要以多种方式访问和处理数据，没有一个数据库可以同时满足所有这些不同的需求。因此应用程序通常组合使用多种组件：数据存储，索引，缓存，分析系统，等等，并实现在这些组件中移动数据的机制</p>
 <p>该书的最后一部分，研究将多个不同数据系统（可能有着不同数据模型，并针对不同的访问模式进行优化）集成为一个协调一致的应用架构时，会遇到的问题</p>
 <p>主要讨论衍生(派生)数据：所谓<em>衍生数据</em> 是以输入数据输出新的数据，输出是衍生数据（derived data）的一种形式 ，流处理和批处理都会产生衍生数据</p>
@@ -370,7 +369,7 @@
 </li>
 </ul>
 <p>🎈<strong>以上呢</strong>🎈，就是整本书的一个简短的概括，下面的内容就是我基于书中的内容做的一些总结，已及自己的一些启发</p>
-<h4 id="1-2-计算密集与数据密集型应用区分">1.2-计算密集与数据密集型应用区分</h4>
+<h2 id="计算密集vs数据密集">计算密集vs数据密集</h2>
 <p>下图是应用程序的简要分类：</p>
 <p align="center">
   <img src="/2023/09/21/ddia/15.jpg" width="80%" alt="Your image description">
@@ -396,7 +395,7 @@
 <p>3️⃣ 允许用户按关键字搜索数据，或以各种方式对数据进行过滤(搜索索引 search indexes)</p>
 <p>4️⃣ 向其他进程发送消息，进行异步处理(流处理 stream processing)</p>
 <p>5️⃣ 定期处理累积的大批量数据(批处理 batch processing)</p>
-<h4 id="1-3-如何描述负载？">1.3 - 如何描述负载？</h4>
+<h3 id="如何描述负载？">如何描述负载？</h3>
 <p>可以使用<strong>负载参数（load parameters）</strong> 的数字来描述负载。参数可能是</p>
 <ol>
 <li class="lvl-3">
@@ -414,7 +413,7 @@
 </ol>
 <p>除此之外，需要关注<strong>平均情况</strong>或者<strong>峰值情况</strong>。有写负载和读负载，如果写负载远远低于读负载，此时我们可以让写入时做更多的工作，便于我们在读取的时候做更少的工作</p>
 <p>推特在推文写入和推文读取时，使用了两种不同的策略</p>
-<h4 id="1-4-如何描述性能？">1.4-如何描述性能？</h4>
+<h3 id="如何描述性能？">如何描述性能？</h3>
 <ul class="lvl-0">
 <li class="lvl-2">
 <p>批处理系统，每秒可以处理的记录数量，即吞吐量（throughput），或者在特定规模数据集上运行作业的总时间</p>
@@ -431,23 +430,23 @@
 <p><strong>当一个请求需要多个后端请求时，单个后端慢请求就会拖慢整个终端用户的请求</strong>，效果称为尾部延迟放大</p>
 </blockquote>
 <p>负载参数和性能参数是讨论可扩展性的前提，可扩展性即为当负载参数增加时，如何保持良好的性能？</p>
-<h4 id="1-5-什么是弹性的？">1.5- 什么是弹性的？</h4>
+<h3 id="什么是弹性的？">什么是弹性的？</h3>
 <p>如果说系统是 <strong>弹性（elastic）</strong> 的，这意味着可以在检测到负载增加时自动增加计算资源，而其他系统则是手动扩展（人工分析容量并决定向系统添加更多的机器）</p>
-<h2 id="二、第2章节-数据模型与查询语言">二、第2章节-数据模型与查询语言</h2>
-<h4 id="2-1-文档模型和关系模型的优劣势？">2.1-文档模型和关系模型的优劣势？</h4>
+<h1>第2章节-数据模型与查询语言</h1>
+<h2 id="文档模型和关系模型的优劣势？">文档模型和关系模型的优劣势？</h2>
 <p>文档模型如JSON的优势在于结构灵活，你可以将任意的键和值添加到文档中，而在关系模型中你必须提前预设这样的字段或者进行 <code>alter table</code> 操作，文档模型在连接上的劣势，导致数据如果有多份，必须要存储多次，有较高的数据不一致风险。如果每次读取文档的全部或者大部分内容，查询局部性会有很大优势，而关系模型将数据分割多块的行为，不得不进行连接</p>
 <p>关系模型一般是规范化的，能够保证数据的一致性（外键），但是其中的结构变化，是一个较耗时的操作如果表很大的话，执行 <code>alter table  &amp; update </code> 需要很久，此时会有锁表行为</p>
-<h4 id="2-2-声明式查询和命令式查询的区别？">2.2-声明式查询和命令式查询的区别？</h4>
+<h2 id="声明式查询vs命令式查询">声明式查询vs命令式查询</h2>
 <p>声明式查询告诉存储引擎：我需要<code>Sharks</code>类数据，而命令式查询给出找到A类数据的方法，存储引擎按照这个方法执行即可,而众多编程语言就是命令式的</p>
 <figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function <span class="title function_">getSharks</span><span class="params">()</span> {</span><br><span class="line">    <span class="type">var</span> <span class="variable">sharks</span> <span class="operator">=</span> [];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">var</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; animals.length; i++) {</span><br><span class="line">        <span class="keyword">if</span> (animals[i].family === <span class="string">"Sharks"</span>) {</span><br><span class="line">            sharks.push(animals[i]);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> sharks;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <p>SQL是一种声明式的查询语句，声明式查询不提供方法，仅指定结果的模式，接收声明的数据库可以自行选择高校的方法</p>
 <figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> animals <span class="keyword">WHERE</span> family <span class="operator">=</span><span class="string">'Sharks'</span>;</span><br></pre></td></tr></tbody></table></figure>
-<h4 id="2-3-MapReduce是什么">2.3-MapReduce是什么</h4>
+<h2 id="MapReduce是什么">MapReduce是什么</h2>
 <p>MapReduce是一个由Google推广的编程模型，它基于<code>map</code>（也称为<code>collect</code>）和<code>reduce</code>（也称为<code>fold</code>或<code>inject</code>）函数。它既不是一个声明式的查询语言，也不是一个完全命令式的查询API，而是处于两者之间：查询的逻辑用代码片断来表示，这些代码片段会被处理框架重复性调用</p>
-<h4 id="2-4-图">2.4-图</h4>
+<h2 id="图">图</h2>
 <p>如果你的应用程序大多数的关系是一对多关系（树状结构化数据），或者大多数记录之间不存在关系，那么使用文档模型是合适的。关系模型可以处理多对多关系的简单情况，但是随着数据之间的连接变得更加复杂，将数据建模为图形显得更加自然</p>
 <p>一个图由两种对象组成：<strong>顶点（vertices）</strong> 和 <strong>边（edges）</strong>，典型的例子包括：社交图谱,网络图谱,公路或铁路网络</p>
-<h5 id="A-什么是属性图模型？">A-什么是属性图模型？</h5>
+<h3 id="A-什么是属性图模型？">A-什么是属性图模型？</h3>
 <p>在属性图模型中，包含顶点和边，在属性图模型中，顶点和边分别包括</p>
 <table>
 <thead>
@@ -481,18 +480,18 @@
 </table>
 <p>可以将图存储看作由两个关系表组成：一个存储顶点，另一个存储边</p>
 <figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> vertices (</span><br><span class="line">  vertex_id  <span class="type">INTEGER</span> <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line">  properties JSON</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> edges (</span><br><span class="line">  edge_id     <span class="type">INTEGER</span> <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line">  tail_vertex <span class="type">INTEGER</span> <span class="keyword">REFERENCES</span> vertices (vertex_id),</span><br><span class="line">  head_vertex <span class="type">INTEGER</span> <span class="keyword">REFERENCES</span> vertices (vertex_id),</span><br><span class="line">  label       TEXT,</span><br><span class="line">  properties  JSON</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 给定任何顶点，可以高效地找到它的入边和出边，从而遍历图，即沿着一系列顶点的路径前后移动，建以下索引</span></span><br><span class="line"><span class="keyword">CREATE</span> INDEX edges_tails <span class="keyword">ON</span> edges (tail_vertex);</span><br><span class="line"><span class="keyword">CREATE</span> INDEX edges_heads <span class="keyword">ON</span> edges (head_vertex);</span><br></pre></td></tr></tbody></table></figure>
-<h5 id="B-Cypher-属性图模型声明式查询语句">B-Cypher 属性图模型声明式查询语句</h5>
+<h3 id="B-Cypher-属性图模型声明式查询语句">B-Cypher 属性图模型声明式查询语句</h3>
 <p>Cypher是属性图的声明式查询语言，为Neo4j图形数据库而发明</p>
 <p align="center">
   <img src="/2023/09/21/ddia/57.png" width="100%" alt="Your image description">
     <br>
   <span style="color:gray"> 图模型&amp;图数据写入&amp;图数据查询 </span>
 </p>
-<h4 id="2-5-读时模式和写时模式">2.5-读时模式和写时模式</h4>
+<h2 id="读时模式vs写时模式">读时模式vs写时模式</h2>
 <p><strong>读时模式（schema-on-read）</strong>：数据的结构是隐含的，只有在数据被读取时才被解释，比如文档数据库</p>
 <p><strong>写时模式（schema-on-write）</strong>：传统的关系数据库方法中，模式明确，且数据库确保所有的数据都符合其模式</p>
 <p>读时模式类似于编程语言中的动态（运行时）类型检查，而写时模式类似于静态（编译时）类型检查，就像静态和动态类型检查的相对优点具有很大的争议性一样，数据库中模式的强制性是一个具有争议的话题，一般来说没有正确或错误的答案</p>
-<h4 id="2-6-总结">2.6-总结</h4>
+<h2 id="总结">总结</h2>
 <p>在历史上，数据最开始被表示为一棵大树（层次数据模型），由于不适合表示多对多的关系，发明了关系模型来解决这个问题。后来，人们发现一些应用程序也不适合采用关系模型，于是新的非关系型“NoSQL”数据</p>
 <ol>
 <li class="lvl-3">
@@ -503,7 +502,7 @@
 </li>
 </ol>
 <p>这三种模型（文档，关系和图形）在今天都被广泛使用</p>
-<h2 id="三、第3章节-存储与检索">三、第3章节-存储与检索</h2>
+<h1>第3章节-存储与检索</h1>
 <p>存储与检索的内容，即：数据库在最基础的层次上完成的2件事情：</p>
 <p>🅰️ 当你把数据交付给它的时候，它如何将数据存储起来</p>
 <p>🅱️ 当你向数据库索要数据时，它如何将数据返回给你</p>
@@ -529,7 +528,7 @@
 <p>列存储</p>
 </li>
 </ul>
-<h4 id="3-1-无索引日志">3.1-无索引日志</h4>
+<h2 id="无索引日志">无索引日志</h2>
 <p>我们来看下 <strong>世界上最简单的数据库</strong> 是如何实现的</p>
 <ul class="lvl-0">
 <li class="lvl-2">
@@ -549,7 +548,7 @@
 </p>
 那么这个最简单的数据库底层是如何进行数据的摆放的呢？可以看到`db_set()`就是一个非常简单的追加[^4]，这**简直不是简单，甚至可以说是简陋**但正是由于这种设计使得写入变的非常的高效，代价就查找的开销是 $O(n)$ ， $O(n)$ 的复杂度，这意味着如果数据量增加一倍，查询响应时间将会增加一倍。也就是说查询时间和数据量之间的关系是线性相关的。所以我们需要**更快的得到目标结果**，那么如何去提升数据的查找效率？
 <blockquote></blockquote>
-<h4 id="3-2-如何提升查找效率？">3.2-如何提升查找效率？</h4>
+<h2 id="如何提升查找效率？">如何提升查找效率？</h2>
 <p align="center">
   <img src="/2023/09/21/ddia/17.jpg" width="100%" alt="Your image description">
     <br>
@@ -571,7 +570,7 @@
 </blockquote>
 <p>🎈<strong>Post Script</strong>🎈</p>
 <p>由于需要在原始数据之外额外维护一份数据，这就无形增加了空间复杂度，在计算机领域中，时间和空间就像鱼和熊掌一样，不可兼得，降低时间复杂度的方式就<strong>用空间换取时间</strong>； 可以说这个问题在计算机领域是一个绕不开的话题，如何去提升查找效率这个问题的另外一种问法是：<strong>给我一个更低的时间复杂度</strong>的实现，那么常见的比 $O(n)$  还低的时间复杂度就是 $O(1)$， $O (log_n)$  两个，$O(1)$ 的时间复杂度，我们很容易就会想到哈希表，因为哈希表的时间复杂度默认是 $O(1)$，接下来我们尝试构建哈希索引来提升查询效率</p>
-<h4 id="3-3-内存中构建hash索引">3.3-内存中构建hash索引</h4>
+<h2 id="内存中构建hash索引">内存中构建hash索引</h2>
 <p align="center">
   <img src="/2023/09/21/ddia/18.jpg" width="100%" alt="Your image description">
     <br>
@@ -579,7 +578,7 @@
 </p>
 <p>那么对于存储于磁盘中的数据，我们在内存中维护一个<code>HashMap</code>，维护<code>key</code>和<code>value</code> 的偏移量，这样一来，我们就能够迅速的定位到目标数据，比如我们想要找到 <code>key = 42</code> 的数据，通过查询内存中的HashMap表，获得偏移量64 ，所以可以直接定位到数据，而不在需要从头开始遍历</p>
 <p>随着我们不断的在文件末尾追加文件，磁盘中的单个文件也会越来越大，甚至单个文件可能吃掉整个磁盘的存储。所以，<strong>如何用有限的存储存储更多的数据？</strong> 即，如何避免磁盘的空间的消耗？</p>
-<h4 id="3-4-分段存储-压缩-分段合并-hash索引的局限性">3.4-分段存储&amp;压缩&amp;分段合并 &amp; hash索引的局限性</h4>
+<h2 id="分段存储-压缩-分段合并-hash索引的局限性">分段存储&amp;压缩&amp;分段合并 &amp; hash索引的局限性</h2>
 <p align="center">
   <img src="/2023/09/21/ddia/19.jpg" width="100%" alt="Your image description">
     <br>
@@ -605,7 +604,7 @@
 <p>🅰️ 哈希表是存在于内存中的</p>
 <p>🅱️ 范围查询是软肋</p>
 <p>那么如何突破哈希表的局限性，寻找更好的索引结构？</p>
-<h4 id="3-5-SSTable-排序字符串表">3.5-SSTable 排序字符串表</h4>
+<h2 id="SSTable-排序字符串表">SSTable 排序字符串表</h2>
 <p>这个问题的答案是：排序字符串表，也就是<strong>SSTable<sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup></strong>, 也就是：在段文件中，对键值对的序列排序</p>
 <p align="center">
   <img src="/2023/09/21/ddia/21.jpg" width="100%" alt="Your image description">
@@ -620,7 +619,7 @@
     <br>
   <span style="color:gray"> 稀疏索引，比如每几千个字节一个键 </span>
 </p>
-<h4 id="3-6-LSM-日志结构合并树">3.6-LSM 日志结构合并树</h4>
+<h2 id="LSM-日志结构合并树">LSM 日志结构合并树</h2>
 <p>在前面的讲述中，我们默认了落盘段文件是有序的，在落盘写入段文件之前，<strong>如何按键排序</strong>？考虑到效率问题，最初的的写入一定是在内存中的，到达一定的时间阈值或者是内存阈值的时候，在进行落盘形成 SSTable，那么内存中<strong>选择什么样的数据结构？</strong></p>
 <p>1️⃣ 内存表，<strong>为什么是AVL-Tree ？</strong></p>
 <ul class="lvl-0">
@@ -643,7 +642,7 @@
 <p>Cassandra<sup class="footnote-ref"><a href="#fn5" id="fnref5">[5]</a></sup>、Bigtable、HBase、Elasticsearch、Solr<sup class="footnote-ref"><a href="#fn6" id="fnref6">[6]</a></sup>、Hologres<sup class="footnote-ref"><a href="#fn7" id="fnref7">[7]</a></sup></p>
 <blockquote></blockquote>
 <p><strong>这种先内存排序，再落盘排序的结构，就是LSM(Log-Structure Merge Tree 日志结构合并树)结构</strong>，<strong>LSM结构和B±Tree相比，减少了随机IO，极大的提高的写性能</strong></p>
-<h4 id="3-7-面向页存储引擎">3.7-面向页存储引擎</h4>
+<h2 id="面向页存储引擎">面向页存储引擎</h2>
 <p>接下来我们介绍另外一种存储引擎：面向页面的存储引擎，比如B 树，B树会将数据库分解为固定大小的块或者是页面<sup class="footnote-ref"><a href="#fn8" id="fnref8">[8]</a></sup>，传统大小为4K而且一次只能读取或者写入一个页面，和LSM对比一下</p>
 <p align="center">
   <img src="/2023/09/21/ddia/24.jpg" width="100%" alt="Your image description">
@@ -658,7 +657,7 @@
   <span style="color:gray"> 面向页面的存储引擎是如何查询数据的 </span>
 </p>
 <p>分支因子：<strong>在B树中一个页面中对子页面的引用数量</strong>。伴随着上世纪70年代关系型数据库的发展至今，面向页面的存储引擎发展至今已经非常成熟了</p>
-<h4 id="3-8-向页面添加元素">3.8-向页面添加元素</h4>
+<h2 id="向页面添加元素">向页面添加元素</h2>
 <p>如何向B树中增加一个数据，如下图：</p>
 <p align="center">
   <img src="/2023/09/21/ddia/26.jpg" width="100%" alt="Your image description">
@@ -668,14 +667,14 @@
 <blockquote>
 <p>WAL即在数据写数据页之前，先记录到"小黑板"<sub>WAL</sub>上，对于一个更新操作来说，如果每次更新都需要立刻写磁盘，存储引擎需要找到被更新的记录，然后更新，这个先定位再更新的机制必然有一定的成本（查找成本+IO成本），如果<strong>引擎会将记录写到 文件 里，并且更新内存</strong>，在适当（系统比较空）的时候，将操作记录刷写到磁盘， 如此便可以提升更新效率。事实上MySQL的InnDB 引擎就是这么做的</p>
 </blockquote>
-<h4 id="3-9-比对LSM树-和-B树">3.9-比对LSM树 和 B树</h4>
+<h2 id="比对LSM树-和-B树">比对LSM树 和 B树</h2>
 <p>最后我们来一起对比一下LSM树和B树，也即面向日志的存储引擎和面向B树的存储引擎的优劣势</p>
 <p align="center">
   <img src="/2023/09/21/ddia/27.jpg" width="100%" alt="Your image description">
     <br>
   <span style="color:gray"> 比对LSM树 和 B树 </span>
 </p>
-<h4 id="3-10-OLTP-OLAP-和-数据仓库">3.10-OLTP&amp;OLAP 和 数据仓库</h4>
+<h2 id="OLTP-OLAP-和-数据仓库">OLTP&amp;OLAP 和 数据仓库</h2>
 <p>数据库在历史中主要为两种系统提供支持</p>
 <p>🅰️ 在线事务处理系统，即 OLTP</p>
 <p>🅱️ 在线分析系统，即 OLAP</p>
@@ -696,7 +695,7 @@
     <br>
   <span style="color:gray"> ETL过程 </span>
 </p>
-<h4 id="3-11-数据仓库系统组件">3.11-数据仓库系统组件</h4>
+<h2 id="数据仓库系统组件">数据仓库系统组件</h2>
 <p>我们来看一些比较出名的商业数据仓库系统，尽管他们是冠以出名的商业数据仓库系统，但是其中"商业"两个字可能是太贵，导致大多数从事数据仓库相关工作的人，其实并不知道：</p>
 <img src="/2023/09/21/ddia/30.jpg" width="100%" height="70%" alt="图片名称" align="center">
 <ul class="lvl-0">
@@ -718,7 +717,7 @@
 </ul>
 <p>相对而言，我们更喜欢免费的开源产品，下面是一些SQL-on-Hadoop 项目：</p>
 <p>Hive-SQL、Spark-SQL、Flink-SQL、Presto、Druid、Kylin、Impala</p>
-<h4 id="3-12-雪花模型">3.12-雪花模型</h4>
+<h2 id="雪花模型">雪花模型</h2>
 <p>在OLTP系统中，可用的数据模型很丰富，比如大类上分为</p>
 <p>🅰️ 关系模型</p>
 <p>🅱️ 新的非关系模型，No-SQL模型</p>
@@ -742,7 +741,7 @@
 <p>4️⃣ 事实表格有100列以上，有时甚至有数百列，快手宽表列长达1000+列</p>
 <p>5️⃣ 星型模型进一步的扩展是雪花模型，也就是基于维度表进一步拆分</p>
 <p>当表关系可视化时，事实表在中间，由维表包围；与这些表的连接就像星星的光芒，所以这模式被命名为：“星型模式”</p>
-<h4 id="3-13-列式存储">3.13-列式存储</h4>
+<h2 id="列式存储">列式存储</h2>
 <p>在前面的存储结构中，我们介绍了</p>
 <p>🅰️ 基于日志的存储：日志结构学派</p>
 <p>🅱️ 基于页面的存储：就地更新学派</p>
@@ -775,13 +774,13 @@
     <br>
   <span style="color:gray"> 数据立方的两个维度，通过求和聚合 </span>
 </p>
-<h2 id="四、第四章节-编码和演化">四、第四章节-编码和演化</h2>
-<h4 id="4-1-什么是可演化性？">4.1-什么是可演化性？</h4>
+<h1>第四章节-编码和演化</h1>
+<h2 id="什么是可演化性？">什么是可演化性？</h2>
 <p>能灵活适应变化的系统， 修改数据系统并使其适应不断变化需求的容易程度，是与<strong>简单性</strong>和<strong>抽象性</strong>密切相关的：简单易懂的系统通常比复杂系统更容易修改</p>
-<h4 id="4-2-向后兼容，向前兼容">4.2-向后兼容，向前兼容</h4>
+<h2 id="向后兼容，向前兼容">向后兼容，向前兼容</h2>
 <p>向后兼容(backward compatibility)：新代码可以读旧数据</p>
 <p>向前兼容（forward compatibility）：旧代码可以读新数据</p>
-<h4 id="4-3-编码数据的格式有哪些？">4.3-编码数据的格式有哪些？</h4>
+<h2 id="编码数据的格式有哪些？">编码数据的格式有哪些？</h2>
 <ol>
 <li class="lvl-3">
 <p>在内存中，数据保存在对象，结构体，列表，数组，哈希表，树等中。 这些数据结构针对CPU的高效访问和操作进行了优化（通常使用指针）</p>
@@ -795,7 +794,7 @@
 </blockquote>
 </li>
 </ol>
-<h4 id="4-4-文本编码和二进制编码">4.4-文本编码和二进制编码</h4>
+<h2 id="文本编码和二进制编码">文本编码和二进制编码</h2>
 <table>
 <thead>
 <tr>
@@ -840,7 +839,7 @@
     <br>
   <span style="color:gray"> Avro 二进制编码 &amp; Avro Reader 解决读写模式的差异 </span>
 </p>
-<h4 id="4-5-数据流的类型">4.5-数据流的类型</h4>
+<h2 id="数据流的类型">数据流的类型</h2>
 <p>如果要将某些数据发送到不共享内存的另一个进程，例如，通过网络发送数据或将其写入文件，就需要将它编码为一个字节序列</p>
 <p>数据在流程之间流动的一些最常见的方式：</p>
 <ol>
@@ -854,21 +853,21 @@
 <p>通过异步消息传递：消息队列</p>
 </li>
 </ol>
-<h5 id="A-Web服务">A-Web服务</h5>
+<h3 id="A-Web服务">A-Web服务</h3>
 <p>有两种流行的Web服务方法：REST和SOAP</p>
 <p>将大型应用程序按照功能区域分解为较小的服务，一个服务请求另外一个服务的功能或者数据，这种构建应用程序的方式传统上被称为 <strong>面向服务的体系结构（service-oriented architecture，SOA）</strong> ，也称之为 <strong>微服务架构</strong></p>
 <p>REST是一个基于HTTP原则的设计哲学。它强调简单的数据格式，使用URL来标识资源，并使用HTTP功能进行缓存控制，身份验证和内容类型协商。与SOAP相比，REST已经越来越受欢迎，至少在跨组织服务集成的背景下【36】，并经常与微服务相关[31]。根据REST原则设计的API称为RESTful。</p>
-<h5 id="B-RPC">B-RPC</h5>
+<h3 id="B-RPC">B-RPC</h3>
 <p>RPC是一种协议无关的通信方式，通常使用二进制协议（如Protobuf、Thrift）或文本协议（如XML-RPC、JSON-RPC）来传输数据。它允许客户端调用远程服务器上的函数，就像本地函数一样。RPC通常是无状态的，通常使用二进制格式以提高效率</p>
 <p><strong>RESTful</strong>：RESTful是基于HTTP协议的通信方式，使用HTTP动词（GET、POST、PUT、DELETE等）来执行操作，并使用URL来定位资源。它使用标准的HTTP状态码来表示操作的结果。RESTful通常使用文本格式，如JSON或XML，以便数据可以被轻松解析和理解</p>
 <p>RPC框架的主要重点在于同一组织拥有的服务之间的请求，通常在同一数据中心内</p>
-<h2 id="五、第5章节-复制">五、第5章节-复制</h2>
+<h1>第5章节-复制</h1>
 <p>接下来是第5章的内容，这章节的内容主要是复制，所谓复制就是<strong>同一份数据保留多个副本</strong>。 复制数据的原因呢？</p>
 <p>1️⃣ 使得数据与用户在地理上接近(减少延迟)</p>
 <p>2️⃣ 即使系统的一部分出现故障，系统也能继续工作(提高可用性)</p>
 <p>3️⃣ 扩展可以接受读请求的机器数量(提高读取吞吐量)</p>
 <p>本章主要讨论三种变更<strong>复制算法</strong>（区别于复制方法/策略）：单主复制、多主复制、无主复制。当存在多个副本时，会不可避免的出现一个问题：如何确保所有数据都落在了所有的副本上？所以，复本机制真正的麻烦在于如何<strong>处理复制数据的变更</strong> 。我们来看一个非常普遍且常用解决方案：<strong>单主复制</strong></p>
-<h4 id="5-1-单主复制">5.1-单主复制</h4>
+<h2 id="单主复制">单主复制</h2>
 <p>来具体看一个场景，更换新的用户头像的实例：</p>
 <p align="center">
   <img src="/2023/09/21/ddia/34.jpg" width="100%" alt="Your image description">
@@ -884,7 +883,7 @@
 <p>关于主从和主备，主从中，“从”是向外提供服务的，而主备中的备不是对外提供的，备的作用是待“主”crash的时候成为主</p>
 </blockquote>
 <p>🎈🎈接下来呢，我们讨论复制系统的一个重要细节（复制策略）：复制是 <strong>同步(synchronously)</strong> 发生还是<strong>异步(asynchronously)</strong> 发生</p>
-<h4 id="5-2-同步-异步">5.2-同步/异步</h4>
+<h2 id="同步-异步">同步/异步</h2>
 <p>如下图：</p>
 <p align="center">
   <img src="/2023/09/21/ddia/35.jpg" width="100%" alt="Your image description">
@@ -910,7 +909,7 @@
 </li>
 </ul>
 <p>🎈🎈 从库失效的问题很好解决，从库在重新和主库建立连接之后，可以从日志知道最后一个失败的事务。然后开始追赶主库。如果主库失效了，该如何处理呢？</p>
-<h4 id="5-3-处理故障节点">5.3-处理故障节点</h4>
+<h2 id="处理故障节点">处理故障节点</h2>
 <p><strong>主库失效如何处理？</strong></p>
 <p>1️⃣ 确认主库失效</p>
 <p>2️⃣ 选择一个新的主库，<strong><u>让所有的副本达成一致意见(共识<sub>consensus</sub>问题)</u></strong></p>
@@ -950,10 +949,10 @@
 <p>模式下数据库的变更流可以应用在MySQL从库，或者Debezium/Cancel解析后推送至三方系统(消息代理Kafka、存储系统)</p>
 </blockquote>
 <p>4️⃣ 基于触发器的复制，触发器能够实现，在数据库系统中发生数据更改(写入事务)时，自动执行的自定义应用程序代码，不同于数据库系统实现的复制</p>
-<h4 id="5-4-复制延迟问题">5.4-复制延迟问题</h4>
-<h5 id="A-什么是最终一致性？">A-什么是最终一致性？</h5>
+<h2 id="复制延迟问题">复制延迟问题</h2>
+<h3 id="A-什么是最终一致性？">A-什么是最终一致性？</h3>
 <p>从库有可能落后于主库，此时同一个查询打到主库和从库，会得到不一样的结果，这种不一致只是一个暂时的状态，如果停止写入数据库并等待一段时间，从库最终会赶上并与主库保持一致。这种效应被称为 <strong>最终一致性（eventually consistency）</strong></p>
-<h5 id="B-什么是写后读一致性？">B-什么是写后读一致性？</h5>
+<h3 id="B-什么是写后读一致性？">B-什么是写后读一致性？</h3>
 <p>在异步复制策略中，用户向主提交了新数据，但是该用户的查询打到了从库，这种情况下，我们需要写后读一致性（read-after-write consistency），即：自己刚刚更新的内容，再去查询的时候，可以获取到更新</p>
 <p>具体实现的方式有：</p>
 <ol>
@@ -969,10 +968,10 @@
     <br>
   <span style="color:gray"> 写后读一致性保证 &amp; 单调读一致性保证 </span>
 </p>
-<h5 id="C-什么是单调读？">C-什么是单调读？</h5>
+<h3 id="C-什么是单调读？">C-什么是单调读？</h3>
 <p>用户首先从新副本读取，然后从旧副本读取。时光倒流，我们需要单调读一致性</p>
 <p>实现单调读取的一种方式是，确保每个用户总是从同一个副本进行读取（不同的用户可以从不同的副本读取）。例如，可以基于用户ID的散列来选择副本，而不是随机选择副本。但是，如果该副本失败，用户的查询将需要重新路由到另一个副本</p>
-<h5 id="D-什么是一致前缀读？">D-什么是一致前缀读？</h5>
+<h3 id="D-什么是一致前缀读？">D-什么是一致前缀读？</h3>
 <p>如果某些分区的复制速度慢于其他分区，那么观察者在看到问题之前可能会看到答案，我们需要提供某种保证，如果一系列写入按某个顺序发生，那么任何人读取这些写入时，也会看见它们以同样的顺序出现</p>
 <p align="center">
   <img src="/2023/09/21/ddia/62.png" width="100%" alt="Your image description">
@@ -981,18 +980,18 @@
 </p>
 <p>许多分布式数据库中，不同的分区独立运行，因此不存在<strong>全局写入顺序</strong>：当用户从数据库中读取数据时，可能会看到数据库的某些部分处于较旧的状态，而某些处于较新的状态。</p>
 <p>一种解决方案是，确保任何因果相关的写入都写入相同的分区。对于某些无法高效完成这种操作的应用，还有一些显式跟踪因果依赖关系的算法，本书将在“一致性与共识”一节中再次聊聊这个问题</p>
-<h4 id="5-5-多主复制的问题">5.5-多主复制的问题</h4>
+<h2 id="多主复制的问题">多主复制的问题</h2>
 <p>多领导者复制的最大问题是可能发生写冲突，这意味着需要 <strong>解决冲突</strong></p>
 <p align="center">
   <img src="/2023/09/21/ddia/63.png" width="100%" alt="Your image description">
     <br>
   <span style="color:gray"> 两个主库同时更新同一记录引起的写入冲突 </span>
 </p>
-<h4 id="5-6-无主复制">5.6-无主复制</h4>
+<h2 id="无主复制">无主复制</h2>
 <p>在无主复制，客户端的写入和读取，都请求到所有的副本，副本的写入有可能失败，有可能成功；读取时，选择按照法定人数（5个节点，3个节点返回数据相同）的数据回写到写入失败的节点。同时后台进程追踪节点之间的差异，趋势数据的收敛（因为有一些键没有读请求）</p>
-<h5 id="A-什么是并发？">A-什么是并发？</h5>
+<h3 id="A-什么是并发？">A-什么是并发？</h3>
 <p>为了定义并发性，确切的时间并不重要：如果两个操作都意识不到对方的存在，就称这两个操作<strong>并发</strong></p>
-<h2 id="六、第6章-分区">六、第6章-分区</h2>
+<h1>第6章-分区</h1>
 <p><strong>分区<sup class="footnote-ref"><a href="#fn10" id="fnref10">[10]</a></sup>是一种切分大数据集的方法，即一份数据切成多块</strong>，分区的目的是为了可扩展性，从而提高吞吐量。在实践中，分区通常和复制结合使用，每个分区的副本将处在多个节点上，以此获得容错能力。下图是主从复制模型下，分区和复制相结合的示意图：</p>
 <blockquote></blockquote>
 <p align="center">
@@ -1000,7 +999,7 @@
     <br>
   <span style="color:gray"> 分区和复制的实例 </span>
 </p>
-<h4 id="6-1-键值数据的分区方式">6.1-键值数据的分区方式</h4>
+<h2 id="键值数据的分区方式">键值数据的分区方式</h2>
 <p>分区最核心的问题是</p>
 <p>🅰️ 避免倾斜(skew)，即热点数据处理，放的角度</p>
 <p>🅱️ 处理访问路由问题，即查询性能的保证，取的角度</p>
@@ -1019,7 +1018,7 @@
 </p>
 改进的办法是多个列组成的复合主键，键中只有第一列会作为散列的依据，而其他列则被用作SSTables中排序数据的索引，此时如果第一列（如`user_id`）已经指定了固定值，则可以对该键的其他列（`timestamp`）执行有效的范围扫描。例如，在社交媒体网站上，一个用户可能会发布很多更新。若更新的主键被选择为`(user_id, update_timestamp)`，那么可以有效地检索，特定用户在某个时间间隔内按时间戳排序的所有更新。Casssandra使用了这种优化方式
 <blockquote></blockquote>
-<h4 id="6-2-分区和二级索引">6.2-分区和二级索引</h4>
+<h2 id="分区和二级索引">分区和二级索引</h2>
 <p>上文中我们讨论了 &lt;键值数据模型&gt; 的分区方案，次级索引是关系型数据库/文档型数据库的基础，也是<code>Solr</code>和<code>ElasticSearch</code>等搜索服务器的基石，次级索引由于不具备主键唯一的特性，导致我们并不能整齐的映射到各自的分区，有2种用二级索引对数据进行分区的方法：</p>
 <p>🅰️ 基于文档的分区(docment-based)，如下图在汽车表/文档上建立颜色和厂商的次级索引，这种索引方法中，<strong>每个分区是完全独立，每个分区维护自己的次级索引</strong>，因此，文档分区索引也叫做本地索引(local index)。在执行特定的颜色的搜索(look for red)的时候，需要将查询发送到所有分区，并合并所有返回的结果。故，这种分区查询数据库的方式有时被称为<strong>分散/聚集(scatter/gather)</strong>，这种基于二级索引上的查询可能会相当昂贵</p>
 <p align="center">
@@ -1037,7 +1036,7 @@
   <span style="color:gray"> 基于关键词的二级索引分区 </span>
 </p>
 <blockquote></blockquote>
-<h4 id="6-3-分区再平衡">6.3-分区再平衡</h4>
+<h2 id="分区再平衡">分区再平衡</h2>
 <p>将负载(数据存储和读写请求)从集群中的一个节点，向另一个节点移动的过程称为<strong>再平衡(reblancing)</strong>，再平衡应该满足一下几个要求：</p>
 <ol>
 <li class="lvl-3">
@@ -1060,7 +1059,7 @@
 </p>
 <p>2️⃣ 动态分区，当分区增长到超过配置的大小时(在HBase上，默认值是10GB)，会被分成两个分区，每个分区约占一半的数据，反之进行合并，类似B树的页分裂/合并的过程</p>
 <p>3️⃣ 分区数与节点数成正比，节点数量不变时，每个分区的大小与数据集大小成比例地增长，节点数增加时，分区数也增加，分区数据变少</p>
-<h4 id="6-4-请求路由">6.4-请求路由</h4>
+<h2 id="请求路由">请求路由</h2>
 <p>数据集已经分割到多个机器上运行的多个节点上，那么当客户想要发出请求时，如何知道要连接哪个节点呢？即请求应该路由给谁？这个问题也可以概括为<strong>服务发现(service discovery)</strong>，有目前以下三种方案：</p>
 <p>1️⃣ 允许客户联系任何节点(例如，通过<strong>循环策略的负载均衡(Round-Robin Load Balancer)</strong>)。如果该节点恰巧拥有请求的分区，则它可以直接处理该请求，否则，它将请求转发到适当的节点，接收回复并传递给客户端</p>
 <p>2️⃣ 首先将所有来自客户端的请求发送到路由层，它决定了应该处理请求的节点，并相应地转发。此路由层本身不处理任何请求，它仅负责分区的负载均衡</p>
@@ -1078,8 +1077,8 @@
     <br>
   <span style="color:gray"> 路由层如何感知分区和节点之间的关系 </span>
 </p>
-<h2 id="七、第7章节-事务">七、第7章节-事务</h2>
-<h4 id="7-1-事务的起源">7.1-事务的起源</h4>
+<h1>第7章节-事务</h1>
+<h2 id="事务的起源">事务的起源</h2>
 <p>很早就接触事务这个概念，关于事务网上的文章动不动就把转账的的例子拿出来讲，坑的时候有的压根就没有讲明白，事务的概念<strong>事务要不就执行成功，要不执行失败，只有这2种状态</strong>也背的烂熟，也知道事务的4大特性ACID (原子性、一致性、隔离性、持久性)，但是这么些年从来没有思考过：为什么要有事务？他解决了什么样子的问题/痛点？那么我们带着这个问题来回顾一下事务起源：</p>
 <p align="center">
   <img src="/2023/09/21/ddia/36.jpg" width="90%" alt="Your image description">
@@ -1094,15 +1093,15 @@
 <p>4️⃣ 多个客户端同时操作数据库，覆盖彼此的更新</p>
 <p>5️⃣ 客户写到一半的数据，被另外一个客户读取到</p>
 <p>6️⃣ 客户之间的竞争导致的令人惊讶的错误</p>
-<p>所有的这一些都需要应用程序的开发者猪小明去解决，但是这个工作量是巨大的，应用开发应该专注于业务，而不是通用问题的处理，这些问题应该留给下层的数据库去处理。所以为了<strong>简化应用编程模型</strong> ，事务诞生了。通过使用事务，应用程序可以自由地忽略某些潜在的错误情况和并发问题，因为数据库会替应用处理好这些问题</p>
-<p>1974年的时候，IBM的圣荷西研究中心发布了第一款提供优秀的事务处理能力的关系型数据库R[seminal-project]。时至今日开发者已经习惯了事务，他们觉得事务是理所当然的，是天然就存在的，然而并不是，了解事务出现的历史，我们可以发现事务是我们的计算机先驱们为了解决一揽子问题，提供的一种解决方案</p>
-<h4 id="7-2-ACID">7.2-ACID</h4>
+<p>所有的这一些都需要应用程序的开发者，猪小明去解决，但是这个工作量是巨大的，应用开发应该专注于业务，而不是通用问题的处理，这些问题应该留给下层的数据库去处理。所以为了<strong>简化应用编程模型</strong> ，事务诞生了。通过使用事务，应用程序可以自由地忽略某些潜在的错误情况和并发问题，因为数据库会替应用处理好这些问题</p>
+<p>1974年的时候，IBM的圣荷西研究中心发布了，第一款提供优秀的事务处理能力的关系型数据库R[seminal-project]。时至今日开发者已经习惯了事务，他们觉得事务是理所当然的，是天然就存在的，然而并不是，了解事务出现的历史，我们可以发现事务是我们的计算机先驱们为了解决一揽子问题，提供的一种解决方案</p>
+<h2 id="ACID">ACID</h2>
 <p>谈及事务，必谈事务的4大特性ACID；那么ACID 分别指的是什么？</p>
 <p><em><strong>A</strong>tomicity</em> ： 原子性。<strong>能够在错误时中止事务，丢弃该事务进行的所有写入变更的能力</strong>，可以理解为<strong>可终止性</strong>。假设没有原子性，如果有多次更改，但是更改发生过程中发生了错误，应用程序很难判断哪些更改生效了，哪些没有生效。如果有了原子性，应用程序可以确定的知道在发生错误时，所有更改没有生效。<strong>没有原子性，错误处理就会变的很复杂</strong></p>
 <blockquote>
-<p>区别于线程的原子操作：多线程中的原子操作描述的是如果一个线程执行一个原子操作，意味着另外一个线程无法看到该原子操作的中间结果。而这个特性在ACID中是 <em>I(isolation)</em> 来描述的</p>
+<p>区别于线程的原子操作：多线程中的原子操作描述的是，如果一个线程执行一个原子操作，意味着另外一个线程无法看到该原子操作的中间结果。而这个特性在ACID中是 <em>I(isolation)</em> 来描述的</p>
 </blockquote>
-<p><em><strong>C</strong>onsistency</em>：一致性。在事务中，一致性是指：<strong>对数据的一组特定陈述必须始终成立</strong>，即为<em>不变量</em>，如在会计系统中，所有账户整体上必须借贷相抵。原子性，隔离性和持久性是数据库的属性，而一致性(在ACID意义上)是应用程序的属性</p>
+<p><em><strong>C</strong>onsistency</em>：一致性。在事务中，一致性是指：<strong>对数据的一组特定陈述必须始终成立</strong>，即为<em>不变量</em>，如在会计系统中，所有账户整体上必须借贷相抵，转账过程中，加钱和减钱是相等的。原子性，隔离性和持久性是数据库的属性，而一致性(在ACID意义上)是应用程序的属性</p>
 <blockquote>
 <p>这是一个一词多意的词，用行话来说，这个词被重载了</p>
 <ul class="lvl-1">
@@ -1121,18 +1120,18 @@
 <p align="center">
   <img src="/2023/09/21/ddia/02.jpg" width="85%" alt="Your image description">
     <br>
-  <span style="color:gray"> 并发场景下，需要隔离性的保证 </span>
+  <span style="color:gray"> 两个客户之间的竞争状态同时递增计数器 </span>
 </p>
 <p><em><strong>D</strong>urability</em> ：持久性。持久性是事务的一个承诺，也即事务完成后，即便发生硬件故障或者数据库崩溃，写入的任务数据也不会丢失。持久性过去一般被认为写入了非易失性存储介质</p>
-<h4 id="7-3-单对象操作和多对象操作">7.3-单对象操作和多对象操作</h4>
-<p><strong>单一对象操作</strong>，所谓单对象操作中的对象指的是数据库中被修改的对象，比如你正在向数据库写入一个20KB的Json文档，以下场景可能会发生：</p>
+<h2 id="单对象操作和多对象操作">单对象操作和多对象操作</h2>
+<p><strong>单一对象操作</strong>，所谓单对象操作中的对象，指的是数据库中被修改的对象，比如你正在向数据库写入一个20KB的Json文档，以下场景可能会发生：</p>
 <p>1️⃣ 在发送第一个10KB之后，网络连接中断，数据库是否存储了不可解析的10KBJSON片段？</p>
 <p>2️⃣ 在数据库正在覆盖的磁盘上前一个值的过程中电源发生故障，是否最终将新旧值拼接在一起？</p>
 <p>3️⃣ 如果另一个客户端在写入过程中读取该文档，是否会看到部分更新？</p>
 <p>这里的 JSON对象，就是单一对象，单一对象是相对于多对象而言的，待会我们会谈及到多对象。为了针对以上的问题，存储引擎会在单个对象上提供原子性和隔离性，如此一来：</p>
 <p>🅰️ 原子性通过WAL(即redo-log)日志来实现崩溃恢复</p>
 <p>🅱️ 使用每个对象的锁来实现隔离(每次仅仅允许一个线程访问对象)</p>
-<p><strong>CAS</strong>，为了防止多个客户端同时写入同一个对象时的更新丢失，除了单对象操作，还有就是CAS(Compare-and-set)，也就是当值没有并发被其他人修改的时候，才允许执行写入操作。CAS操作和单对象操作，被称作是轻量级事务。<strong>事务通常更多的强调 ： 将多个对象的多个操作合并为一个执行的单元的机制</strong>。</p>
+<p>除了单对象操作，还有就是CAS(Compare-and-set)，防止多个客户端同时写入同一个对象时的更新丢失，即当值没有并发被其他人修改的时候，才允许执行写入操作。CAS操作和单对象操作，被称作是轻量级事务。<strong>事务通常更多的强调 ： 将多个对象的多个操作合并为一个执行的单元的机制</strong></p>
 <p><strong>何为多对象？</strong> 在操作数据库时，需要协调写入几个不同的对象：</p>
 <ul class="lvl-0">
 <li class="lvl-2">
@@ -1164,7 +1163,7 @@
 </ul>
 <p>🅱️ 隔离级别最高是可序列化，表示同一时间只能有一个事务。隔离级别和性能之间是一个负相关的关系，也就是说隔离级别越高，数据一致性的保证越好，但是性能越差。隔离级别是数据一致性和服务性能的一场博弈。为了实现更优的性能，我们需要较弱的隔离级别</p>
 <p>下面介绍这些弱隔离级别</p>
-<h4 id="7-4-读已提交">7.4-读已提交</h4>
+<h2 id="读已提交">读已提交</h2>
 <p>最基本的弱隔离级别是，读已提交，它提供了两个保证：</p>
 <ul class="lvl-0">
 <li class="lvl-2">
@@ -1183,40 +1182,44 @@
 <p>但是不能够防止脏读</p>
 </li>
 </ul>
-<p>下图是一个没有脏读的例子：可以看到<em>直到用户1提交了之后</em>，用户2才看到提交之后的值x=3,而在这之前用户3只能看到x=2。</p>
+<p>下图是一个没有脏读的例子：可以看到<em>直到用户1提交了之后</em>，用户2才看到提交之后的值x=3,而在这之前用户1只能看到x=2</p>
 <p align="center">
   <img src="/2023/09/21/ddia/03.jpg" width="85%" alt="Your image description">
     <br>
-  <span style="color:gray"> 并发场景下，需要隔离性的保证 </span>
+  <span style="color:gray"> 用户2只有在用户1的事务已经提交后才能看到x的新值 </span>
 </p>
 <p>那么为什么要防止脏读呢？主要是下面两个原因：</p>
 <p>1️⃣ 如果事务需要更新多个对象，脏读取意味着另一个事务可能会只看到一部分更新。比如说下面这个电子邮件的例子。事务还没有提交，但是用户2看到了未读邮件，可是未读邮件的数量却还是旧值</p>
 <p align="center">
   <img src="/2023/09/21/ddia/04.jpg" width="85%" alt="Your image description">
     <br>
-  <span style="color:gray"> 并发场景下，需要隔离性的保证 </span>
+  <span style="color:gray"> 一个事务读取另一个事务的未被执行的写入（“脏读”） </span>
 </p>
 <p>2️⃣ 若数据库允许脏读，意味着一个事务可能会看到稍后需要回滚的数据，即从未实际提交给数据库的数据。比如下面的例子中读到了未提交的数据，但是后面事务回滚了</p>
 <p align="center">
   <img src="/2023/09/21/ddia/05.jpg" width="85%" alt="Your image description">
     <br>
-  <span style="color:gray"> 并发场景下，需要隔离性的保证 </span>
+  <span style="color:gray"> 原子性确保发生错误时，事务先前的任何写入都会被撤消，以避免状态不一致 </span>
 </p>
-没有脏写，在写入数据库时，只会覆盖已经写入的数据，也就是说两个事务同时更新数据库中的对象，先前的写入没有提交，后面的写入覆盖这个尚未提交的值，这就是脏写。在**读已提交**的隔离级别上运行的事务必须防止脏写，通常是延迟第二次写入，直到第一次写入事务提交或中止为止。下图是脏写发生的示例，发票属于Alice; 销售属于Bob
-<img src="/2023/09/21/ddia/06.jpg" width="100%" height="70%" alt="图片名称" align="center"> 
-<h4 id="5-5-实现读已提交">5.5-实现读已提交</h4>
+<p>两个事务同时更新数据库中的对象，先前的写入没有提交，后面的写入覆盖这个尚未提交的值，这就是脏写。没有脏写，意味着在写入数据库时，只会覆盖已经写入的数据。在<strong>读已提交</strong>的隔离级别上运行的事务必须防止脏写，通常是延迟第二次写入，直到第一次写入事务提交或中止为止。下图是脏写发生的示例，发票属于Alice; 销售属于Bob’</p>
+<p align="center">
+  <img src="/2023/09/21/ddia/06.jpg" width="85%" alt="Your image description">
+    <br>
+  <span style="color:gray"> 如果存在脏写，来自不同事务的冲突写入可能会混淆在一起 </span>
+</p>
+<h2 id="实现读已提交">实现读已提交</h2>
 <p>读已提交是一种非常Fashion的一个隔离级别，有很多数据库软件将读已提交设置为默认的隔离级别，比如Oracle 11、PostgreSQL、SQLServer 2012 ，那么如何实现</p>
-<p>1️⃣ 无脏写保证：数据库通过使用 <strong>行锁(row-level lock)<sup class="footnote-ref"><a href="#fn15" id="fnref15">[15]</a></sup></strong> 来防止脏写；即当事务想要修改特定对象时，必须获取该对象的锁，然后必须持有该锁直到事务被提交或终止。这种锁定是读已提交模式(或更强的隔离级别)的数据库自动完成的</p>
+<p>1️⃣ 无脏写保证：数据库通过使用 <strong>行锁(row-level lock)<sup class="footnote-ref"><a href="#fn15" id="fnref15">[15]</a></sup></strong> 来防止脏写；即当事务想要修改特定对象时，必须获取该对象的锁，然后必须持有该锁，直到事务被提交或终止。这种锁定是读已提交模式（或更强的隔离级别）的数据库自动完成的</p>
 <blockquote></blockquote>
 <p>2️⃣ 无脏读保证：MVCC<sup class="footnote-ref"><a href="#fn16" id="fnref16">[16]</a></sup> ，数据库都会记住旧的已提交值，和当前持有写入锁的事务设置的新值。 当事务正在进行时，任何其他读取对象的事务都会拿到旧值。 只有当新值提交后，事务才会切换到读取新值</p>
 <blockquote>
 <p align="center">
   <img src="/2023/09/21/ddia/07.png" width="85%" alt="Your image description">
     <br>
-  <span style="color:gray"> todo </span>
+  <span style="color:gray"> 一个值从1按顺序修改为4的过程。在读已提交的隔离级别下，仅仅保留为提交版本和提交前版本2个版本 </span>
 </p>
 </blockquote>
-<p>读已提交的隔离级别无法避免<em>不可重复读</em>的情况，下面的例子：爱丽丝在银行有1000美元的储蓄，两个账户，每个500美元；现在一个事务从她的一个账户中转移了100美元到另一个账户</p>
+<p>读已提交的隔离级别无法避免<em>不可重复读</em>的情况，下面的例子：爱丽丝在银行有1000美元的储蓄，两个账户，每个500美元；现在一个事务从她的一个账户中，转移了100美元到另一个账户</p>
 <ul class="lvl-0">
 <li class="lvl-2">
 <p>Alice在转账事务之前查询了账户1的金额为500元</p>
@@ -1229,17 +1232,17 @@
 </li>
 </ul>
 <p align="center">
-  <img src="/2023/09/21/ddia/07.jpg" width="85%" alt="Your image description">
+  <img src="/2023/09/21/ddia/07.jpg" width="75%" alt="Your image description">
     <br>
-  <span style="color:gray"> todo </span>
+  <span style="color:gray">读取偏差：Alice观察数据库处于不一致的状态 </span>
 </p> 
-这种，这种异常被称为**不可重复读(nonrepeatable read)**，如果Alice在事务结束时再次读取账户1的余额，她将看到与她之前的查询中看到的不同的值(600美元)。在读已提交的隔离条件下，**不可重复读**可能会发生
-<h4 id="5-6-实现快照隔离">5.6-实现快照隔离</h4>
-<p>快照隔离的另外一个叫法是可重复读，快照隔离和读已提交一致，使用写锁来防止脏写，也就是正在进行写入的事务会阻止另外一个事务修改同一个对象。读取没有任何的锁定，<strong>写不阻塞读，读不阻塞写</strong>，RC下也是，数据库使用<strong>多版本并发控制(MVCC, multi-version concurrentcy control)</strong> 数据库保留一个对象的几个不同的提交版本。另外使用MVCC实现快照隔离的存储引擎通常也会使用MVCC来实现读已提交(一个对象的两个版本：提交的版本和被覆盖但尚未提交的版本)，如下面PostgreSQL的例子：</p>
+<p>这种，这种异常被称为<strong>不可重复读(nonrepeatable read)</strong>，如果Alice在事务结束时再次读取账户1的余额，她将看到与她之前的查询中看到的不同的值(600美元)。在读已提交的隔离条件下，<strong>不可重复读</strong>可能会发生</p>
+<h2 id="实现快照隔离">实现快照隔离</h2>
+<p>快照隔离的另外一个叫法是可重复读，快照隔离和读已提交一致，使用写锁来防止脏写，也就是正在进行写入的事务会阻止另外一个事务修改同一个对象。读取没有任何的锁定，<strong>写不阻塞读，读不阻塞写</strong>，RC下也是，数据库使用<strong>多版本并发控制(MVCC, multi-version concurrentcy control)</strong> 数据库保留一个对象的几个不同的提交版本。另外使用MVCC实现快照隔离的存储引擎通常也会使用MVCC来实现读已提交(一个对象的两个版本：提交的版本和被覆盖但尚未提交的版本)</p>
 <p align="center">
-  <img src="/2023/09/21/ddia/08.jpg" width="85%" alt="Your image description">
+  <img src="/2023/09/21/ddia/08.jpg" width="75%" alt="Your image description">
     <br>
-  <span style="color:gray"> todo </span>
+  <span style="color:gray">  使用多版本对象实现快照隔离 </span>
 </p>
 <p>那么我们再来看一下<em>一致性快照的可见性规则</em>：也就是说当一个事务从数据库中读取时，事务ID用于决定它可以看见哪些对象，看不见哪些对象。规则如下：</p>
 <p>1️⃣ 在每次事务开始时，数据库列出当时所有其他(尚未提交或中止)的事务清单，即使之后提交了，这些事务的写入也都会被忽略</p>
@@ -1251,69 +1254,80 @@
 <p>2️⃣ 在“读提交”隔离级别下，这个视图是在每个 SQL 语句开始执行的时候创建的</p>
 <p>3️⃣ 在“可重复读”隔离级别下，这个视图是在事务启动时创建的，整个事务存在期间都用这个视图</p>
 <p>4️⃣ “串行化”隔离级别下直接用加锁的方式来避免并行访问</p>
-<h4 id="7-7-丢失更新-写偏差">7.7-丢失更新 &amp; 写偏差</h4>
-<p>前面描述的是读-写并发场景下只读事务在并发写入时候能看到什么，另外一个问题是两个事务并发写入的问题，即写-写冲突。如下图就是<strong>丢失更新</strong>的例子</p>
+<h2 id="丢失更新">丢失更新</h2>
+<p>前面描述的是读-写并发场景下，只读事务在并发写入时候能看到什么，另外一个问题是两个事务并发写入的问题，即写-写冲突。如下图就是<strong>丢失更新</strong>的例子</p>
 <p align="center">
   <img src="/2023/09/21/ddia/02.jpg" width="85%" alt="Your image description">
     <br>
-  <span style="color:gray"> todo </span>
+  <span style="color:gray"> 丢失更新：两个客户之间的竞争状态同时递增计数器 </span>
 </p>
-<p>解决写-写冲突有很多方式，比如比较并设置(CAS)</p>
-<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> wiki_pages <span class="keyword">set</span> content <span class="operator">=</span> <span class="string">'新内容'</span></span><br><span class="line">  <span class="keyword">where</span> id <span class="operator">=</span> <span class="number">1234</span> <span class="keyword">and</span> content <span class="operator">=</span> <span class="string">'旧内容'</span>;</span><br></pre></td></tr></tbody></table></figure>
+<p>解决写-写冲突有很多方式，比如原子写（数据库提供），显示锁定，比较并设置(CAS)</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 数据库提供原子更新操作，消除在应用程序代码中执行读取-修改-写入序列的需要</span></span><br><span class="line"><span class="keyword">update</span> counters <span class="keyword">set</span> <span class="keyword">value</span> <span class="operator">=</span> <span class="keyword">value</span> <span class="operator">+</span> <span class="number">1</span> <span class="keyword">where</span> key <span class="operator">=</span> <span class="string">'foo'</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 显示锁定</span></span><br><span class="line"><span class="keyword">begin</span> transaction;</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> figures</span><br><span class="line">    <span class="keyword">where</span> name <span class="operator">=</span> <span class="string">'robot'</span> <span class="keyword">and</span> game_id <span class="operator">=</span> <span class="number">222</span></span><br><span class="line"><span class="keyword">for</span> <span class="keyword">update</span>; <span class="comment">-- `for update` 子句告诉数据库应该对该查询返回的所有行加锁</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 检查玩家的操作是否有效，然后更新先前select返回棋子的位置</span></span><br><span class="line"><span class="keyword">update</span> figures <span class="keyword">set</span> position <span class="operator">=</span> <span class="string">'c4'</span> <span class="keyword">where</span> id <span class="operator">=</span> <span class="number">1234</span>;</span><br><span class="line"><span class="keyword">commit</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 设置(CAS)</span></span><br><span class="line"><span class="keyword">update</span> wiki_pages <span class="keyword">set</span> content <span class="operator">=</span> <span class="string">'新内容'</span></span><br><span class="line">  <span class="keyword">where</span> id <span class="operator">=</span> <span class="number">1234</span> <span class="keyword">and</span> content <span class="operator">=</span> <span class="string">'旧内容'</span>;</span><br></pre></td></tr></tbody></table></figure>
 <p>在MySQL中，使用当前读<sup class="footnote-ref"><a href="#fn17" id="fnref17">[17]</a></sup>的方式来处理写-写冲突，下图为RR隔离级别下，写-写冲突的例子</p>
 <blockquote></blockquote>
 <p align="center">
   <img src="/2023/09/21/ddia/10.jpg" width="85%" alt="Your image description">
     <br>
-  <span style="color:gray"> todo </span>
+  <span style="color:gray">  </span>
 </p>
+<h2 id="写偏差">写偏差</h2>
+<p>如果两个事务读取相同的对象，然后不同的事务可能更新不同的对象，则可能发生写偏差(写偏差包含丢失更新)</p>
 <p>下面是写偏差的例子，描述的是一个医生轮班管理程序，医院有以下的要求：至少有一位医生在待命，现在Alice 和 Bob 两位值班医生都感觉到不适，决定请假：</p>
 <p align="center">
-  <img src="/2023/09/21/ddia/09.jpg" width="85%" alt="Your image description">
+  <img src="/2023/09/21/ddia/09.jpg" width="75%" alt="Your image description">
     <br>
-  <span style="color:gray"> todo </span>
+  <span style="color:gray"> 写入偏差导致应用程序错误的示例 </span>
 </p>
-<p>如果两个事务读取相同的对象，然后不同的事务可能更新不同的对象，则可能发生写偏差(写偏差包含丢失更新)。在多个事务更新同一个对象的特殊情况下，就会发生脏写或丢失更新(取决于时机) <strong>防止写偏差需要使用序列化隔离级别</strong>。下图是一个幻读的例子：</p>
+<p>在多个事务更新同一个对象的特殊情况下，就会发生脏写或丢失更新(取决于时机) <strong>防止写偏差，需要使用序列化隔离级别</strong></p>
+<h2 id="幻读">幻读</h2>
+<p><strong>一个事务中的写入改变另一个事务的搜索查询的结果，称为幻读</strong></p>
+<p>下图是一个幻读的例子：</p>
 <blockquote>
 <p>幻读会导致写偏差。快照隔离避免了只读事务中的幻读，但是无法避免读写事务中的幻读。从上面的例子来看，幻读的问题貌似是没有对象可以加锁。人为的引入锁对象的方式被称之为<em>物化冲突</em></p>
 </blockquote>
 <p align="center">
-  <img src="/2023/09/21/ddia/11.jpg" width="85%" alt="Your image description">
+  <img src="/2023/09/21/ddia/11.jpg" width="75%" alt="Your image description">
     <br>
-  <span style="color:gray"> todo </span>
+  <span style="color:gray"> 干扰事务 干扰 主事务的执行 </span>
 </p>
-<p>🅰️ 主事务，检测表中是否有id为1的记录，没有则插入，这是我们期望的正常业务逻辑</p>
-<p>🅱️ 干扰事务，目的在于扰乱主事务 的正常的事务执行</p>
-<p>我们看到，干扰事务率先执行了，主事务发生了幻读，因为主事务读取的状态并不能支持它的下一步逻辑，感觉看到了幻影。<strong>一个事务中的写入改变另一个事务的搜索查询的结果，称为幻读</strong> ，上例中是干扰事务妨碍了主事务搜索结果。在MySQL中，使用间隙锁(下文会涉及到)来处理幻读问题。<em>不可重复读侧重表达读-读，幻读则是说读-写，用写来证实读的是鬼影</em></p>
-<h4 id="7-8-序列化-串行化">7.8-序列化/串行化</h4>
-<p>对串行化的理解应当是这样的：一次只执行一个事务。设计单线程的系统有时候比支持并发的系统更好，因为它可以避免协调锁的开销。数据库的早期，数据库意图包含整个用户的活动流程，但是如今的web应用，一个事务不会跨越多个请求，事务会在同一个Http请求被提交</p>
-<h5 id="7-8-1-两阶段锁定-2PL">7.8.1- 两阶段锁定-2PL</h5>
-<p>30年以来，数据库中只有一种广泛使用的序列化算法：<strong>两阶段锁定(2PL，two-phase locking)</strong>。2PL要求只要没有写入，就允许多个事务同时读取同一个对象。但对象只要有写入(修改或删除)，就需要<strong>独占访问(exclusive access)</strong> 权限。锁可以处于<em>共享模式</em>，可以处于<em>独占模式</em>：</p>
+<p>🅰️ 主事务，检测表中是否有<code>id=1</code>的记录，没有则插入（<code>for update</code> 没有用，因为没有加锁对象），这是我们期望的正常业务逻辑</p>
+<p>🅱️ 干扰事务，目的在于扰乱，主事务的正常的事务执行</p>
+<p>我们看到，干扰事务率先执行了，主事务发生了幻读，因为主事务读取的状态并不能支持它的下一步逻辑，感觉看到了幻影。上例中是干扰事务妨碍了主事务搜索结果。在MySQL中，使用间隙锁（下文会涉及到）来处理幻读问题。<em>不可重复读侧重表达读-读，幻读则是说读-写，用写来证实读的是鬼影</em></p>
+<h2 id="序列化-串行化">序列化/串行化</h2>
+<p>对串行化的理解应当是这样的：一次只执行一个事务。设计单线程的系统有时候比支持并发的系统更好，因为它可以避免协调锁的开销。数据库的早期，数据库意图包含整个用户的活动流程，但是如今的web应用，一个事务不会跨越多个请求，事务会在同一个HTTP请求被提交</p>
+<h3 id="两阶段锁定-2PL">两阶段锁定-2PL</h3>
+<p>30年以来，数据库中只有一种广泛使用的序列化算法：<strong>两阶段锁定(2PL，two-phase locking)</strong>。两阶段这个名字的来源：第1阶段（当事务正在执行时）获取锁，第2阶段(在事务结束时)释放所有的锁</p>
+<p>2PL要求只要没有写入，就允许多个事务同时读取同一个对象。但对象只要有写入(修改或删除)，就需要<strong>独占访问(exclusive access)</strong> 权限。锁可以处于<em>共享模式</em>，可以处于<em>独占模式</em>：</p>
 <p>1️⃣ 若事务要读取对象，则须先以共享模式获取锁。允许多个事务同时持有共享锁。但如果另一个事务已经在对象上持有排它锁，则这些事务必须等待</p>
 <p>2️⃣ 若事务要写入一个对象，它必须首先以独占模式获取该锁。没有其他事务可以同时持有锁(无论是共享模式还是独占模式)，所以如果对象上存在任何锁，该事务必须等待</p>
 <p>3️⃣ 如果事务先读取再写入对象，则它可能会将其共享锁升级为独占锁。升级锁的工作与直接获得排他锁相同</p>
-<p>4️⃣ 事务获得锁之后，必须继续持有锁直到事务结束(提交或中止)，这就是“两阶段”这个名字的来源：第1️⃣阶段(当事务正在执行时)获取锁，第2️⃣阶段(在事务结束时)释放所有的锁</p>
-<p>在Java中有这么一个定律：对象(Object)就是锁，前面内容涉及到的锁都是针对特定对象的(如表中的一行)，对于某些更改没有特定对象，有没有一种锁针对这种场景呢？</p>
-<h5 id="7-8-2-谓词锁">7.8.2-谓词锁</h5>
+<p>4️⃣ 事务获得锁之后，必须继续持有锁直到事务结束（提交或中止）</p>
+<p>由于加了这么多的锁，可能会发生死锁情况，死锁及死锁检测的内容可以看看MySQL的笔记</p>
+<p>在Java中有这么一个定律：对象（Object）就是锁，前面内容涉及到的锁都是针对特定对象的(如表中的一行)，对于某些更改没有特定对象，有没有一种锁针对这种场景呢？</p>
+<h3 id="谓词锁">谓词锁</h3>
 <p>谓词锁类似于共享/排它锁，但不属于特定的对象（例如，表中的一行），它属于所有符合某些搜索条件的对象，如：</p>
 <figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> bookings</span><br><span class="line"><span class="keyword">where</span> room_id <span class="operator">=</span> <span class="number">123</span> <span class="keyword">and</span></span><br><span class="line">      end_time <span class="operator">&gt;</span> <span class="string">'2018-01-01 12:00'</span> <span class="keyword">and</span> </span><br><span class="line">      start_time <span class="operator">&lt;</span> <span class="string">'2018-01-01 13:00'</span>;</span><br></pre></td></tr></tbody></table></figure>
 <p>谓词锁限制访问：</p>
-<p>🅰️ 如果事务A想要读取匹配某些条件的对象，就像在这个 <code>select</code> 查询中那样，它必须获取查询条件上的<strong>共享谓词锁(shared-mode predicate lock)</strong>。如果另一个事务B持有任何满足这一查询条件对象的排它锁，事务A必须等到B释放它的锁之后才允许进行查询</p>
-<p>🅱️ 如果事务A想要插入，更新或删除任何对象，则必须首先检查旧值或新值是否与任何现有的谓词锁匹配。如果事务B持有匹配的谓词锁，那么A必须等到B已经提交或中止后才能继续</p>
-<p>谓词锁的关键思想是，<strong>谓词锁甚至适用于数据库中尚不存在，但将来可能会添加的对象(幻象)</strong>。和快照隔离的区别在是：快照隔离中读不阻塞写，写不阻塞读；2PL中，写阻塞读，读阻塞写</p>
-<h5 id="7-8-3-索引范围锁">7.8.3-索引范围锁</h5>
-<p>谓词锁的弊端是性能不佳：<strong>如果活跃事务持有很多锁，检查匹配的锁会非常耗时</strong>。因此，大多数使用2PL的数据库实际上实现了索引范围锁(也称为<strong>间隙锁(next-key locking)</strong>)，间隙锁是一种简化的近似版谓词锁</p>
-<p>比如在房间预订数据库中，您可能会在<code>room_id</code>列上有一个索引，并且/或者在<code>start_time</code> 和 <code>end_time</code>上有索引(否则前面的查询在大型数据库上的速度会非常慢)</p>
-<p>🅰️ 假设您的索引位于<code>room_id</code>上，并且数据库使用此索引查找123号房间的现有预订。现在数据库可以简单地将共享锁附加到这个索引项上，指示事务已搜索123号房间用于预订</p>
-<p>🅱️ 或者，如果数据库使用基于时间的索引来查找现有预订，那么它可以将共享锁附加到该索引中的一系列值，指示事务已经将12:00~13:00时间段标记为用于预定</p>
+<p>🅰️ 如果事务A想要，<strong>读取</strong>匹配某些条件的对象，就像在这个 <code>select</code> 查询中那样，它必须获取查询条件上的<strong>共享谓词锁(shared-mode predicate lock)</strong>。如果另一个事务B，持有任何满足这一查询条件对象的排它锁，事务A必须等到B释放它的锁之后才允许进行查询</p>
+<p>🅱️ 如果事务A想要，<strong>插入，更新或删除</strong>任何对象，则必须首先检查旧值或新值，是否与任何现有的谓词锁匹配。如果事务B持有匹配的谓词锁，那么A必须等到B已经提交或中止后才能继续</p>
+<p>谓词锁的关键思想是，<strong>谓词锁甚至适用于数据库中尚不存在，但将来可能会添加的对象（幻象）</strong>。和快照隔离的区别在是：快照隔离中读不阻塞写，写不阻塞读；2PL中，写阻塞读，读阻塞写</p>
+<h3 id="索引范围锁">索引范围锁</h3>
+<p>索引范围锁，也称为<strong>间隙锁(next-key locking)</strong></p>
+<p>谓词锁的弊端是性能不佳：<strong>如果活跃事务持有很多锁，检查匹配的锁会非常耗时</strong>。因此，大多数使用2PL的数据库实际上实现了索引范围锁，间隙锁是一种简化的近似版谓词锁</p>
+<p>比如在房间预订数据库中，您可能会在<code>room_id</code>列上有一个索引，并且/或者在<code>start_time</code> 和 <code>end_time</code>上有索引（否则前面的查询在大型数据库上的速度会非常慢</p>
+<p>🅰️ 假设您的索引位于<code>room_id</code>上，并且数据库使用此索引查找<code>123</code>号房间的现有预订。现在数据库可以简单地将共享锁附加到这个索引项上，指示事务已搜索<code>123</code>号房间用于预订</p>
+<p>🅱️ 或者，如果数据库使用基于时间的索引来查找现有预订，那么它可以将共享锁附加到该索引中的一系列值，指示事务已经将<code>12:00~13:00</code> 时间段标记为用于预定</p>
 <p>无论哪种方式，搜索条件的近似值都附加到其中一个索引上。现在，如果另一个事务想要插入，更新或删除同一个房间和/或重叠时间段的预订，则它将不得不更新索引的相同部分。在这样做的过程中，它会遇到共享锁，它将被迫等到锁被释放。这种方法能够有效防止幻读和写入偏差</p>
-<h4 id="7-9-序列化快照隔离（SSI）">7.9-序列化快照隔离（SSI）</h4>
+<h2 id="序列化快照隔离（SSI）">序列化快照隔离（SSI）</h2>
 <p><strong>可序列化快照隔离(SSI, serializable snapshot isolation)</strong> 它提供了完整的可序列化隔离级别，但与快照隔离相比只有只有很小的性能损失，是一种新的隔离技术</p>
-<h4 id="7-10-总结">7.10-总结</h4>
+<h2 id="总结-2">总结</h2>
 <p>1️⃣ 脏读: 一个客户端读取到另一个客户端尚未提交的写入。<strong>读已提交</strong>或更强的隔离级别可以防止脏读</p>
 <p>2️⃣ 脏写: 一个客户端覆盖写入了另一个客户端尚未提交的写入。几乎所有的事务实现都可以防止脏写</p>
-<p>3️⃣ 读取偏差(不可重复读): 在同一个事务中，客户端在不同的时间点会看见数据库的不同状态。<strong>快照隔离</strong>经常用于解决这个问题，它允许事务从一个特定时间点的一致性快照中读取数据。快照隔离通常使用<strong>多版本并发控制(MVCC)</strong> 来实现</p>
+<p>3️⃣ 读取偏差(不可重复读): 在同一个事务中，客户端在不同的时间点会看见数据库的不同状态。<strong>快照隔离</strong>经常用于解决这个问题，它允许事务，从一个特定时间点的一致性快照中读取数据。快照隔离通常使用<strong>多版本并发控制(MVCC)</strong> 来实现</p>
 <p>4️⃣ 更新丢失: 两个客户端同时执行<strong>读取-修改-写入序列</strong>。其中一个写操作，在没有合并另一个写入变更情况下，直接覆盖了另一个写操作的结果。所以导致数据丢失。快照隔离的一些实现可以自动防止这种异常，而另一些实现则需要手动锁定(<code>select for update</code>)</p>
+<blockquote>
+<p>和脏写的区别在于：脏写是覆盖尚未提交的写入，更新丢失是覆盖了一个已提交的写入</p>
+</blockquote>
 <p>5️⃣ 写偏差: 一个事务读取一些东西，根据它所看到的值作出决定，并将决定写入数据库。但是，写的时候，决定的前提不再是真实的。只有可序列化的隔离才能防止这种异常</p>
 <p>6️⃣ 幻读 : 事务读取符合某些搜索条件的对象，另一个客户端进行写入，影响搜索结果。快照隔离可以防止直接的幻像读取，但是写入歪斜环境中的幻读需要特殊处理，例如索引范围锁定。只有可序列化的隔离才能防范所有这些问题。我们讨论了实现可序列化事务的三种不同方法：</p>
 <ul class="lvl-0">
@@ -1327,7 +1341,7 @@
 <p><strong>可串行化快照隔离(SSI)</strong></p>
 </li>
 </ul>
-<h2 id="八、第9章节-一致性与共识">八、第9章节-一致性与共识</h2>
+<h1>第9章节-一致性与共识</h1>
 <p>构建容错系统的最好方法，是找到一些带有实用保证的通用抽象，实现一次，然后让应用依赖这些保证。比如通过使用<strong>事务</strong>这个抽象，应用可以假装没有崩溃(原子性)，没有其他人同时访问数据库(隔离性)，存储设备是完全可靠的(持久性)。即使发生崩溃，竞态条件和磁盘故障，事务抽象隐藏了这些问题，因此应用不必担心它们</p>
 <p>同样的分布式系统最重要的抽象之一就是<strong>共识(consensus)</strong>：<strong>其非正式定义是让所有的节点对某件事达成一致</strong></p>
 <blockquote>
@@ -1336,7 +1350,7 @@
 <p>分布式一致性主要是关于：面对延迟和故障时，如何协调副本间的状态</p>
 <p>事务隔离的目的是为了，避免由于同时执行事务而导致的竞争状态</p>
 </blockquote>
-<h4 id="6-1-线性一致性">6.1-线性一致性</h4>
+<h2 id="线性一致性">线性一致性</h2>
 <p>多数的数据库提供了最终一致性的保证(数据是最终收敛的)。最终一致性的问题是：如果你在同一个时刻问2个副本同样一个问题，可能得到不同的答案，<strong>线性一致性</strong>尝试提供只有一个副本的假象，即提供新鲜度保证(一个客户端完成写操作，所有client可以必须能看到最新的答案)</p>
 <blockquote>
 <p>线性一致性和可序列化的区别❓</p>
@@ -1344,30 +1358,30 @@
 <p>线性一致性是读取和写入寄存器(单个对象)的新鲜度保证，它不会将多个操作组合为事务</p>
 <p>一个数据库可以提供可串行性和线性一致性，这种组合称之为，单副本强可串行性(strong-1SR)，基于2阶段锁的可串行化实现，通常是线性一致的，可重复读不是线性一致的</p>
 </blockquote>
-<h5 id="35-1-线性一致性的作用">35.1-线性一致性的作用</h5>
+<h3 id="线性一致性的作用">线性一致性的作用</h3>
 <p>🅰️ 单主复制的系统中，领导选取(只有一个节点持有锁)</p>
 <p>🅱️ 唯一性约束(只有一个对象持有该id)</p>
-<h5 id="35-2-实现线性一致的系统">35.2-实现线性一致的系统</h5>
+<h3 id="实现线性一致的系统">实现线性一致的系统</h3>
 <p>1️⃣ 单主复制：可能线性一致</p>
 <p>2️⃣ 共识算法：线性一致</p>
 <p>3️⃣ 多主复制：非线性一致</p>
-<h4 id="6-2-CAP">6.2-CAP</h4>
+<h2 id="CAP">CAP</h2>
 <p>有一种说法是： 一致性、可用性、分区容错性，三者只能选择其二，这种说法有一定的误导性。这里的<em>P</em>指的是网络分区<sup class="footnote-ref"><a href="#fn18" id="fnref18">[18]</a></sup>，网络分区是一种故障，是一定会(概率事件)存在的，P不是一个可选项而是一个必选项，那么就有了</p>
 <p>🅰️ CP : 在网络分区下一致但不可用 。若应用需要线性一致性，某些副本和其他副本断开连接，那么这些副本掉线时不能处理请求(单主复制+同步)，请求必须等到网络问题解决，或直接返回错误。无论哪种方式，服务都<strong>不可用(unavailable)</strong></p>
 <p>🅱️ AP : 在网络分区下可用但不一致 。应用不需要线性一致性，那么某个副本即使与其他副本断开连接，也可以独立处理请求（例如多主复制）。在这种情况下，应用可以在网络问题前保持可用，但其行为不是线性一致的</p>
 <blockquote></blockquote>
-<h4 id="6-3-全序-vs-偏序">6.3-全序 vs 偏序</h4>
-<h5 id="6-3-1-因果顺序不是全序的">6.3.1-因果顺序不是全序的</h5>
+<h2 id="全序-vs-偏序">全序 vs 偏序</h2>
+<h3 id="因果顺序不是全序的">因果顺序不是全序的</h3>
 <p>自然数集是全序的，如1,2,3；数学集合是偏序的，比如<code>{a,b}</code>  和 <code>{b,c}</code> 是没有办法比较大小的。线性一致是全序的，不存在任何并发，所有的操作在一条时间线上。而因果关系是偏序的，存在着并发，线性一致性强于因果一致性，但是性能不如因果一致性</p>
-<h5 id="6-3-2-序列号顺序">6.3.2-序列号顺序</h5>
+<h3 id="序列号顺序">序列号顺序</h3>
 <p>显示跟踪所有已读数据确保因果关系意味着巨大的额外开销，可以使用序列号或时间戳来排序事件，时间戳并不一定来自时钟，可以是一个逻辑时钟(自增计数器)，单主复制的数据库中，主库为每个操作自增一个计数器，从库按照复制日志的顺序来应用写操作，那么从库的状态始终是因果一致的</p>
-<h5 id="6-3-3-非因果序列号生成器">6.3.3-非因果序列号生成器</h5>
+<h3 id="非因果序列号生成器">非因果序列号生成器</h3>
 <p>对于无主复制或者多主复制，如何生成序列号呢？有下面三种方式：</p>
 <p>1️⃣ 每个节点生成自己独立的一组序列号，如有2个节点，一个奇数一个偶数</p>
 <p>2️⃣ 将物理时钟附加到每个操作上，也许可以提供一个全序关系</p>
 <p>3️⃣ 预先分配序列区块号，如节点A是1-1000区块的所有权；节点B是1001-2000区块的所有权</p>
 <p>三种共同的问题是：生成的序列号与因果关系不一致。兰伯特时间戳可以产生与因果关系一致的时间戳</p>
-<h5 id="6-3-4-兰伯特时间戳">6.3.4-兰伯特时间戳</h5>
+<h3 id="兰伯特时间戳">兰伯特时间戳</h3>
 <p>(计数器，节点ID)$(counter, node ID)$ 组成<em>兰伯特</em>时间戳，每个节点和每个客户端跟踪迄今为止所见到的最大<strong>计数器</strong>值，并在每个请求中包含这个最大计数器值。当一个节点收到最大计数器值大于自身计数器值的请求或响应时，它立即将自己的计数器设置为这个最大值。下面2条规则去判断：</p>
 <p>🅰️ 如果你有两个时间戳，则<strong>计数器</strong>值大者是更大的时间戳</p>
 <p>🅱️  如果计数器值相同，则节点ID越大的，时间戳越大</p>
@@ -1377,7 +1391,7 @@
   <span style="color:gray"> todo </span>
 </p>
 <p>其中客户端 A 从节点2 接收计数器值 <code>5</code> ，然后将最大值 <code>5</code> 发送到节点1 。此时，节点1 的计数器仅为 <code>1</code> ，但是它立即前移至 <code>5</code> ，所以下一个操作的计数器的值为 <code>6</code> 。虽然兰伯特时间戳定义了一个与因果一致的全序，但它还不足以解决分布式系统中的许多常见问题，比如确保用户名能唯一标识用户帐户的系统，你得搜集所有相同用户名的兰伯特时间戳，才能比较他们的时间戳，节点无法马上决定当前请求失败还是成功。所以仅知道全序是不够的，还需要知道全序何时结束</p>
-<h4 id="6-4-全序广播-原子广播">6.4-全序广播(原子广播)</h4>
+<h2 id="全序广播-原子广播">全序广播(原子广播)</h2>
 <p>全序广播通常被描述为在节点间交换消息的协议。 非正式地讲，它要满足两个安全属性：</p>
 <p>1️⃣ 可靠交付（reliable delivery）:  没有消息丢失：如果消息被传递到一个节点，它将被传递到所有节点</p>
 <p>2️⃣ 全序交付（totally ordered delivery）:  消息以相同的顺序传递给每个节点</p>
@@ -1387,7 +1401,7 @@
 <p>🅰️ <strong>全序广播等于共识</strong></p>
 <p>🅱️ <strong>线性一致的CAS等于共识</strong></p>
 </blockquote>
-<h4 id="6-5-分布式事务与共识">6.5-分布式事务与共识</h4>
+<h2 id="分布式事务与共识">分布式事务与共识</h2>
 <p>共识的目标只是<strong>让几个节点达成一致(get serveral nodes to agree on something)</strong>。节点达成一致(共识)的应用场景：</p>
 <p>🅰️ 领导选取：如在单主复制中，如果有2个以上领导就会有发生脑裂情况，脑裂时2主都会接收写入，导致数据不一致或数据丢失</p>
 <p>🅱️ 原子提交：在跨多节点或跨多分区事务的数据库中，所有节点必须就：<em>一个事务是否成功</em>这件事达成一致(要不都成功；要不都失败)</p>
@@ -1398,7 +1412,7 @@
 <p>1️⃣ 数据库内部的分布式事务， 一些分布式数据库(即在其标准配置中使用复制和分区的数据库)支持数据库节点之间的内部事务，比如MySQL Cluster的NDB存储引擎就有这样的内部事务支持。此情形下，所有参与事务的节点都运行相同的软件</p>
 <p>2️⃣ 异构分布式事务：在异构事务中，参与者是2者或者以上的技术，比如来自不同供应商的2个数据库/消息代理，跨系统的分布式事务需要保证原子提交</p>
 </blockquote>
-<h4 id="6-6-原子提交和2PC">6.6-原子提交和2PC</h4>
+<h2 id="原子提交和2PC">原子提交和2PC</h2>
 <p>对于多对象事务及维护次级索引的数据库，原子提交可以防止失败的事务搅乱数据库，避免数据库陷入半成品结果和半更新状态；对于单对象的原子性一般时都由数据库(存储引擎)本身保证。 <strong>两阶段提交(two-phase commit)</strong> 是一种用于实现跨多个节点的原子事务提交的算法，即确保所有节点提交或所有节点中止</p>
 <p align="center">
   <img src="/2023/09/21/ddia/13.jpg" width="85%" alt="Your image description">
@@ -1427,7 +1441,7 @@
     <br>
   <span style="color:gray"> todo </span>
 </p>
-<h4 id="6-7-协调者失效">6.7-协调者失效</h4>
+<h2 id="协调者失效">协调者失效</h2>
 <p>上述第3️⃣步中很协调者发送“准备”请求之前失败，参与者可以安全的终止事务；在第5️⃣ 步中如果任何提交和终止请求失败，协调者将无条件重试，但是协调者崩溃，参与者就什么也做不了只能等待。参与者的这这种事务状态称为：<strong>存疑或者不确定</strong></p>
 <p align="center">
   <img src="/2023/09/21/ddia/14.jpg" width="85%" alt="Your image description">
@@ -1444,11 +1458,11 @@
 </li>
 </ul>
 <p>此时完成2PC的唯一方法是等待协调者恢复，因此，协调者必须在<em>向</em>参与者发送提交/中止请求之前，将其提交/中止决定写入磁盘上的事务日志，协调者恢复后，通过读取其事务日志来确定所有存疑事务的状态，任何在协调者日志中没有提交记录的事务都会中止</p>
-<h4 id="6-8-恰好一次的消息处理">6.8-恰好一次的消息处理</h4>
+<h2 id="恰好一次的消息处理">恰好一次的消息处理</h2>
 <p>异构的分布式事务能够集成两种不同的系统，比如当用于处理消息的数据库事务成功提交后，消息队列中的一条消息可以被认为已处理。如果消息或者数据库事务任意一个失败，2者都会终止，而消息代理可能会在稍后安全的重传消息。通过这种方式，可以确保消息被有效地恰好处理一次</p>
-<h4 id="6-9-XA事务">6.9-XA事务</h4>
+<h2 id="XA事务">XA事务</h2>
 <p>扩展架构(eXtended Architecture)是跨异构技术实现两阶段提交的标准。许多关系型数据库(PostgresSQL、MySQL、SQL Server、Oracle))和消息代理(ActiveMQ，HornetQ，MSMQ和IBM MQ)都支持XA</p>
-<h4 id="6-10-容错共识">6.10-容错共识</h4>
+<h2 id="容错共识">容错共识</h2>
 <blockquote>
 <p>共识的定义：一个或多个节点可以**提议(propose)<strong>某些值，而共识算法</strong>决定(decides)**采用其中的某个值</p>
 <p>共识算法需要满足以下性质：</p>
@@ -1459,7 +1473,7 @@
 </blockquote>
 <p>终止属性形成了容错的思想，该属性是一个活性属性，而另外三个是安全属性。如果不关心容错，仅仅满足前三个属性就OK，因为你可以将其中一个节点硬编码为leader，让该节点做出所有的决定，但是节点一旦失效，系统无法就无法做出决定了。比如2PC就能够满足，但是2PC的问题是，协调者失效，存疑的参与者无法决定是提交还是终止，故2PC不满足终止属性的要求</p>
 <p>绝大多数共识算法实际上并不直接使用1️⃣2️⃣3️⃣4️⃣形式化模型，而是使用全序广播代为实现</p>
-<h4 id="6-11-共识算法和全序广播">6.11-共识算法和全序广播</h4>
+<h2 id="共识算法和全序广播">共识算法和全序广播</h2>
 <p>最著名的容错共识算法是<strong>视图戳复制(VSR, viewstamped replication)</strong>，Paxos，Raft 以及 Zab。视图戳复制，Raft和Zab直接实现了全序广播，因为这样做比重复 <strong>一次一值(one value a time)</strong> 的共识更高效，因为全序广播的要求是：</p>
 <blockquote>
 <p>1️⃣ 可靠交付（reliable delivery）:  没有消息丢失：如果消息被传递到一个节点，它将被传递到所有节点</p>
@@ -1467,9 +1481,9 @@
 </blockquote>
 <p>可以发现，<strong>全序广播等于进行了重复多轮共识</strong></p>
 <p>在单主复制中，将所有的写入操作都交给主库，并以相同的顺序将他们应用到从库，从而使副本保持在最新状态，这里其实是一种 <strong>“独裁类型”</strong> 的共识算法，领导者是运维指定的，一旦故障必须人为干预，它无法满足共识算法的终止属性</p>
-<h4 id="6-12-时代编号和法定人数">6.12-时代编号和法定人数</h4>
+<h2 id="时代编号和法定人数">时代编号和法定人数</h2>
 <p>共识协议一般会定义1个<strong>时代编号(epoch number)</strong>，在Paxos中称为<strong>投票编号(ballot number)</strong>，视图戳复制中的<strong>视图编号(view number)</strong>，以及Raft中的<strong>任期号码(term number)</strong>，并确保在每个时代中，领导者都是唯一的。每次领导者被认为挂掉的时候，会产生全序且单调递增的新的时代编号，更高时代编号的领导才真的领导。节点在做出决定之前对提议进行投票的过程是一种同步复制，这是共识的局限性</p>
-<h4 id="6-13-总结：">6.13-总结：</h4>
+<h2 id="总结：">总结：</h2>
 <p>很多问题都可以归结为共识问题，并且彼此等价(从这个意义上来讲，如果你有其中之一的解决方案，就可以轻易将它转换为其他问题的解决方案)。这些等价的问题包括：</p>
 <p>1️⃣ <strong>线性一致性的CAS寄存器</strong>:  寄存器需要基于当前值是否等于操作给出的参数，原子地<strong>决定</strong>是否设置新值</p>
 <p>2️⃣ <strong>原子事务提交</strong> :  数据库必须<strong>决定</strong>是否提交或中止分布式事务</p>
@@ -1483,8 +1497,8 @@
 <p>2️⃣ 人工故障切换，让人类选择一个新的领导者节点，并重新配置系统使之生效，许多关系型数据库都采用这种方方式。这是一种来自“天意”的共识 —— 由计算机系统之外的运维人员做出决定。故障切换的速度受到人类行动速度的限制，通常要比计算机慢得多</p>
 <p>3️⃣ 使用算法自动选择一个新的领导者。这种方法需要一种共识算法，使用成熟的算法来正确处理恶劣的网络条件是明智之举</p>
 </blockquote>
-<h2 id="七、批处理">七、批处理</h2>
-<h4 id="7-1-关于衍生数据">7.1-关于衍生数据</h4>
+<h1>批处理</h1>
+<h2 id="关于衍生数据">关于衍生数据</h2>
 <p>第三部分的内容，主要讨论将多个不同数据系统(有着不同的数据模型，并针对不同的访问模式进行优化)集成为一个协调一致的应用架构时，会遇到的问题。从高层次看，存储和记录数据系统分为2大类：</p>
 <p>🅰️ 记录系统(System of record) ：数据的权威版本(如果其他系统和<strong>记录系统</strong>之间存在任何差异，那么记录系统中的值是正确的)</p>
 <p>🅱️ 衍生数据系统(Derived data systems) ：通常是另一个系统中的现有数据进行转换或处理的结果，如缓存、索引、物化视图等，推荐系统中，预测汇总数据通常衍生自用户日志</p>
@@ -1496,13 +1510,13 @@
 <blockquote>
 <p>MPP数据库(大规模并行处理(MPP， massively parallel processing)专注于在一组机器上并行执行分析SQL查询，而MapReduce和分布式文件系统的组合则更像是一个可以运行任意程序的通用操作系统，批处理框架看起来越来越像MPP数据库了</p>
 </blockquote>
-<h4 id="7-2-UNIX">7.2-UNIX</h4>
+<h2 id="UNIX">UNIX</h2>
 <p>基于Unix的awk，sed，grep，sort，uniq和xargs等工具的组合，可以轻松的帮助我们完成一些数据分析的工作，而且性能相当的好。而且，这些工具使用相同的接口，在Unix中，这种接口是一个file(准确的说是一个文件描述符)</p>
 <blockquote>
 <p>文件是一个统一的接口，如果我们的程序的输入和输出都是文件，那么所有的程序缝合起来，像接力一样完成复杂的工作；统一的接口还包括URL和HTTP(我们可以在网站和网站之间无缝跳转)。这和函数式编程的理念非常类似</p>
 </blockquote>
 <p>Unix工具很强大，但是其局限性就是只能在一台机器上运行，所以Hadoop这样的工具应运而生</p>
-<h4 id="7-3-MapReduce">7.3-MapReduce</h4>
+<h2 id="MapReduce">MapReduce</h2>
 <p>Unix和MapReduce比对</p>
 <table>
 <thead>
@@ -1541,7 +1555,7 @@
   <span style="color:gray"> todo </span>
 </p>
 <p>Mapper中的数据去往Reducer的过程可以看做是Mapper将消息发送给Reducer，每当Mapper发出一个键值对，这个键的作用就好像是去往到目标地址(IP地址)</p>
-<h4 id="7-4-Reducer端联接：">7.4-Reducer端联接：</h4>
+<h2 id="Reducer端联接：">Reducer端联接：</h2>
 <p>如下图，左侧是事件日志，右侧是用户数据库，任务需要将用户活动和用户档案相关联：</p>
 <p align="center">
   <img src="/2023/09/21/ddia/43.jpg" width="85%" alt="Your image description">
@@ -1561,14 +1575,14 @@ MapReduce框架通过键对Mapper输出进行分区，然后对键值对进行�
 <blockquote>
 <p>热键(hot pot)和倾斜连接(skewed join) ： 热键是指记录中某个键记录数显著高于其他的键，热键关联是会产生倾斜关联(1个Reducer会处理比其他Reducer更多的记录)；一般处理倾斜连接方式是分2次MR</p>
 </blockquote>
-<h4 id="7-5-Map端联接：">7.5-Map端联接<sup class="footnote-ref"><a href="#fn20" id="fnref20">[20]</a></sup>：</h4>
+<h2 id="Map端联接：">Map端联接<sup class="footnote-ref"><a href="#fn20" id="fnref20">[20]</a></sup>：</h2>
 <p>在Reducer端连接中，排序，复制至Reducer，以及合并Reducer输入，所有这些操作可能开销巨大，如果数据具备某些特性，或许可以使用一些性能更优的连接方式，如：</p>
 <p>1️⃣广播散列连接：在小表足够小的情况下，将小表读取到内存散列表中，然后Mapper扫描大表在散列表中查找每个事件</p>
 <p>2️⃣ 分区散列连接：本质是GRACE Hash Join，在Hive中叫做：Map 端桶连接</p>
 <p>3️⃣ Map端合并连接：本质是 sort-merge-join</p>
 <blockquote></blockquote>
 <p>批处理的常见用途是：构建机器学习系统(分类器/推荐系统等)，建立搜索索引(google最初使用MR就是为其搜索索引建立索引)，批处理的输出哲学和Unix一致，除了产生输出不会产生任何副作用，即容错能力高</p>
-<h4 id="7-6-Hadoop与分布式数据库比对">7.6-Hadoop与分布式数据库比对</h4>
+<h2 id="Hadoop与分布式数据库比对">Hadoop与分布式数据库比对</h2>
 <p>Hadoop很像Unix的分布式版本，其中HDFS是分布式文件系统，MapReduce是Unix进程的变种实现，我们一直讨论的并行连接算法在MPP数据库中已有实现，区别在于MPP数据库专注于在一组机器上并行执行分析SQL，而MapReduce和分布式文件系统的组合更像是可以运行任意通用程序的操作系统</p>
 <table>
 <thead>
@@ -1596,7 +1610,7 @@ MapReduce框架通过键对Mapper输出进行分区，然后对键值对进行�
 </table>
 <blockquote></blockquote>
 <p>💔：使用原始的<code>MapReduce API</code>来实现复杂的处理工作实际上是非常困难，所以在MapReduce上有很多高级编程模型(Pig，Hive，Cascading，Crunch)被创造出来。🅰️方面，MapReduce非常稳健；🅱️方面，对于某些类型的处理而言，其他工具有时会快上几个数量级。流处理组件(storm、spark、flink)可以认为是解决"慢"这个问题而被发展出来的，物化中间状态也是一种加速方式</p>
-<h4 id="7-7-物化中间状态">7.7-物化中间状态</h4>
+<h2 id="物化中间状态">物化中间状态</h2>
 <p>将数据发布到分布式文件系统中众所周知的位置能够带来<strong>松耦合</strong>，这样作业就不需要知道是谁在提供输入或谁在消费输出，一个作业的输出只能用作另一个作业的输入的情况下，分布式文件系统上的文件只是简单的<strong>中间状态(intermediate state)</strong>：一种将数据从一个作业传递到下一个作业的方式。将这个中间状态写入文件的过程称为<strong>物化(materialization)</strong>[<sup>22][</sup>23]</p>
 <blockquote>
 <p>link: <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Materialized_view">https://en.wikipedia.org/wiki/Materialized_view</a> + <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/93539/what-is-the-difference-between-views-and-materialized-views-in-oracle">https://stackoverflow.com/questions/93539/what-is-the-difference-between-views-and-materialized-views-in-oracle</a> + <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Materialized_view">https://en.wikipedia.org/wiki/Materialized_view</a></p>
@@ -1605,7 +1619,7 @@ MapReduce框架通过键对Mapper输出进行分区，然后对键值对进行�
 <p>1️⃣MapReduce作业只有在前驱作业(生成其输入)中的所有任务都完成时才能启动，而由Unix管道连接的进程会同时启动，输出一旦生成就会被消费</p>
 <p>2️⃣ Mapper通常是多余的，如果Reducer和Mapper的输出有着相同的分区与排序方式，那么Reducer就可以直接串在一起，而不用与Mapper相互交织</p>
 <p>3️⃣ 将中间状态存储在分布式文件系统中意味着这些文件被复制到多个节点</p>
-<h4 id="7-8-数据流引擎">7.8-数据流引擎</h4>
+<h2 id="数据流引擎">数据流引擎</h2>
 <p>为了解决MapReduce的这些问题，几种用于分布式批处理的新执行引擎(Spark、Tez、Flink)被开发出来，它们的设计方式有很多区别，但有一个共同点：把整个工作流作为单个作业来处理，而不是把它分解为独立的子作业。由于它们将工作流显式建模为数据从几个处理阶段穿过，所以这些系统被称为<strong>数据流引擎(dataflow engines)</strong>，像MapReduce一样，它们在一条线上通过反复调用用户定义的函数来一次处理一条记录，这些函数为<strong>算子(operators)</strong>，数据流引擎提供了几种不同的选项来将一个算子的输出连接到另一个算子的输入：</p>
 <ul class="lvl-0">
 <li class="lvl-2">
@@ -1627,17 +1641,17 @@ MapReduce框架通过键对Mapper输出进行分区，然后对键值对进行�
 <p>6️⃣ 与MapReduce(为每个任务启动一个新的JVM)相比，现有Java虚拟机(JVM)进程可以重用来运行新算子，从而减少启动开销</p>
 <p>你可以使用数据流引擎执行与MapReduce工作流同样的计算，而且由于此处所述的优化，通常执行速度要明显快得多。相同的处理逻辑，可以通过修改配置切换底层计算引擎，简单地从MapReduce切换到Tez或Spark<sup class="footnote-ref"><a href="#fn24" id="fnref24">[24]</a></sup></p>
 <blockquote></blockquote>
-<h4 id="7-9-总结">7.9-总结</h4>
+<h2 id="总结-3">总结</h2>
 <p>本章主要讲述了Unix的管道思想，MapReduce与其接口HDFS，最后是数据流引擎构建自己的管道式的数据传输机制。并且还讨论了分布式批处理框架要解决的2个主要问题：</p>
 <p>🅰️ 分区：这一过程的目的是把所有的<strong>相关</strong>数据(例如带有相同键的所有记录)都放在同一个地方</p>
 <p>🅱️容错：MapReduce经常写入磁盘，这使得从单个失败的任务恢复很轻松，无需重新启动整个作业，但在无故障的情况下减慢了执行速度。数据流引擎更多地将中间状态保存在内存中，更少地物化中间状态，这意味着如果节点发生故障，则需要重算更多的数据。确定性算子减少了需要重算的数据量</p>
-<h3 id="八、流处理">八、流处理</h3>
+<h1>流处理</h1>
 <p>流处理和批处理最原始的区别在于，流处理处理无界数据，而批处理针对有界数据。在流处理中的上下文中，记录通常被叫做<strong>事件</strong>，一个事件由生产者(producer)/发布者(publisher)/发送者(sender)生成一次，然后可能由多个消费者(consumer)/订阅者(subscribers)/接收者(recipients)进行处理。流处理的目标是<strong>事件发生后，立刻得到处理</strong>。流处理中相关的事件通常被聚合为一个主题(topic)或流(stream)</p>
 <p>本质上来说，文件或者是数据库可以连接生产者和消费者，但是这种方式下消费者需要不断降低轮询文件/数据库的间隔，才能降低事件处理的延迟，而轮询会增加数据库的额外开销，我们希望在有新的事件产生的时候，能够通知到消费者，数据库的触发器或许是一个可选项，但是触发器功能有限，为了解决这个问题，消息系统应运而生</p>
 <blockquote>
 <p>2个进程之间进行消息传递(通信)，可以通过接口调用，还可以使用消息服务</p>
 </blockquote>
-<h4 id="8-1-消息系统">8.1-消息系统</h4>
+<h2 id="消息系统">消息系统</h2>
 <p>消息系统一定要考虑2个问题：</p>
 <p>🅰️生产者发送消息的速度比消费者能够处理的速度快该如何应对？有三种方式处理：</p>
 <ul class="lvl-0">
@@ -1698,7 +1712,7 @@ MapReduce框架通过键对Mapper输出进行分区，然后对键值对进行�
 <blockquote></blockquote>
 <p>批处理的关键特性是：重试失败任务不会发生任何副作用，而AMQP/JMS风格的消息传递收到消息是具有破坏性的，因为确认可能导致消息从代理中被删除，因此再次运行同一个消费者可能会得到不同的结果。即便是注册新的消费者到消息系统，通常只能接收到消费者注册之后开始发送的消息，而文件系统/数据库系统新增的客户端能够读取到任意久远的数据</p>
 <p><strong>基于日志的消息代理(log-based message brokers)</strong> 尝试实现 🅰️既有数据库的持久存储方式；🅱️又有消息传递的低延迟通知</p>
-<h4 id="8-2-基于日志的消息代理">8.2-基于日志的消息代理</h4>
+<h2 id="基于日志的消息代理">基于日志的消息代理</h2>
 <p>在基于日志(append only mode)的消息代理中，生产者通过将消息追加到日志末尾来发送消息，而消费者通过依次读取日志来接收消息，若消费者读到日志末尾，则会等待新消息追加的通知(如Unix的 <code>tail -f</code>)。同时为了提升吞吐量，基于日志的消息代理可以对日志进行分区，每个分区内，代理为每个消息分配一个<em>单调递增</em>的序列号/偏移量(offset)。并且<em>分区内消息完全有序(跨分区无顺序保证</em>)</p>
 <p align="center">
   <img src="/2023/09/21/ddia/40.jpg" width="85%" alt="Your image description">
@@ -1710,7 +1724,7 @@ MapReduce框架通过键对Mapper输出进行分区，然后对键值对进行�
 <p>2️⃣ 消费者偏移量：所有偏移量小于消费者的当前偏移量的消息已经被处理(类似单主复制中的日志序列号)<sup class="footnote-ref"><a href="#fn28" id="fnref28">[28]</a></sup></p>
 <blockquote></blockquote>
 <p>3️⃣重播旧消息：消费者的消费唯一的副作用就是导致偏移量的前进，但是消费者可以操纵偏移量(类似于批处理)</p>
-<h4 id="8-3-流和数据库">8.3-流和数据库</h4>
+<h2 id="流和数据库">流和数据库</h2>
 <p>此间的讨论，我们发现基于日志的消息代理从数据库中获得灵感并将其应用于消息传递，其实也可以反过来，从消息传递和流中获得灵感，并将他们应用于数据库。在单主复制中，主库的写入事件构成写入流，将写入流应用到从库，最终得到数据的精确副本。在异构数据系统中，由于相同或相关的数据出现在了不同的地方，因此相互间需要保持同步：如果某个项目在数据库中被更新，它也应当在缓存，搜索索引和数据仓库(使用ETL)中被更新，我们在批处理将描述了如何使用批处理去更新其他衍生数据系统。使用的批处理的弊端是时延，如何保证衍生数据系统低延迟获取记录系统的变更数据？</p>
 <p>这就涉及到<strong>变更数据捕获(change data capture, CDC)</strong>,这是一种观察写入数据库的所有数据变更，并将其提取并转换为可以复制到其他系统中的形式的过程。如下图：捕获数据库中的变更，并不断将相同的变更应用至搜索索引</p>
 <p align="center">
@@ -1721,24 +1735,24 @@ MapReduce框架通过键对Mapper输出进行分区，然后对键值对进行�
 从本质上说，变更数据捕获使得一个数据库成为领导者(被捕获变化的数据库)，并将其他组件变为追随者。基于日志的消息代理非常适合从源数据库传输变更事件，因为它保留了消息的顺序。 LinkedIn的Databus，Facebook的Wormhole和Yahoo!的Sherpa大规模地应用这个思路。 Bottled Water使用解码WAL的API实现了PostgreSQL的CDC，Maxwell和Debezium通过解析binlog对MySQL做了类似的事情
 <p>重放<strong>所有</strong>对数据库进行变更的日志，过于耗时，因此一般会保留数据库的快照，快照+快照时刻对应的偏移量可以加快重建数据库的完整状态。另外一个加速重建数据库完整状态的方式是日志压缩<sup class="footnote-ref"><a href="#fn29" id="fnref29">[29]</a></sup>，Apache Kafka支持这种日志压缩功能</p>
 <blockquote></blockquote>
-<h4 id="8-4-事件溯源-Event-Sourcing">8.4-事件溯源(Event Sourcing)</h4>
+<h2 id="事件溯源-Event-Sourcing">事件溯源(Event Sourcing)</h2>
 <p>事件溯源起源于领取驱动设计(domain-driven design,DDD)，和CDC类似，事件溯源将<strong>所有涉及对应用状态的变更存储为变更事件日志</strong>，其核心在于将用户的行为记录为不可变的事件，而不是在可变数据库中记录这些行为的影响。事件存储是仅追加的，原地删除和更新是不被鼓励的。事件日志和星型模式中的事实表有相似之处</p>
 <p>使用事件溯源的应用需要拉取事件日志(表示写入系统的数据)，并将其转换为适合向用户显示的应用状态，和CDC一样，重放事件日志可以重新构建系统的当前状态。 事件溯源的哲学是仔细区分<strong>事件(event)<strong>和</strong>命令(command)</strong>，用户的请求刚到达时，它一开始是一个命令(在这个时间点上它仍然可能可能失败，比如违反了一些完整性条件)应用必须首先验证它是否可以执行该命令。如果验证成功并且命令被接受，则它变为一个持久化且不可变的事件。从数学角度来看，应用状态是事件流对时间求积分的结果 $state(now) = \int_{t=0}^{now}{stream(t) \ dt}$，变更流是应用状态对时间求微分的结果 $stream(t) = \frac{d\ state(t)}{dt}$</p>
 <p>日志压缩是连接事件日志与数据库状态之间的桥梁：它只保留每条记录的最新版本，并丢弃被覆盖的版本。我们可以基于事件溯源中的记录的事件日志派生出多个视图，通过将数据写入的形式与读取形式相分离<sup class="footnote-ref"><a href="#fn30" id="fnref30">[30]</a></sup>，并允许几个不同的读取视图，这样极大的提高了灵活性</p>
 <blockquote></blockquote>
 <p>事件溯源和变更数据捕获的最大缺点是事件日志的消费者通常是异步的，所以可能出现的情况是：用户写入日志，然后从日志衍生视图中读取，结果发现他的写入还没有反映在读取视图中，一种解决方案是将事件附加到日志时同步执行读取视图的更新，如果是事件日志和读取视图保存在同一个存储系统中，需要使用事务，如果是异构数据库则涉及分布式事务</p>
 <p>🎈至此，我们谈及到了流的来源1️⃣用户活动事件，2️⃣传感器，3️⃣写入数据库；流如何传输1️⃣直接通过消息传送 2️⃣消息代理 3️⃣ 事件日志。那么我们用流干什么？</p>
-<h4 id="8-5-流处理">8.5-流处理</h4>
+<h2 id="流处理">流处理</h2>
 <p>流一般有以下三种用途</p>
 <p>1️⃣ 你可以将事件中的数据写入数据库，缓存，搜索索引或类似的存储系统，然后能被其他客户端查询</p>
 <p>2️⃣ 以某种方式将事件推送给用户，如发送报警邮件或推送通知，或将事件流式传输到可实时显示的仪表板上。这种情况下，人是流的最终消费者</p>
 <p>3️⃣ 你可以处理一个或多个输入流，并产生一个或多个输出流。流可能会经过由几个这样的处理阶段组成的流水线，最后再输出1️⃣或2️⃣</p>
 <p>我们将重点讨论3️⃣处理流产生其他衍生流，处理这样的流的代码片段，称之为算子(operator)或者作业(job)；流处理和批处理最大的区别是流处理处理无界数据，由于是无界导致排序没有意义，也就无法使用排序合并连接（sort merge join），容错机制也不能像批处理那样通过从头执行的方式</p>
-<h4 id="8-6-流处理应用">8.6-流处理应用</h4>
+<h2 id="流处理应用">流处理应用</h2>
 <p>1️⃣ 复合事件处理(complex,event processing CEP)，CEP通常使用高层次的声明式查询语句如SQL，在流中搜索某些事件（就像正则表达式一样），当发现匹配时，引擎发出一个<strong>复合事件(complex event)</strong>（因此得名）。一般而言，数据库会持久存储数据，并将查询视为临时的，当查询进入时，数据库搜索与查询匹配的数据，然后在查询完成时丢掉查询。 CEP引擎反转了角色：查询是长期存储的，来自输入流的事件不断流过它们。CEP的实现包括 Esper、IBM InfoSphere Streams</p>
 <p>2️⃣流分析，流分析关注大量事件上的聚合与统计指标，统计指标通常是在固定时间区（窗口[window]）间内进行计算的。许多开源分布式流处理框架的设计都是针对分析设计的：例如Apache Storm，Spark Streaming，Flink</p>
 <p>3️⃣ 维护物化视图。数据库的变更流（CDC或是事件日志）可以用于维护衍生数据系统，使其与源数据库保持最新，基于衍生查询（写入和查询相分离）。也是流的一个应用，但是要求任意时间段内的所有事件，和流分析场景有很大的不同。类似Spark Streaming 不支持</p>
-<h5 id="8-6-1-关于事件时间和处理时间">8.6.1-关于事件时间和处理时间</h5>
+<h3 id="关于事件时间和处理时间">关于事件时间和处理时间</h3>
 <p>🅰️ 处理时间：事件到达处理节点的时钟。使用处理时间定义窗口，会因为处理速率的变动引入人为因素，如下图：</p>
 <p align="center">
   <img src="/2023/09/21/ddia/46.jpg" width="85%" alt="Your image description">
@@ -1746,12 +1760,12 @@ MapReduce框架通过键对Mapper输出进行分区，然后对键值对进行�
   <span style="color:gray"> todo </span>
 </p>
 <p>🅱️ 事件时间：事件发生的时间。延迟先发生的事件先到达处理节点，无法确定是否已经收到了特定窗口的所有事件，如何处理这种在窗口宣告完成之后到达的滞留（straggler）事件？</p>
-<h5 id="8-6-2-窗口">8.6.2-窗口</h5>
+<h3 id="窗口">窗口</h3>
 <p>1️⃣ 滚动窗口(Tumbling Window)：窗口有固定的长度，而且每个事件都只属于一个窗口</p>
 <p>2️⃣跳动窗口(Hopping Window) ：窗口有固定的长度，如1分钟跳跃步长的5分钟窗口</p>
 <p>3️⃣滑动窗口(Sliding Window)：滑动窗口包含了彼此间距在特定时长内的所有事件，通过维护一个按时间排序的事件缓冲区，并不断从窗口中移除过期的旧事件，可以实现滑动窗口</p>
 <p>4️⃣会话窗口(Session window) 将同一用户出现时间相近的所有事件分组在一起，而当用户一段时间没有活动时（例如，如果30分钟内没有事件）窗口结束</p>
-<h4 id="8-7-流式连接">8.7-流式连接</h4>
+<h2 id="流式连接">流式连接</h2>
 <p>涉及<strong>流-流</strong>连接，<strong>流-表</strong>连接，与<strong>表-表</strong>连接</p>
 <p>1️⃣ 流流连接，实际是窗口的连接，Window join 作用在两个流中有<em>相同 key</em> 且处于<em>相同窗口</em>的元素上。比如Flink将流流连接细分为滚动Window Join，滑动Window Join，会话Window Join。<a target="_blank" rel="noopener" href="https://nightlies.apache.org/flink/flink-docs-master/zh/docs/dev/datastream/operators/joining/">Flink的双流Join</a>。比如下图是Spark Streaming中一个广告流和一个点击流的连接</p>
 <p align="center">
@@ -1767,11 +1781,11 @@ MapReduce框架通过键对Mapper输出进行分区，然后对键值对进行�
 </p>
 <span class="github-emoji" style="display:inline;vertical-align:middle"><span>3⃣</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/0033-20e3.png?v8" aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span> 表表连接。在推特时间线的例子中，用户查看自身主页时间线时，迭代用户所关注人群的推文并合并它们需要一个时间线缓存，在流处理器中实现这种缓存维护，需要推文事件流(发送与删除)和关注关系事件流(关注与取消关注)，即该流处理的过程是维护了一个连接了两个表(推文与关注)的物化视图，如下时间线实际上是这个查询结果的缓存，每当基础表发生变化时都会更新
 <figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> follows.follower_id <span class="keyword">as</span> timeline_id, </span><br><span class="line">    <span class="built_in">array_agg</span>(tweets.<span class="operator">*</span> <span class="keyword">order</span> <span class="keyword">by</span> tweets.timestamp <span class="keyword">desc</span>)</span><br><span class="line"><span class="keyword">from</span> tweets</span><br><span class="line"><span class="keyword">join</span> follows <span class="keyword">on</span>  tweets.sender_id <span class="operator">=</span> follows.followee_id</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> follows.follower_id</span><br></pre></td></tr></tbody></table></figure>
-<h4 id="8-8-连接的时间依赖性">8.8-连接的时间依赖性</h4>
+<h2 id="连接的时间依赖性">连接的时间依赖性</h2>
 <p>流流、流表、表表连接有很多共同点，<strong>他们都需流处理器维护连接一侧的一些状态(广告流和点击流，用户档案，关注列表)，然后当连接另外一侧的消息到达时查询该状态</strong>。这里会有一个问题，如在流表连接的例子中，如果用户更新了档案，哪些活动事件与旧档案连接(在档案更新前)？，哪些又与新档案连接(在档案更新后)？即连接存在<em>时序依赖</em>，比如处理发票和税率问题时，当连接销售额与税率表时，你可能期望的是使用销售时的税率参与连接，如果你正在重新处理历史数据，销售时的税率可能和现在的税率有所不同</p>
 <p>即如果跨流事件的顺序是未定的，则连接会变成不确定性的，那么在同样输入上重跑可能会得到不同的结果。这个问题在数仓中叫<em>缓慢变化的维度(slowly changing dimension,SCD)<sup class="footnote-ref"><a href="#fn31" id="fnref31">[31]</a></sup></em>，通常通过对特定版本的记录使用唯一的标识符来解决：例如，每当税率改变时都会获得一个新的标识符，而发票在销售时会带有税率的标识符。这种变化使连接变为确定性的，但也会导致日志压缩无法进行：表中所有的记录版本都需要保留</p>
 <blockquote></blockquote>
-<h4 id="8-9-流处理如何处理容错">8.9-流处理如何处理容错</h4>
+<h2 id="流处理如何处理容错">流处理如何处理容错</h2>
 <p>在批处理中，容错的方式就是重跑，而且其输出的效果就像只处理了一次一样，这个原则叫做<strong>恰好/精确一次语义(exactly-once semantics)</strong>，流处理为了实现恰好一次语义，有以下2种方式</p>
 <p>🅰️ 微批，即将流分解成小块，并像微型批处理一样处理每个块，微批次(通常为1S)也隐式提供了一个与批次大小相等的滚动窗口(<em>按处理时间而不是事件时间戳分窗</em>)，代表应用为Spark Streaming</p>
 <p>🅱️存档点， Apache Flink会定期生成状态的滚动存档点并将其写入持久存储。如果流算子崩溃，它可以从最近的存档点重启，并丢弃从最近检查点到崩溃之间的所有输出</p>
@@ -1809,11 +1823,11 @@ MapReduce框架通过键对Mapper输出进行分区，然后对键值对进行�
 </li>
 <li id="fn14" class="footnote-item"><p>关于硬件故障：硬件故障率是很高的，磁盘在进行大量的读写之后失效的概率是很高的，IDC数据中心对物理环境的要求是很苛刻的，为了降低温度空调不够用，甚至把数据中心搬到山洞里，比如阿里在贵州云南的IDC，地板使用静电地板，每个机房入口的挡鼠板比膝盖还高，供电都是双路供电等。 <a href="#fnref14" class="footnote-backref">↩︎</a></p>
 </li>
-<li id="fn15" class="footnote-item"><p>行锁满足两阶段锁协议，两阶段锁协议是说：锁需要的时候才加上的，在事务结束的时候才释放；同时行锁也是2PL，在当前事务写入时必须持有排它锁，直到事务提交才释放排它锁 <a href="#fnref15" class="footnote-backref">↩︎</a></p>
+<li id="fn15" class="footnote-item"><p>行锁满足两阶段锁协议，两阶段锁协议是说：锁需要的时候才加上的，在事务结束的时候才释放；同时行锁也是2PL（2阶段锁定），在当前事务写入时必须持有排它锁，直到事务提交才释放排它锁。 <strong>两阶段锁协议和2pl说的是一个事情</strong> <a href="#fnref15" class="footnote-backref">↩︎</a></p>
 </li>
-<li id="fn16" class="footnote-item"><p>同一条记录在系统中可以存在多个版本，这就是数据库的多版本并发控制；如下图中一个值从1按顺序修改为4的过程。在读已提交的隔离级别下，仅仅保留为提交版本和提交前版本2个版本 <a href="#fnref16" class="footnote-backref">↩︎</a></p>
+<li id="fn16" class="footnote-item"><p>同一条记录在系统中可以存在多个版本，这就是数据库的多版本并发控制； <a href="#fnref16" class="footnote-backref">↩︎</a></p>
 </li>
-<li id="fn17" class="footnote-item"><p>更新数据是先读后写的，读只能读当前<strong>已提交</strong>的最新值，这就是当前读。 <a href="#fnref17" class="footnote-backref">↩︎</a></p>
+<li id="fn17" class="footnote-item"><p>更新数据是先读后写的，读只能读当前<strong>已提交</strong>的最新值，这就是当前读 <a href="#fnref17" class="footnote-backref">↩︎</a></p>
 </li>
 <li id="fn18" class="footnote-item"><p>网络分区区别于分区，分区是一种中将数据集划分为多块，以此来提升并发读写能力； 而网络分区是指节点<em>彼此断开</em>但是仍然活跃。 <a href="#fnref18" class="footnote-backref">↩︎</a></p>
 </li>
@@ -1861,6 +1875,13 @@ MapReduce框架通过键对Mapper输出进行分区，然后对键值对进行�
 
 
         
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2023/09/30/mysql/" rel="next" title="msyql 45 讲">
+      msyql 45 讲 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
       </footer>
     
   </article>
@@ -1918,7 +1939,7 @@ MapReduce框架通过键对Mapper输出进行分区，然后对键值对进行�
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%B6%E3%80%81%E5%BC%80%E7%AF%87%E8%AF%8D"><span class="nav-number">1.</span> <span class="nav-text">零、开篇词</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0-1-%E5%85%B3%E4%BA%8Eddia%E7%9A%84%E6%BA%A2%E7%BE%8E%E4%B9%8B%E8%AF%8D"><span class="nav-number">1.0.1.</span> <span class="nav-text">0.1-关于ddia的溢美之词</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0-2-%E5%85%B3%E4%BA%8E%E4%BD%9C%E8%80%85"><span class="nav-number">1.0.2.</span> <span class="nav-text">0.2-关于作者</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E3%80%81%E6%95%B4%E4%B9%A6%E5%A4%A7%E7%BA%B2"><span class="nav-number">2.</span> <span class="nav-text">一 、整书大纲</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-%E5%93%AA3%E9%83%A8%E5%88%86"><span class="nav-number">2.0.1.</span> <span class="nav-text">1.1-哪3部分</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1%EF%B8%8F%E2%83%A3-%E6%95%B0%E6%8D%AE%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%9F%BA%E7%9F%B3"><span class="nav-number">2.0.1.1.</span> <span class="nav-text">1️⃣ 数据系统的基石</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2%EF%B8%8F%E2%83%A3-%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE"><span class="nav-number">2.0.1.2.</span> <span class="nav-text">2️⃣ 分布式数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3%EF%B8%8F%E2%83%A3-%E6%B4%BE%E7%94%9F%E6%95%B0%E6%8D%AE"><span class="nav-number">2.0.1.3.</span> <span class="nav-text">3️⃣ 派生数据</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-%E8%AE%A1%E7%AE%97%E5%AF%86%E9%9B%86%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%AF%86%E9%9B%86%E5%9E%8B%E5%BA%94%E7%94%A8%E5%8C%BA%E5%88%86"><span class="nav-number">2.0.2.</span> <span class="nav-text">1.2-计算密集与数据密集型应用区分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-%E5%A6%82%E4%BD%95%E6%8F%8F%E8%BF%B0%E8%B4%9F%E8%BD%BD%EF%BC%9F"><span class="nav-number">2.0.3.</span> <span class="nav-text">1.3 - 如何描述负载？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-%E5%A6%82%E4%BD%95%E6%8F%8F%E8%BF%B0%E6%80%A7%E8%83%BD%EF%BC%9F"><span class="nav-number">2.0.4.</span> <span class="nav-text">1.4-如何描述性能？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-%E4%BB%80%E4%B9%88%E6%98%AF%E5%BC%B9%E6%80%A7%E7%9A%84%EF%BC%9F"><span class="nav-number">2.0.5.</span> <span class="nav-text">1.5- 什么是弹性的？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%AC%AC2%E7%AB%A0%E8%8A%82-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E4%B8%8E%E6%9F%A5%E8%AF%A2%E8%AF%AD%E8%A8%80"><span class="nav-number">3.</span> <span class="nav-text">二、第2章节-数据模型与查询语言</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-%E6%96%87%E6%A1%A3%E6%A8%A1%E5%9E%8B%E5%92%8C%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BC%98%E5%8A%A3%E5%8A%BF%EF%BC%9F"><span class="nav-number">3.0.1.</span> <span class="nav-text">2.1-文档模型和关系模型的优劣势？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-%E5%A3%B0%E6%98%8E%E5%BC%8F%E6%9F%A5%E8%AF%A2%E5%92%8C%E5%91%BD%E4%BB%A4%E5%BC%8F%E6%9F%A5%E8%AF%A2%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-number">3.0.2.</span> <span class="nav-text">2.2-声明式查询和命令式查询的区别？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-MapReduce%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">3.0.3.</span> <span class="nav-text">2.3-MapReduce是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-%E5%9B%BE"><span class="nav-number">3.0.4.</span> <span class="nav-text">2.4-图</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#A-%E4%BB%80%E4%B9%88%E6%98%AF%E5%B1%9E%E6%80%A7%E5%9B%BE%E6%A8%A1%E5%9E%8B%EF%BC%9F"><span class="nav-number">3.0.4.1.</span> <span class="nav-text">A-什么是属性图模型？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#B-Cypher-%E5%B1%9E%E6%80%A7%E5%9B%BE%E6%A8%A1%E5%9E%8B%E5%A3%B0%E6%98%8E%E5%BC%8F%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5"><span class="nav-number">3.0.4.2.</span> <span class="nav-text">B-Cypher 属性图模型声明式查询语句</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5-%E8%AF%BB%E6%97%B6%E6%A8%A1%E5%BC%8F%E5%92%8C%E5%86%99%E6%97%B6%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.0.5.</span> <span class="nav-text">2.5-读时模式和写时模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-6-%E6%80%BB%E7%BB%93"><span class="nav-number">3.0.6.</span> <span class="nav-text">2.6-总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E7%AC%AC3%E7%AB%A0%E8%8A%82-%E5%AD%98%E5%82%A8%E4%B8%8E%E6%A3%80%E7%B4%A2"><span class="nav-number">4.</span> <span class="nav-text">三、第3章节-存储与检索</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-%E6%97%A0%E7%B4%A2%E5%BC%95%E6%97%A5%E5%BF%97"><span class="nav-number">4.0.1.</span> <span class="nav-text">3.1-无索引日志</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-%E5%A6%82%E4%BD%95%E6%8F%90%E5%8D%87%E6%9F%A5%E6%89%BE%E6%95%88%E7%8E%87%EF%BC%9F"><span class="nav-number">4.0.2.</span> <span class="nav-text">3.2-如何提升查找效率？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-%E5%86%85%E5%AD%98%E4%B8%AD%E6%9E%84%E5%BB%BAhash%E7%B4%A2%E5%BC%95"><span class="nav-number">4.0.3.</span> <span class="nav-text">3.3-内存中构建hash索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-%E5%88%86%E6%AE%B5%E5%AD%98%E5%82%A8-%E5%8E%8B%E7%BC%A9-%E5%88%86%E6%AE%B5%E5%90%88%E5%B9%B6-hash%E7%B4%A2%E5%BC%95%E7%9A%84%E5%B1%80%E9%99%90%E6%80%A7"><span class="nav-number">4.0.4.</span> <span class="nav-text">3.4-分段存储&amp;压缩&amp;分段合并 &amp; hash索引的局限性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-5-SSTable-%E6%8E%92%E5%BA%8F%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%A1%A8"><span class="nav-number">4.0.5.</span> <span class="nav-text">3.5-SSTable 排序字符串表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-6-LSM-%E6%97%A5%E5%BF%97%E7%BB%93%E6%9E%84%E5%90%88%E5%B9%B6%E6%A0%91"><span class="nav-number">4.0.6.</span> <span class="nav-text">3.6-LSM 日志结构合并树</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-7-%E9%9D%A2%E5%90%91%E9%A1%B5%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E"><span class="nav-number">4.0.7.</span> <span class="nav-text">3.7-面向页存储引擎</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-8-%E5%90%91%E9%A1%B5%E9%9D%A2%E6%B7%BB%E5%8A%A0%E5%85%83%E7%B4%A0"><span class="nav-number">4.0.8.</span> <span class="nav-text">3.8-向页面添加元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-9-%E6%AF%94%E5%AF%B9LSM%E6%A0%91-%E5%92%8C-B%E6%A0%91"><span class="nav-number">4.0.9.</span> <span class="nav-text">3.9-比对LSM树 和 B树</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-10-OLTP-OLAP-%E5%92%8C-%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93"><span class="nav-number">4.0.10.</span> <span class="nav-text">3.10-OLTP&amp;OLAP 和 数据仓库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-11-%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E7%B3%BB%E7%BB%9F%E7%BB%84%E4%BB%B6"><span class="nav-number">4.0.11.</span> <span class="nav-text">3.11-数据仓库系统组件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-12-%E9%9B%AA%E8%8A%B1%E6%A8%A1%E5%9E%8B"><span class="nav-number">4.0.12.</span> <span class="nav-text">3.12-雪花模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-13-%E5%88%97%E5%BC%8F%E5%AD%98%E5%82%A8"><span class="nav-number">4.0.13.</span> <span class="nav-text">3.13-列式存储</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E7%AC%AC%E5%9B%9B%E7%AB%A0%E8%8A%82-%E7%BC%96%E7%A0%81%E5%92%8C%E6%BC%94%E5%8C%96"><span class="nav-number">5.</span> <span class="nav-text">四、第四章节-编码和演化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-%E4%BB%80%E4%B9%88%E6%98%AF%E5%8F%AF%E6%BC%94%E5%8C%96%E6%80%A7%EF%BC%9F"><span class="nav-number">5.0.1.</span> <span class="nav-text">4.1-什么是可演化性？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-%E5%90%91%E5%90%8E%E5%85%BC%E5%AE%B9%EF%BC%8C%E5%90%91%E5%89%8D%E5%85%BC%E5%AE%B9"><span class="nav-number">5.0.2.</span> <span class="nav-text">4.2-向后兼容，向前兼容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-%E7%BC%96%E7%A0%81%E6%95%B0%E6%8D%AE%E7%9A%84%E6%A0%BC%E5%BC%8F%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-number">5.0.3.</span> <span class="nav-text">4.3-编码数据的格式有哪些？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-%E6%96%87%E6%9C%AC%E7%BC%96%E7%A0%81%E5%92%8C%E4%BA%8C%E8%BF%9B%E5%88%B6%E7%BC%96%E7%A0%81"><span class="nav-number">5.0.4.</span> <span class="nav-text">4.4-文本编码和二进制编码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-5-%E6%95%B0%E6%8D%AE%E6%B5%81%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-number">5.0.5.</span> <span class="nav-text">4.5-数据流的类型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#A-Web%E6%9C%8D%E5%8A%A1"><span class="nav-number">5.0.5.1.</span> <span class="nav-text">A-Web服务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#B-RPC"><span class="nav-number">5.0.5.2.</span> <span class="nav-text">B-RPC</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E7%AC%AC5%E7%AB%A0%E8%8A%82-%E5%A4%8D%E5%88%B6"><span class="nav-number">6.</span> <span class="nav-text">五、第5章节-复制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1-%E5%8D%95%E4%B8%BB%E5%A4%8D%E5%88%B6"><span class="nav-number">6.0.1.</span> <span class="nav-text">5.1-单主复制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-%E5%90%8C%E6%AD%A5-%E5%BC%82%E6%AD%A5"><span class="nav-number">6.0.2.</span> <span class="nav-text">5.2-同步&#x2F;异步</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-%E5%A4%84%E7%90%86%E6%95%85%E9%9A%9C%E8%8A%82%E7%82%B9"><span class="nav-number">6.0.3.</span> <span class="nav-text">5.3-处理故障节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4-%E5%A4%8D%E5%88%B6%E5%BB%B6%E8%BF%9F%E9%97%AE%E9%A2%98"><span class="nav-number">6.0.4.</span> <span class="nav-text">5.4-复制延迟问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#A-%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%80%E7%BB%88%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F"><span class="nav-number">6.0.4.1.</span> <span class="nav-text">A-什么是最终一致性？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#B-%E4%BB%80%E4%B9%88%E6%98%AF%E5%86%99%E5%90%8E%E8%AF%BB%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F"><span class="nav-number">6.0.4.2.</span> <span class="nav-text">B-什么是写后读一致性？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#C-%E4%BB%80%E4%B9%88%E6%98%AF%E5%8D%95%E8%B0%83%E8%AF%BB%EF%BC%9F"><span class="nav-number">6.0.4.3.</span> <span class="nav-text">C-什么是单调读？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#D-%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%80%E8%87%B4%E5%89%8D%E7%BC%80%E8%AF%BB%EF%BC%9F"><span class="nav-number">6.0.4.4.</span> <span class="nav-text">D-什么是一致前缀读？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-5-%E5%A4%9A%E4%B8%BB%E5%A4%8D%E5%88%B6%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">6.0.5.</span> <span class="nav-text">5.5-多主复制的问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-6-%E6%97%A0%E4%B8%BB%E5%A4%8D%E5%88%B6"><span class="nav-number">6.0.6.</span> <span class="nav-text">5.6-无主复制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#A-%E4%BB%80%E4%B9%88%E6%98%AF%E5%B9%B6%E5%8F%91%EF%BC%9F"><span class="nav-number">6.0.6.1.</span> <span class="nav-text">A-什么是并发？</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E7%AC%AC6%E7%AB%A0-%E5%88%86%E5%8C%BA"><span class="nav-number">7.</span> <span class="nav-text">六、第6章-分区</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-1-%E9%94%AE%E5%80%BC%E6%95%B0%E6%8D%AE%E7%9A%84%E5%88%86%E5%8C%BA%E6%96%B9%E5%BC%8F"><span class="nav-number">7.0.1.</span> <span class="nav-text">6.1-键值数据的分区方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-2-%E5%88%86%E5%8C%BA%E5%92%8C%E4%BA%8C%E7%BA%A7%E7%B4%A2%E5%BC%95"><span class="nav-number">7.0.2.</span> <span class="nav-text">6.2-分区和二级索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-3-%E5%88%86%E5%8C%BA%E5%86%8D%E5%B9%B3%E8%A1%A1"><span class="nav-number">7.0.3.</span> <span class="nav-text">6.3-分区再平衡</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-4-%E8%AF%B7%E6%B1%82%E8%B7%AF%E7%94%B1"><span class="nav-number">7.0.4.</span> <span class="nav-text">6.4-请求路由</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E7%AC%AC7%E7%AB%A0%E8%8A%82-%E4%BA%8B%E5%8A%A1"><span class="nav-number">8.</span> <span class="nav-text">七、第7章节-事务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#7-1-%E4%BA%8B%E5%8A%A1%E7%9A%84%E8%B5%B7%E6%BA%90"><span class="nav-number">8.0.1.</span> <span class="nav-text">7.1-事务的起源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-2-ACID"><span class="nav-number">8.0.2.</span> <span class="nav-text">7.2-ACID</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-3-%E5%8D%95%E5%AF%B9%E8%B1%A1%E6%93%8D%E4%BD%9C%E5%92%8C%E5%A4%9A%E5%AF%B9%E8%B1%A1%E6%93%8D%E4%BD%9C"><span class="nav-number">8.0.3.</span> <span class="nav-text">7.3-单对象操作和多对象操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-4-%E8%AF%BB%E5%B7%B2%E6%8F%90%E4%BA%A4"><span class="nav-number">8.0.4.</span> <span class="nav-text">7.4-读已提交</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-5-%E5%AE%9E%E7%8E%B0%E8%AF%BB%E5%B7%B2%E6%8F%90%E4%BA%A4"><span class="nav-number">8.0.5.</span> <span class="nav-text">5.5-实现读已提交</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-6-%E5%AE%9E%E7%8E%B0%E5%BF%AB%E7%85%A7%E9%9A%94%E7%A6%BB"><span class="nav-number">8.0.6.</span> <span class="nav-text">5.6-实现快照隔离</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-7-%E4%B8%A2%E5%A4%B1%E6%9B%B4%E6%96%B0-%E5%86%99%E5%81%8F%E5%B7%AE"><span class="nav-number">8.0.7.</span> <span class="nav-text">7.7-丢失更新 &amp; 写偏差</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-8-%E5%BA%8F%E5%88%97%E5%8C%96-%E4%B8%B2%E8%A1%8C%E5%8C%96"><span class="nav-number">8.0.8.</span> <span class="nav-text">7.8-序列化&#x2F;串行化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#7-8-1-%E4%B8%A4%E9%98%B6%E6%AE%B5%E9%94%81%E5%AE%9A-2PL"><span class="nav-number">8.0.8.1.</span> <span class="nav-text">7.8.1- 两阶段锁定-2PL</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-8-2-%E8%B0%93%E8%AF%8D%E9%94%81"><span class="nav-number">8.0.8.2.</span> <span class="nav-text">7.8.2-谓词锁</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-8-3-%E7%B4%A2%E5%BC%95%E8%8C%83%E5%9B%B4%E9%94%81"><span class="nav-number">8.0.8.3.</span> <span class="nav-text">7.8.3-索引范围锁</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-9-%E5%BA%8F%E5%88%97%E5%8C%96%E5%BF%AB%E7%85%A7%E9%9A%94%E7%A6%BB%EF%BC%88SSI%EF%BC%89"><span class="nav-number">8.0.9.</span> <span class="nav-text">7.9-序列化快照隔离（SSI）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-10-%E6%80%BB%E7%BB%93"><span class="nav-number">8.0.10.</span> <span class="nav-text">7.10-总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB%E3%80%81%E7%AC%AC9%E7%AB%A0%E8%8A%82-%E4%B8%80%E8%87%B4%E6%80%A7%E4%B8%8E%E5%85%B1%E8%AF%86"><span class="nav-number">9.</span> <span class="nav-text">八、第9章节-一致性与共识</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-1-%E7%BA%BF%E6%80%A7%E4%B8%80%E8%87%B4%E6%80%A7"><span class="nav-number">9.0.1.</span> <span class="nav-text">6.1-线性一致性</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#35-1-%E7%BA%BF%E6%80%A7%E4%B8%80%E8%87%B4%E6%80%A7%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">9.0.1.1.</span> <span class="nav-text">35.1-线性一致性的作用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#35-2-%E5%AE%9E%E7%8E%B0%E7%BA%BF%E6%80%A7%E4%B8%80%E8%87%B4%E7%9A%84%E7%B3%BB%E7%BB%9F"><span class="nav-number">9.0.1.2.</span> <span class="nav-text">35.2-实现线性一致的系统</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-2-CAP"><span class="nav-number">9.0.2.</span> <span class="nav-text">6.2-CAP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-3-%E5%85%A8%E5%BA%8F-vs-%E5%81%8F%E5%BA%8F"><span class="nav-number">9.0.3.</span> <span class="nav-text">6.3-全序 vs 偏序</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#6-3-1-%E5%9B%A0%E6%9E%9C%E9%A1%BA%E5%BA%8F%E4%B8%8D%E6%98%AF%E5%85%A8%E5%BA%8F%E7%9A%84"><span class="nav-number">9.0.3.1.</span> <span class="nav-text">6.3.1-因果顺序不是全序的</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-3-2-%E5%BA%8F%E5%88%97%E5%8F%B7%E9%A1%BA%E5%BA%8F"><span class="nav-number">9.0.3.2.</span> <span class="nav-text">6.3.2-序列号顺序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-3-3-%E9%9D%9E%E5%9B%A0%E6%9E%9C%E5%BA%8F%E5%88%97%E5%8F%B7%E7%94%9F%E6%88%90%E5%99%A8"><span class="nav-number">9.0.3.3.</span> <span class="nav-text">6.3.3-非因果序列号生成器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-3-4-%E5%85%B0%E4%BC%AF%E7%89%B9%E6%97%B6%E9%97%B4%E6%88%B3"><span class="nav-number">9.0.3.4.</span> <span class="nav-text">6.3.4-兰伯特时间戳</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-4-%E5%85%A8%E5%BA%8F%E5%B9%BF%E6%92%AD-%E5%8E%9F%E5%AD%90%E5%B9%BF%E6%92%AD"><span class="nav-number">9.0.4.</span> <span class="nav-text">6.4-全序广播(原子广播)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-5-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E4%B8%8E%E5%85%B1%E8%AF%86"><span class="nav-number">9.0.5.</span> <span class="nav-text">6.5-分布式事务与共识</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-6-%E5%8E%9F%E5%AD%90%E6%8F%90%E4%BA%A4%E5%92%8C2PC"><span class="nav-number">9.0.6.</span> <span class="nav-text">6.6-原子提交和2PC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-7-%E5%8D%8F%E8%B0%83%E8%80%85%E5%A4%B1%E6%95%88"><span class="nav-number">9.0.7.</span> <span class="nav-text">6.7-协调者失效</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-8-%E6%81%B0%E5%A5%BD%E4%B8%80%E6%AC%A1%E7%9A%84%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86"><span class="nav-number">9.0.8.</span> <span class="nav-text">6.8-恰好一次的消息处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-9-XA%E4%BA%8B%E5%8A%A1"><span class="nav-number">9.0.9.</span> <span class="nav-text">6.9-XA事务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-10-%E5%AE%B9%E9%94%99%E5%85%B1%E8%AF%86"><span class="nav-number">9.0.10.</span> <span class="nav-text">6.10-容错共识</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-11-%E5%85%B1%E8%AF%86%E7%AE%97%E6%B3%95%E5%92%8C%E5%85%A8%E5%BA%8F%E5%B9%BF%E6%92%AD"><span class="nav-number">9.0.11.</span> <span class="nav-text">6.11-共识算法和全序广播</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-12-%E6%97%B6%E4%BB%A3%E7%BC%96%E5%8F%B7%E5%92%8C%E6%B3%95%E5%AE%9A%E4%BA%BA%E6%95%B0"><span class="nav-number">9.0.12.</span> <span class="nav-text">6.12-时代编号和法定人数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-13-%E6%80%BB%E7%BB%93%EF%BC%9A"><span class="nav-number">9.0.13.</span> <span class="nav-text">6.13-总结：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E6%89%B9%E5%A4%84%E7%90%86"><span class="nav-number">10.</span> <span class="nav-text">七、批处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#7-1-%E5%85%B3%E4%BA%8E%E8%A1%8D%E7%94%9F%E6%95%B0%E6%8D%AE"><span class="nav-number">10.0.1.</span> <span class="nav-text">7.1-关于衍生数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-2-UNIX"><span class="nav-number">10.0.2.</span> <span class="nav-text">7.2-UNIX</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-3-MapReduce"><span class="nav-number">10.0.3.</span> <span class="nav-text">7.3-MapReduce</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-4-Reducer%E7%AB%AF%E8%81%94%E6%8E%A5%EF%BC%9A"><span class="nav-number">10.0.4.</span> <span class="nav-text">7.4-Reducer端联接：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-5-Map%E7%AB%AF%E8%81%94%E6%8E%A5%EF%BC%9A"><span class="nav-number">10.0.5.</span> <span class="nav-text">7.5-Map端联接[20]：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-6-Hadoop%E4%B8%8E%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E6%AF%94%E5%AF%B9"><span class="nav-number">10.0.6.</span> <span class="nav-text">7.6-Hadoop与分布式数据库比对</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-7-%E7%89%A9%E5%8C%96%E4%B8%AD%E9%97%B4%E7%8A%B6%E6%80%81"><span class="nav-number">10.0.7.</span> <span class="nav-text">7.7-物化中间状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-8-%E6%95%B0%E6%8D%AE%E6%B5%81%E5%BC%95%E6%93%8E"><span class="nav-number">10.0.8.</span> <span class="nav-text">7.8-数据流引擎</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-9-%E6%80%BB%E7%BB%93"><span class="nav-number">10.0.9.</span> <span class="nav-text">7.9-总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AB%E3%80%81%E6%B5%81%E5%A4%84%E7%90%86"><span class="nav-number">10.1.</span> <span class="nav-text">八、流处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#8-1-%E6%B6%88%E6%81%AF%E7%B3%BB%E7%BB%9F"><span class="nav-number">10.1.1.</span> <span class="nav-text">8.1-消息系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-2-%E5%9F%BA%E4%BA%8E%E6%97%A5%E5%BF%97%E7%9A%84%E6%B6%88%E6%81%AF%E4%BB%A3%E7%90%86"><span class="nav-number">10.1.2.</span> <span class="nav-text">8.2-基于日志的消息代理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-3-%E6%B5%81%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">10.1.3.</span> <span class="nav-text">8.3-流和数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-4-%E4%BA%8B%E4%BB%B6%E6%BA%AF%E6%BA%90-Event-Sourcing"><span class="nav-number">10.1.4.</span> <span class="nav-text">8.4-事件溯源(Event Sourcing)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-5-%E6%B5%81%E5%A4%84%E7%90%86"><span class="nav-number">10.1.5.</span> <span class="nav-text">8.5-流处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-6-%E6%B5%81%E5%A4%84%E7%90%86%E5%BA%94%E7%94%A8"><span class="nav-number">10.1.6.</span> <span class="nav-text">8.6-流处理应用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#8-6-1-%E5%85%B3%E4%BA%8E%E4%BA%8B%E4%BB%B6%E6%97%B6%E9%97%B4%E5%92%8C%E5%A4%84%E7%90%86%E6%97%B6%E9%97%B4"><span class="nav-number">10.1.6.1.</span> <span class="nav-text">8.6.1-关于事件时间和处理时间</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-6-2-%E7%AA%97%E5%8F%A3"><span class="nav-number">10.1.6.2.</span> <span class="nav-text">8.6.2-窗口</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-7-%E6%B5%81%E5%BC%8F%E8%BF%9E%E6%8E%A5"><span class="nav-number">10.1.7.</span> <span class="nav-text">8.7-流式连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-8-%E8%BF%9E%E6%8E%A5%E7%9A%84%E6%97%B6%E9%97%B4%E4%BE%9D%E8%B5%96%E6%80%A7"><span class="nav-number">10.1.8.</span> <span class="nav-text">8.8-连接的时间依赖性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-9-%E6%B5%81%E5%A4%84%E7%90%86%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E5%AE%B9%E9%94%99"><span class="nav-number">10.1.9.</span> <span class="nav-text">8.9-流处理如何处理容错</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Eddia%E7%9A%84%E6%BA%A2%E7%BE%8E%E4%B9%8B%E8%AF%8D"><span class="nav-number">1.</span> <span class="nav-text">关于ddia的溢美之词</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E4%BD%9C%E8%80%85"><span class="nav-number">2.</span> <span class="nav-text">关于作者</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number"></span> <span class="nav-text">整书大纲</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%93%AA3%E9%83%A8%E5%88%86"><span class="nav-number"></span> <span class="nav-text">哪3部分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%EF%B8%8F%E2%83%A3-%E6%95%B0%E6%8D%AE%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%9F%BA%E7%9F%B3"><span class="nav-number">1.</span> <span class="nav-text">1️⃣ 数据系统的基石</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%EF%B8%8F%E2%83%A3-%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE"><span class="nav-number">2.</span> <span class="nav-text">2️⃣ 分布式数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%EF%B8%8F%E2%83%A3-%E6%B4%BE%E7%94%9F%E6%95%B0%E6%8D%AE"><span class="nav-number">3.</span> <span class="nav-text">3️⃣ 派生数据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E5%AF%86%E9%9B%86vs%E6%95%B0%E6%8D%AE%E5%AF%86%E9%9B%86"><span class="nav-number"></span> <span class="nav-text">计算密集vs数据密集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%8F%8F%E8%BF%B0%E8%B4%9F%E8%BD%BD%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">如何描述负载？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%8F%8F%E8%BF%B0%E6%80%A7%E8%83%BD%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">如何描述性能？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%BC%B9%E6%80%A7%E7%9A%84%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">什么是弹性的？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number"></span> <span class="nav-text">第2章节-数据模型与查询语言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E6%A1%A3%E6%A8%A1%E5%9E%8B%E5%92%8C%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BC%98%E5%8A%A3%E5%8A%BF%EF%BC%9F"><span class="nav-number"></span> <span class="nav-text">文档模型和关系模型的优劣势？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A3%B0%E6%98%8E%E5%BC%8F%E6%9F%A5%E8%AF%A2vs%E5%91%BD%E4%BB%A4%E5%BC%8F%E6%9F%A5%E8%AF%A2"><span class="nav-number"></span> <span class="nav-text">声明式查询vs命令式查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MapReduce%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number"></span> <span class="nav-text">MapReduce是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE"><span class="nav-number"></span> <span class="nav-text">图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-%E4%BB%80%E4%B9%88%E6%98%AF%E5%B1%9E%E6%80%A7%E5%9B%BE%E6%A8%A1%E5%9E%8B%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">A-什么是属性图模型？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-Cypher-%E5%B1%9E%E6%80%A7%E5%9B%BE%E6%A8%A1%E5%9E%8B%E5%A3%B0%E6%98%8E%E5%BC%8F%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5"><span class="nav-number">2.</span> <span class="nav-text">B-Cypher 属性图模型声明式查询语句</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%BB%E6%97%B6%E6%A8%A1%E5%BC%8Fvs%E5%86%99%E6%97%B6%E6%A8%A1%E5%BC%8F"><span class="nav-number"></span> <span class="nav-text">读时模式vs写时模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number"></span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number"></span> <span class="nav-text">第3章节-存储与检索</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E7%B4%A2%E5%BC%95%E6%97%A5%E5%BF%97"><span class="nav-number"></span> <span class="nav-text">无索引日志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%8F%90%E5%8D%87%E6%9F%A5%E6%89%BE%E6%95%88%E7%8E%87%EF%BC%9F"><span class="nav-number"></span> <span class="nav-text">如何提升查找效率？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E4%B8%AD%E6%9E%84%E5%BB%BAhash%E7%B4%A2%E5%BC%95"><span class="nav-number"></span> <span class="nav-text">内存中构建hash索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%AE%B5%E5%AD%98%E5%82%A8-%E5%8E%8B%E7%BC%A9-%E5%88%86%E6%AE%B5%E5%90%88%E5%B9%B6-hash%E7%B4%A2%E5%BC%95%E7%9A%84%E5%B1%80%E9%99%90%E6%80%A7"><span class="nav-number"></span> <span class="nav-text">分段存储&amp;压缩&amp;分段合并 &amp; hash索引的局限性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSTable-%E6%8E%92%E5%BA%8F%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%A1%A8"><span class="nav-number"></span> <span class="nav-text">SSTable 排序字符串表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LSM-%E6%97%A5%E5%BF%97%E7%BB%93%E6%9E%84%E5%90%88%E5%B9%B6%E6%A0%91"><span class="nav-number"></span> <span class="nav-text">LSM 日志结构合并树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%A2%E5%90%91%E9%A1%B5%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E"><span class="nav-number"></span> <span class="nav-text">面向页存储引擎</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%91%E9%A1%B5%E9%9D%A2%E6%B7%BB%E5%8A%A0%E5%85%83%E7%B4%A0"><span class="nav-number"></span> <span class="nav-text">向页面添加元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AF%94%E5%AF%B9LSM%E6%A0%91-%E5%92%8C-B%E6%A0%91"><span class="nav-number"></span> <span class="nav-text">比对LSM树 和 B树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OLTP-OLAP-%E5%92%8C-%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93"><span class="nav-number"></span> <span class="nav-text">OLTP&amp;OLAP 和 数据仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E7%B3%BB%E7%BB%9F%E7%BB%84%E4%BB%B6"><span class="nav-number"></span> <span class="nav-text">数据仓库系统组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%AA%E8%8A%B1%E6%A8%A1%E5%9E%8B"><span class="nav-number"></span> <span class="nav-text">雪花模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%97%E5%BC%8F%E5%AD%98%E5%82%A8"><span class="nav-number"></span> <span class="nav-text">列式存储</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number"></span> <span class="nav-text">第四章节-编码和演化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%8F%AF%E6%BC%94%E5%8C%96%E6%80%A7%EF%BC%9F"><span class="nav-number"></span> <span class="nav-text">什么是可演化性？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%91%E5%90%8E%E5%85%BC%E5%AE%B9%EF%BC%8C%E5%90%91%E5%89%8D%E5%85%BC%E5%AE%B9"><span class="nav-number"></span> <span class="nav-text">向后兼容，向前兼容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E7%A0%81%E6%95%B0%E6%8D%AE%E7%9A%84%E6%A0%BC%E5%BC%8F%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-number"></span> <span class="nav-text">编码数据的格式有哪些？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E6%9C%AC%E7%BC%96%E7%A0%81%E5%92%8C%E4%BA%8C%E8%BF%9B%E5%88%B6%E7%BC%96%E7%A0%81"><span class="nav-number"></span> <span class="nav-text">文本编码和二进制编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-number"></span> <span class="nav-text">数据流的类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-Web%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.</span> <span class="nav-text">A-Web服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-RPC"><span class="nav-number">2.</span> <span class="nav-text">B-RPC</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number"></span> <span class="nav-text">第5章节-复制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E4%B8%BB%E5%A4%8D%E5%88%B6"><span class="nav-number"></span> <span class="nav-text">单主复制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5-%E5%BC%82%E6%AD%A5"><span class="nav-number"></span> <span class="nav-text">同步&#x2F;异步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E6%95%85%E9%9A%9C%E8%8A%82%E7%82%B9"><span class="nav-number"></span> <span class="nav-text">处理故障节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E5%BB%B6%E8%BF%9F%E9%97%AE%E9%A2%98"><span class="nav-number"></span> <span class="nav-text">复制延迟问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%80%E7%BB%88%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">A-什么是最终一致性？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-%E4%BB%80%E4%B9%88%E6%98%AF%E5%86%99%E5%90%8E%E8%AF%BB%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">B-什么是写后读一致性？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-%E4%BB%80%E4%B9%88%E6%98%AF%E5%8D%95%E8%B0%83%E8%AF%BB%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">C-什么是单调读？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#D-%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%80%E8%87%B4%E5%89%8D%E7%BC%80%E8%AF%BB%EF%BC%9F"><span class="nav-number">4.</span> <span class="nav-text">D-什么是一致前缀读？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E4%B8%BB%E5%A4%8D%E5%88%B6%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number"></span> <span class="nav-text">多主复制的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E4%B8%BB%E5%A4%8D%E5%88%B6"><span class="nav-number"></span> <span class="nav-text">无主复制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-%E4%BB%80%E4%B9%88%E6%98%AF%E5%B9%B6%E5%8F%91%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">A-什么是并发？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number"></span> <span class="nav-text">第6章-分区</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%AE%E5%80%BC%E6%95%B0%E6%8D%AE%E7%9A%84%E5%88%86%E5%8C%BA%E6%96%B9%E5%BC%8F"><span class="nav-number"></span> <span class="nav-text">键值数据的分区方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%8C%BA%E5%92%8C%E4%BA%8C%E7%BA%A7%E7%B4%A2%E5%BC%95"><span class="nav-number"></span> <span class="nav-text">分区和二级索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%8C%BA%E5%86%8D%E5%B9%B3%E8%A1%A1"><span class="nav-number"></span> <span class="nav-text">分区再平衡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B7%E6%B1%82%E8%B7%AF%E7%94%B1"><span class="nav-number"></span> <span class="nav-text">请求路由</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number"></span> <span class="nav-text">第7章节-事务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E7%9A%84%E8%B5%B7%E6%BA%90"><span class="nav-number"></span> <span class="nav-text">事务的起源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ACID"><span class="nav-number"></span> <span class="nav-text">ACID</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E5%AF%B9%E8%B1%A1%E6%93%8D%E4%BD%9C%E5%92%8C%E5%A4%9A%E5%AF%B9%E8%B1%A1%E6%93%8D%E4%BD%9C"><span class="nav-number"></span> <span class="nav-text">单对象操作和多对象操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%BB%E5%B7%B2%E6%8F%90%E4%BA%A4"><span class="nav-number"></span> <span class="nav-text">读已提交</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E8%AF%BB%E5%B7%B2%E6%8F%90%E4%BA%A4"><span class="nav-number"></span> <span class="nav-text">实现读已提交</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%BF%AB%E7%85%A7%E9%9A%94%E7%A6%BB"><span class="nav-number"></span> <span class="nav-text">实现快照隔离</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A2%E5%A4%B1%E6%9B%B4%E6%96%B0"><span class="nav-number"></span> <span class="nav-text">丢失更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E5%81%8F%E5%B7%AE"><span class="nav-number"></span> <span class="nav-text">写偏差</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%BB%E8%AF%BB"><span class="nav-number"></span> <span class="nav-text">幻读</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96-%E4%B8%B2%E8%A1%8C%E5%8C%96"><span class="nav-number"></span> <span class="nav-text">序列化&#x2F;串行化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A4%E9%98%B6%E6%AE%B5%E9%94%81%E5%AE%9A-2PL"><span class="nav-number">1.</span> <span class="nav-text">两阶段锁定-2PL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%93%E8%AF%8D%E9%94%81"><span class="nav-number">2.</span> <span class="nav-text">谓词锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E8%8C%83%E5%9B%B4%E9%94%81"><span class="nav-number">3.</span> <span class="nav-text">索引范围锁</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96%E5%BF%AB%E7%85%A7%E9%9A%94%E7%A6%BB%EF%BC%88SSI%EF%BC%89"><span class="nav-number"></span> <span class="nav-text">序列化快照隔离（SSI）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-2"><span class="nav-number"></span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number"></span> <span class="nav-text">第9章节-一致性与共识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E4%B8%80%E8%87%B4%E6%80%A7"><span class="nav-number"></span> <span class="nav-text">线性一致性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E4%B8%80%E8%87%B4%E6%80%A7%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">线性一致性的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E7%BA%BF%E6%80%A7%E4%B8%80%E8%87%B4%E7%9A%84%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.</span> <span class="nav-text">实现线性一致的系统</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CAP"><span class="nav-number"></span> <span class="nav-text">CAP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%A8%E5%BA%8F-vs-%E5%81%8F%E5%BA%8F"><span class="nav-number"></span> <span class="nav-text">全序 vs 偏序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%A0%E6%9E%9C%E9%A1%BA%E5%BA%8F%E4%B8%8D%E6%98%AF%E5%85%A8%E5%BA%8F%E7%9A%84"><span class="nav-number">1.</span> <span class="nav-text">因果顺序不是全序的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8F%B7%E9%A1%BA%E5%BA%8F"><span class="nav-number">2.</span> <span class="nav-text">序列号顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E5%9B%A0%E6%9E%9C%E5%BA%8F%E5%88%97%E5%8F%B7%E7%94%9F%E6%88%90%E5%99%A8"><span class="nav-number">3.</span> <span class="nav-text">非因果序列号生成器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B0%E4%BC%AF%E7%89%B9%E6%97%B6%E9%97%B4%E6%88%B3"><span class="nav-number">4.</span> <span class="nav-text">兰伯特时间戳</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%A8%E5%BA%8F%E5%B9%BF%E6%92%AD-%E5%8E%9F%E5%AD%90%E5%B9%BF%E6%92%AD"><span class="nav-number"></span> <span class="nav-text">全序广播(原子广播)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E4%B8%8E%E5%85%B1%E8%AF%86"><span class="nav-number"></span> <span class="nav-text">分布式事务与共识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E5%AD%90%E6%8F%90%E4%BA%A4%E5%92%8C2PC"><span class="nav-number"></span> <span class="nav-text">原子提交和2PC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%8F%E8%B0%83%E8%80%85%E5%A4%B1%E6%95%88"><span class="nav-number"></span> <span class="nav-text">协调者失效</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%81%B0%E5%A5%BD%E4%B8%80%E6%AC%A1%E7%9A%84%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86"><span class="nav-number"></span> <span class="nav-text">恰好一次的消息处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XA%E4%BA%8B%E5%8A%A1"><span class="nav-number"></span> <span class="nav-text">XA事务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%B9%E9%94%99%E5%85%B1%E8%AF%86"><span class="nav-number"></span> <span class="nav-text">容错共识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B1%E8%AF%86%E7%AE%97%E6%B3%95%E5%92%8C%E5%85%A8%E5%BA%8F%E5%B9%BF%E6%92%AD"><span class="nav-number"></span> <span class="nav-text">共识算法和全序广播</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%B6%E4%BB%A3%E7%BC%96%E5%8F%B7%E5%92%8C%E6%B3%95%E5%AE%9A%E4%BA%BA%E6%95%B0"><span class="nav-number"></span> <span class="nav-text">时代编号和法定人数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%EF%BC%9A"><span class="nav-number"></span> <span class="nav-text">总结：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number"></span> <span class="nav-text">批处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E8%A1%8D%E7%94%9F%E6%95%B0%E6%8D%AE"><span class="nav-number"></span> <span class="nav-text">关于衍生数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UNIX"><span class="nav-number"></span> <span class="nav-text">UNIX</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MapReduce"><span class="nav-number"></span> <span class="nav-text">MapReduce</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reducer%E7%AB%AF%E8%81%94%E6%8E%A5%EF%BC%9A"><span class="nav-number"></span> <span class="nav-text">Reducer端联接：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Map%E7%AB%AF%E8%81%94%E6%8E%A5%EF%BC%9A"><span class="nav-number"></span> <span class="nav-text">Map端联接[20]：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hadoop%E4%B8%8E%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E6%AF%94%E5%AF%B9"><span class="nav-number"></span> <span class="nav-text">Hadoop与分布式数据库比对</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%A9%E5%8C%96%E4%B8%AD%E9%97%B4%E7%8A%B6%E6%80%81"><span class="nav-number"></span> <span class="nav-text">物化中间状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81%E5%BC%95%E6%93%8E"><span class="nav-number"></span> <span class="nav-text">数据流引擎</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-3"><span class="nav-number"></span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number"></span> <span class="nav-text">流处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E7%B3%BB%E7%BB%9F"><span class="nav-number"></span> <span class="nav-text">消息系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E6%97%A5%E5%BF%97%E7%9A%84%E6%B6%88%E6%81%AF%E4%BB%A3%E7%90%86"><span class="nav-number"></span> <span class="nav-text">基于日志的消息代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%81%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number"></span> <span class="nav-text">流和数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E6%BA%AF%E6%BA%90-Event-Sourcing"><span class="nav-number"></span> <span class="nav-text">事件溯源(Event Sourcing)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%81%E5%A4%84%E7%90%86"><span class="nav-number"></span> <span class="nav-text">流处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%81%E5%A4%84%E7%90%86%E5%BA%94%E7%94%A8"><span class="nav-number"></span> <span class="nav-text">流处理应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E4%BA%8B%E4%BB%B6%E6%97%B6%E9%97%B4%E5%92%8C%E5%A4%84%E7%90%86%E6%97%B6%E9%97%B4"><span class="nav-number">1.</span> <span class="nav-text">关于事件时间和处理时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AA%97%E5%8F%A3"><span class="nav-number">2.</span> <span class="nav-text">窗口</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%81%E5%BC%8F%E8%BF%9E%E6%8E%A5"><span class="nav-number"></span> <span class="nav-text">流式连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E7%9A%84%E6%97%B6%E9%97%B4%E4%BE%9D%E8%B5%96%E6%80%A7"><span class="nav-number"></span> <span class="nav-text">连接的时间依赖性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%81%E5%A4%84%E7%90%86%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E5%AE%B9%E9%94%99"><span class="nav-number"></span> <span class="nav-text">流处理如何处理容错</span></a></div>
       </div>
       <!--/noindex-->
 
@@ -1934,14 +1955,14 @@ MapReduce框架通过键对Mapper输出进行分区，然后对键值对进行�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
